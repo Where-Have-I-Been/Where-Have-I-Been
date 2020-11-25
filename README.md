@@ -147,7 +147,7 @@ docker-compose exec php ./vendor/bin/psalm --no-cache
 ```
 
 ```
-docker-compose exec php ./vendor/bin/psalm--show-inf=true
+docker-compose exec php ./vendor/bin/psalm --show-info=true
 ```
 
 
