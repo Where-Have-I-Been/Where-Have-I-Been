@@ -8,12 +8,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "ext-pdo": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5",
-        "ext-pdo": "*"
+        "laravel/telescope": "^4.3",
+        "laravel/tinker": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
