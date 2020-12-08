@@ -18,3 +18,4 @@ $router->middleware("auth:api")->get("/user", function (Request $request): User 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
