@@ -19,12 +19,14 @@ class AppAuthenticationService
     public function login(Request $request) : string
     {
         if($this->isNotValidated($request))
-            throw new HttpResponseException(response()->json(["message" => "Email and password are required"],  Response::HTTP_BAD_REQUEST));
+            throw new HttpResponseException(response()->json(
+                ["message" => "Email and password are required"],  Response::HTTP_BAD_REQUEST));
 
         $credentials = request(['email','password']);
 
         if(!Auth::attempt($credentials))
-            throw new HttpResponseException(response()->json(["message" => "Wrong email or password"], Response::HTTP_UNAUTHORIZED));
+            throw new HttpResponseException(response()->json(
+                ["message" => "Wrong email or password"], Response::HTTP_UNAUTHORIZED));
 
         return $this->generateToken($request->email);
     }
@@ -32,7 +34,8 @@ class AppAuthenticationService
     public function register(Request $request)
     {
         if($this->isNotValidated($request))
-            throw new HttpResponseException(response()->json(["message" => "Email and password are required"],  Response::HTTP_BAD_REQUEST));
+            throw new HttpResponseException(response()->json(
+                ["message" => "Email and password are required"],  Response::HTTP_BAD_REQUEST));
 
         $user = new User();
         $user->email = $request->email;
@@ -51,7 +54,7 @@ class AppAuthenticationService
 
     private function generateToken($email) : string
     {
-        $user = User::where('email',$email)->first();
+        $user = User::query()->where('email',$email)->first();
         return $user->createToken('authtoken')->plainTextToken;
     }
 }

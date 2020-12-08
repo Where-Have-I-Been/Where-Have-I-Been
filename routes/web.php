@@ -10,3 +10,6 @@ $router = app(Router::class);
 $router->get("/", function () {
     return view("welcome");
 });
+
+$router->post('/login', [\App\Http\Controllers\AuthenticationController::class,"login"]);
+$router->post('/register', ["app\Http\Controllers\AuthenticationController@register"]);

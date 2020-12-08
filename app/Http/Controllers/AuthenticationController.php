@@ -21,6 +21,7 @@ class AuthenticationController extends Controller
 
     public function login(Request $request) : JsonResponse
     {
+        error_log("sadsda");
         $token = $this->appAuthenticationService->login($request);
         return response()->json(["token" => $token],Response::HTTP_OK);
     }
