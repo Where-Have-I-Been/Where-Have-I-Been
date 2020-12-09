@@ -11,5 +11,5 @@ $router->get("/", function () {
     return view("welcome");
 });
 
-$router->post('/login', [\App\Http\Controllers\AuthenticationController::class,"login"]);
-$router->post('/register', ["app\Http\Controllers\AuthenticationController@register"]);
+$router->post("/login", [\App\Http\Controllers\AuthenticationController::class,"login"]);
+$router->post("/register", [\App\Http\Controllers\AuthenticationController::class,"register"]);
