@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\AuthenticationServices\AppLoginService;
 use App\Http\Services\AuthenticationServices\AppRegisterService;
+use App\Http\Services\Interfaces\AppLoginServiceInterface;
+use App\Http\Services\Interfaces\AppRegisterServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationController extends Controller
 {
-    private AppLoginService $appLoginService;
-    private AppRegisterService $appRegisterService;
+    private AppLoginServiceInterface $appLoginService;
+    private AppRegisterServiceInterface $appRegisterService;
 
-    public function __construct(AppLoginService $appLoginService, AppRegisterService $appRegisterService)
+    public function __construct(
+        AppLoginServiceInterface $appLoginService, AppRegisterServiceInterface $appRegisterService)
     {
         $this->appLoginService = $appLoginService;
         $this->appRegisterService = $appRegisterService;

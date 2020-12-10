@@ -3,30 +3,28 @@
 
 namespace App\Http\Services\AuthenticationServices;
 
+use App\Http\Services\Interfaces\AppRegisterServiceInterface;
+use App\Http\Services\Interfaces\ValidationHelperInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AppRegisterService extends BaseAuthService
+class AppRegisterService implements AppRegisterServiceInterface
 {
-    private array $validationRules = [
-        "email" => [
-            "required",
-            "unique:users",
-        ],
-        "password" => [
-            "required",
-            "string",
-            "min:6",
-            "confirmed",
-        ]];
+    private ValidationHelperInterface $validationHelper;
 
-    public function register(Request $request) : void
+
+    public function __construct(ValidationHelperInterface $validationHelper)
     {
-        $this->checkOutValidation($request, $this->validationRules);
+        $this->validationHelper = $validationHelper;
+    }
+
+    public function register(Request $request)
+    {
+        $this->validationHelper->checkOutValidation($request, ValidationRules::Register);
         $this->createUser($request);
     }
 
-    private function createUser(Request $request) : void
+    private function createUser(Request $request)
     {
         $user = new User();
         $user->email = $request->email;

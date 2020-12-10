@@ -4,14 +4,16 @@
 namespace App\Http\Services\AuthenticationServices;
 
 
+use App\Http\Services\Interfaces\ValidationHelperInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class BaseAuthService
+class ValidationHelper implements ValidationHelperInterface
 {
-    protected function checkOutValidation(Request $request, array $validationRules)
+
+    public function checkOutValidation(Request $request, array $validationRules)
     {
         $validator = Validator::make($request->all(), $validationRules);
         if( $validator->fails())
