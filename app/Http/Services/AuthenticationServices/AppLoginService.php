@@ -5,31 +5,37 @@ namespace App\Http\Services\AuthenticationServices;
 
 
 
+use App\Http\Services\Interfaces\AppLoginServiceInterface;
+use App\Http\Services\Interfaces\ValidationHelperInterface;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class AppLoginService extends BaseAuthService
+class AppLoginService extends ValidationHelper implements AppLoginServiceInterface
 {
-    private array $validationRules = [
-        "email" => "required",
-        "password" => "required",
-    ];
+
+    private ValidationHelperInterface $validationHelper;
+
+
+    public function __construct(ValidationHelperInterface $validationHelper)
+    {
+        $this->validationHelper = $validationHelper;
+
+    }
 
     public function login(Request $request) : string
     {
-        $this->checkOutValidation($request, $this->validationRules);
+        $this->checkOutValidation($request, ValidationRules::Login);
         $this->checkOutCredentials();
         return $this->generateToken($request->email);
     }
 
     private function checkOutCredentials()
     {
-        $credentials = request(['email','password']);
+        $credentials = request(["email","password"]);
 
         if(!Auth::attempt($credentials))
             throw new HttpResponseException(response()->json(
