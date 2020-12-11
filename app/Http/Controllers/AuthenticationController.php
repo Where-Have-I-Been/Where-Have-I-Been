@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Services\AuthenticationServices\AppLoginService;
-use App\Http\Services\AuthenticationServices\AppRegisterService;
-use App\Http\Services\Interfaces\AppLoginServiceInterface;
-use App\Http\Services\Interfaces\AppRegisterServiceInterface;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Services\Interfaces\AppLoginServiceInterface;
+use App\Services\Interfaces\AppRegisterServiceInterface;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationController extends Controller
@@ -23,15 +24,19 @@ class AuthenticationController extends Controller
     }
 
 
-    public function login(Request $request) : JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
         $token = $this->appLoginService->login($request);
-        return response()->json(["token" => $token],Response::HTTP_OK);
+        return response()->json([
+            "token" => $token,
+        ], Response::HTTP_OK);
     }
 
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
         $this->appRegisterService->register($request);
-        return response()->json(["message"=>"Registration Successfully"],Response::HTTP_OK);
+        return response()->json([
+            "message" => "auth.success",
+        ], Response::HTTP_OK);
     }
 }
