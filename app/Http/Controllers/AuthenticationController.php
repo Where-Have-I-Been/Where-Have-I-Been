@@ -36,7 +36,7 @@ class AuthenticationController extends Controller
     {
         $this->appRegisterService->register($request);
         return response()->json([
-            "message" => "auth.success",
+            "message" => __("auth.success"),
         ], Response::HTTP_OK);
     }
 }

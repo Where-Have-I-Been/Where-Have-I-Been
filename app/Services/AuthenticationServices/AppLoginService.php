@@ -43,7 +43,7 @@ class AppLoginService implements AppLoginServiceInterface
     {
         throw new HttpResponseException(response()->json(
             [
-                "message" => "auth.failed",
+                "message" => __("auth.failed"),
             ], Response::HTTP_UNAUTHORIZED));
     }
 
