@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 return [
     "stateful" => explode(",", env(
@@ -13,7 +14,7 @@ return [
     "expiration" => null,
 
     "middleware" => [
-        "verify_csrf_token" => App\Http\Middleware\VerifyCsrfToken::class,
+        "verify_csrf_token" => VerifyCsrfToken::class,
         "encrypt_cookies" => EncryptCookies::class,
     ],
 ];
