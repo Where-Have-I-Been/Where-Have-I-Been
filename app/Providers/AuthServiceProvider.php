@@ -13,7 +13,6 @@ use Illuminate\Hashing\BcryptHasher;
 
 class AuthServiceProvider extends ServiceProvider
 {
-
     public function register(): void
     {
         $this->app->bind(AppLoginServiceInterface::class, function () {

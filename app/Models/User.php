@@ -35,5 +35,4 @@ class User extends Authenticated
     protected $casts = [
         "email_verified_at" => "datetime",
     ];
-
 }
