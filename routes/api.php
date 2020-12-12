@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthenticationController;
+use Illuminate\Routing\Router;
 
-Route::post("/login", [\App\Http\Controllers\AuthenticationController::class, "login"]);
-Route::post("/register", [\App\Http\Controllers\AuthenticationController::class, "register"]);
-Route::post("/logout", [\App\Http\Controllers\AuthenticationController::class, "logout"]);
+$router = app(Router::class);
+
+$router->post("/login", [AuthenticationController::class, "login"]);
+$router->post("/register", [AuthenticationController::class, "register"]);
