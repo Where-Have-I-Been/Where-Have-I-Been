@@ -133,7 +133,7 @@ docker-compose exec php ./vendor/bin/ecs check
 ```
 
 ```
-docker-compose exec php composer ecs --fix
+docker-compose exec php ./vendor/bin/ecs check --fix
 ```
 
 **Psalm**
