@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Symfony\Component\HttpFoundation\Response;
-
-class LoginRequest extends FormRequest
+class LoginRequest extends ApiRequest
 {
     public function rules(): array
     {
@@ -17,10 +12,5 @@ class LoginRequest extends FormRequest
             "email" => "required",
             "password" => "required",
         ];
-    }
-
-    protected function failedValidation(Validator $validator): void
-    {
-        throw new HttpResponseException(response()->json($validator->errors(), Response::HTTP_UNAUTHORIZED));
     }
 }

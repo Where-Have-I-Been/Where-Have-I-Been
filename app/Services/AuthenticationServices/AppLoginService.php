@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services\AuthenticationServices;
 
+use App\Exceptions\UnauthenticatedException;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Services\Interfaces\AppLoginServiceInterface;
 use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Http\Exceptions\HttpResponseException;
-
-use Symfony\Component\HttpFoundation\Response;
 
 class AppLoginService implements AppLoginServiceInterface
 {
-    private Hasher $hashes;
+    protected Hasher $hashes;
 
     public function __construct(Hasher $hashes)
     {
@@ -23,32 +21,22 @@ class AppLoginService implements AppLoginServiceInterface
 
     public function login(LoginRequest $request): string
     {
-        $user = $this->getUser($request);
-        if ($this->passwordIsIncorrect($user, $request)) {
-            $this->authenticationFailed();
+        $user = $this->getUser($request->input("email"));
+        if ($user === null || !$this->isPasswordCorrect($user, $request->input("password"))) {
+            throw new UnauthenticatedException(__("auth.failed"));
         }
+
         return $user->createToken($user->email)->plainTextToken;
     }
 
-    private function getUser(LoginRequest $request): object
+    private function getUser(string $email): ?User
     {
-        $user = User::query()->where("email", $request->__get("email"))->first();
-        if ($user === null) {
-            $this->authenticationFailed();
-        }
-        return $user;
+        /** @var User $user */
+        return User::query()->where("email", $email)->first();
     }
 
-    private function authenticationFailed(): void
+    private function isPasswordCorrect(User $user, string $password): bool
     {
-        throw new HttpResponseException(response()->json(
-            [
-                "message" => __("auth.failed"),
-            ], Response::HTTP_UNAUTHORIZED));
-    }
-
-    private function passwordIsIncorrect(object $user, LoginRequest $request): bool
-    {
-        return !$this->hashes->check($request->__get("password"), $user->password);
+        return $this->hashes->check($password, $user->password);
     }
 }
