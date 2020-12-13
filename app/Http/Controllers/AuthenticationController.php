@@ -13,20 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationController extends Controller
 {
-    private AppLoginServiceInterface $appLoginService;
-    private AppRegisterServiceInterface $appRegisterService;
-
-    public function __construct(
-        AppLoginServiceInterface $appLoginService, AppRegisterServiceInterface $appRegisterService)
-    {
-        $this->appLoginService = $appLoginService;
-        $this->appRegisterService = $appRegisterService;
-    }
-
-
     public function login(LoginRequest $request): JsonResponse
     {
-        $token = $this->appLoginService->login($request);
+        $service = app(AppLoginServiceInterface::class);
+        $token = $service->login($request);
+
         return response()->json([
             "token" => $token,
         ], Response::HTTP_OK);
@@ -34,7 +25,9 @@ class AuthenticationController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $this->appRegisterService->register($request);
+        $service = app(AppRegisterServiceInterface::class);
+        $service->register($request);
+
         return response()->json([
             "message" => __("auth.success"),
         ], Response::HTTP_OK);
