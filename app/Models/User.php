@@ -15,21 +15,15 @@ class User extends Authenticated
     use HasFactory;
     use Notifiable;
 
-    protected $attributes = [
-        "name" => "Not defined",
-    ];
-
     protected $table = "users";
 
     protected $fillable = [
-        "name",
         "email",
         "password",
     ];
 
     protected $hidden = [
         "password",
-        "remember_token",
     ];
 
     protected $casts = [

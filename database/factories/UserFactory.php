@@ -19,7 +19,6 @@ class UserFactory extends Factory
         $hash = app(Hasher::class);
 
         return [
-            "name" => $this->faker->name,
             "email" => $this->faker->unique()->safeEmail,
             "email_verified_at" => now(),
             "password" => $hash->make("password"),
