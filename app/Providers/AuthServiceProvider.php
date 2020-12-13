@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Services\AuthenticationServices\AppLoginService;
-use App\Services\AuthenticationServices\AppRegisterService;
-use App\Services\Interfaces\AppLoginServiceInterface;
-use App\Services\Interfaces\AppRegisterServiceInterface;
+use App\Services\AuthenticationServices\LoginService;
+use App\Services\AuthenticationServices\RegisterService;
+use App\Services\Interfaces\LoginServiceInterface;
+use App\Services\Interfaces\RegisterServiceInterface;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Hashing\BcryptHasher;
 
@@ -15,11 +15,11 @@ class AuthServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(AppLoginServiceInterface::class, function () {
-            return new AppLoginService(new BcryptHasher());
+        $this->app->bind(LoginServiceInterface::class, function () {
+            return new LoginService(new BcryptHasher());
         });
-        $this->app->bind(AppRegisterServiceInterface::class, function () {
-            return new AppRegisterService();
+        $this->app->bind(RegisterServiceInterface::class, function () {
+            return new RegisterService(new BcryptHasher());
         });
     }
 
