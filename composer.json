@@ -9,7 +9,6 @@
     "require": {
         "php": "^7.4",
         "ext-pdo": "*",
-        "bensampo/laravel-enum": "^3.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
