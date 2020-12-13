@@ -22,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
             return new AppRegisterService();
         });
     }
+
     public function boot(): void
     {
         $this->registerPolicies();
