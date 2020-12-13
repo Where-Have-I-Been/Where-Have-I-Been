@@ -12,9 +12,9 @@ class AppRegisterService implements AppRegisterServiceInterface
 {
     public function register(RegisterRequest $request): void
     {
-        $user = new User();
-        $user->email = $request->input("email");
-        $user->password = bcrypt($request->input("password"));
+        $input = $request->validated();
+        $input["password"] = bcrypt($input["password"]);
+        $user = User::create($input);
         $user->save();
     }
 }
