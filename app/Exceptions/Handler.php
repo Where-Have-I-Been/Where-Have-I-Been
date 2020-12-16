@@ -15,17 +15,15 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
-
-
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof ApiException) {
-            return $this->renderJsonResponse($exception->getMessage() , $exception->getCode());
-        } else if ($exception instanceof AuthenticationException) {
+            return $this->renderJsonResponse($exception->getMessage(), $exception->getCode());
+        } elseif ($exception instanceof AuthenticationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_UNAUTHORIZED);
-        } else if ($exception instanceof ModelNotFoundException || $exception instanceof RouteNotFoundException) {
+        } elseif ($exception instanceof ModelNotFoundException || $exception instanceof RouteNotFoundException) {
             return $this->renderJsonResponse("Not found", Response::HTTP_NOT_FOUND);
-        } else if ($exception instanceof ValidationException) {
+        } elseif ($exception instanceof ValidationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY, $exception->errors());
         }
 
@@ -34,6 +32,10 @@ class Handler extends ExceptionHandler
 
     protected function renderJsonResponse(string $message, int $code, array $data = []): JsonResponse
     {
-        return response()->json([["message" => $message],["data" => $data],],$code);
+        return response()->json([[
+            "message" => $message,
+        ], [
+            "data" => $data,
+        ]], $code);
     }
 }
