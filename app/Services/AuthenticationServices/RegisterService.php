@@ -14,7 +14,6 @@ class RegisterService extends BaseAuthService implements RegisterServiceInterfac
     public function register(array $credentials): void
     {
         $credentials["password"] = $this->hashes->make($credentials["password"]);
-        $user = User::create($credentials);
-        $user->save();
+        User::create($credentials);
     }
 }

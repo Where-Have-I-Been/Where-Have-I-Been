@@ -3,7 +3,6 @@
 
 namespace App\Services\AuthenticationServices;
 
-
 use Illuminate\Contracts\Hashing\Hasher;
 
 abstract class BaseAuthService

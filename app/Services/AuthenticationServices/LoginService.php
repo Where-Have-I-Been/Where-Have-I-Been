@@ -15,7 +15,7 @@ class LoginService extends BaseAuthService implements LoginServiceInterface
     {
         $user = $this->getUser($credentials["email"]);
         if ($user === null || !$this->isPasswordCorrect($user, $credentials["password"])) {
-            throw new UnauthenticatedException(__("auth.failed"));
+            throw new UnauthenticatedException(["credentials" => __("auth.failed"),], __("validation.failed"));
         }
 
         return $user->createToken($user->email)->plainTextToken;
