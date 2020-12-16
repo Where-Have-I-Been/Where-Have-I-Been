@@ -19,11 +19,14 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ApiException) {
             return $this->renderJsonResponse($exception->getMessage(), $exception->getCode());
-        } elseif ($exception instanceof AuthenticationException) {
+        }
+        if ($exception instanceof AuthenticationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_UNAUTHORIZED);
-        } elseif ($exception instanceof ModelNotFoundException || $exception instanceof RouteNotFoundException) {
+        }
+        if ($exception instanceof ModelNotFoundException || $exception instanceof RouteNotFoundException) {
             return $this->renderJsonResponse("Not found", Response::HTTP_NOT_FOUND);
-        } elseif ($exception instanceof ValidationException) {
+        }
+        if ($exception instanceof ValidationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY, $exception->errors());
         }
 
@@ -32,10 +35,9 @@ class Handler extends ExceptionHandler
 
     protected function renderJsonResponse(string $message, int $code, array $data = []): JsonResponse
     {
-        return response()->json([[
+        return response()->json([
             "message" => $message,
-        ], [
             "data" => $data,
-        ]], $code);
+        ], $code);
     }
 }
