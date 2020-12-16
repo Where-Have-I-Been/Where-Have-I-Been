@@ -10,8 +10,4 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ApiRequest extends FormRequest
 {
-    protected function failedValidation(Validator $validator): void
-    {
-        throw new ValidationException($validator->errors()->toArray(), __("validation.failed"));
-    }
 }

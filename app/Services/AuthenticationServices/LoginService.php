@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\AuthenticationServices;
 
-use App\Exceptions\UnauthenticatedException;
 use App\Models\User;
 use App\Services\Interfaces\LoginServiceInterface;
+use Illuminate\Auth\AuthenticationException;
 
 class LoginService extends BaseAuthService implements LoginServiceInterface
 {
@@ -14,7 +14,7 @@ class LoginService extends BaseAuthService implements LoginServiceInterface
     {
         $user = $this->getUser($credentials["email"]);
         if ($user === null || !$this->isPasswordCorrect($user, $credentials["password"])) {
-            throw new UnauthenticatedException(__("auth.failed"), __("validation.failed"));
+            throw new AuthenticationException(__("auth.failed"));
         }
 
         return $user->createToken($user->email)->plainTextToken;
