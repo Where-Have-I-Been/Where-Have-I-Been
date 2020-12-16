@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Exceptions;
 
@@ -9,4 +10,3 @@ class ValidationException extends ApiException
 {
     protected $code = Response::HTTP_UNPROCESSABLE_ENTITY;
 }
-
