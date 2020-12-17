@@ -8,7 +8,7 @@ class CreateUserProfileTable extends Migration
 {
     public function up()
     {
-        Schema::create('users_profiles', function (Blueprint $table) {
+        Schema::create("users_profiles", function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->unsignedBigInteger("user_id");
 
@@ -19,13 +19,13 @@ class CreateUserProfileTable extends Migration
             $table->string("description")->default("");
             $table->string("gender")->default("");
             $table->string("nationality")->default("");
-            $table->date("birth_date")->default(null);
+            $table->date("birth_date")->nullable()->default(null);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists("profiles");
+        Schema::dropIfExists("users_profiles");
     }
 }
