@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -28,6 +29,9 @@ class Handler extends ExceptionHandler
         }
         if ($exception instanceof ValidationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY, $exception->errors());
+        }
+        if ($exception instanceof AuthorizationException) {
+            return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_FORBIDDEN);
         }
 
         return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
