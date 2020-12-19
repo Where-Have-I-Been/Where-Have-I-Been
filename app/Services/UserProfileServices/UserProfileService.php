@@ -19,9 +19,9 @@ class UserProfileService implements UserProfileServiceInterface
         $profile->save();
     }
 
-    public function getProfile(UserProfile $profile, ?User $user): JsonResource
+    public function getProfile(UserProfile $profile, ?User $user, ?string $representation): JsonResource
     {
-        if ($user != null && $this->isThisLoggedUserProfile($profile, $user)) {
+        if ($user != null && $this->isThisLoggedUserProfile($profile, $user) && $representation == "private") {
             return new PrivateProfileResource($profile);
         }
 

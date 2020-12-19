@@ -9,6 +9,7 @@ use App\Models\UserProfile;
 use App\Services\Interfaces\UserProfileServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserProfileController extends Controller
@@ -20,12 +21,10 @@ class UserProfileController extends Controller
         $this->service = $service;
     }
 
-    public function show(UserProfile $profile, Request $request): JsonResponse
+    public function show(UserProfile $profile, Request $request): JsonResource
     {
-        $resource = $this->service->getProfile($profile, $request->user());
-        return response()->json([
-            "message" => $resource,
-        ], Response::HTTP_OK);
+        $resource = $this->service->getProfile($profile, $request->user(), $request->input("representation"));
+        return $resource;
     }
 
     public function update(UserProfile $profile, UpdateProfileRequest $request): JsonResponse
@@ -33,7 +32,7 @@ class UserProfileController extends Controller
         $this->authorize("update", $profile);
         $this->service->updateProfile($profile, $request->validated());
         return response()->json([
-            "message" => "success",
+            "message" => "Resource updated",
         ], Response::HTTP_OK);
     }
 

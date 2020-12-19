@@ -11,5 +11,5 @@ use Illuminate\Http\Resources\Json\JsonResource;
 interface UserProfileServiceInterface
 {
     public function updateProfile(UserProfile $profile, array $data): void;
-    public function getProfile(UserProfile $profile, ?User $user): JsonResource;
+    public function getProfile(UserProfile $profile, ?User $user, ?string $representation): JsonResource;
 }
