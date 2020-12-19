@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\UserProfile;
+use App\Policies\UserProfilePolicy;
 use App\Services\AuthenticationServices\LoginService;
 use App\Services\AuthenticationServices\RegisterService;
 use App\Services\Interfaces\LoginServiceInterface;
@@ -12,6 +14,10 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        UserProfile::class => UserProfilePolicy::class,
+    ];
+
     public function register(): void
     {
         $this->app->bind(LoginServiceInterface::class, LoginService::class);
