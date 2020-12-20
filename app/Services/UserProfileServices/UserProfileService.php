@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\UserProfileServices;
 
-use Exception;
-use App\Http\Resources\PublicProfileResource;
 use App\Http\Resources\PrivateProfileResource;
+use App\Http\Resources\PublicProfileResource;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\UserProfile;
@@ -27,18 +26,15 @@ class UserProfileService implements UserProfileServiceInterface
     {
         if (!$this->isThisLoggedUserProfile($profile, $user) && $representation === "private") {
             throw new AuthorizationException("You don't have access to this representation");
-        }
-        else if ($representation === "private") {
+        } elseif ($representation === "private") {
             return new PrivateProfileResource($profile);
-        }
-        else{
+        } else {
             return new PublicProfileResource($profile);
         }
     }
 
-    private function isThisLoggedUserProfile(UserProfile $profile, User $user ): bool
+    private function isThisLoggedUserProfile(UserProfile $profile, User $user): bool
     {
         return $profile->user()->first()->is($user);
     }
-
 }

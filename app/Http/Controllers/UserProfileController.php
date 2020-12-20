@@ -23,8 +23,7 @@ class UserProfileController extends Controller
 
     public function show(UserProfile $profile, Request $request): JsonResource
     {
-        $resource = $this->service->getProfile($profile, $request->user(), $request->input("representation"));
-        return $resource;
+        return $this->service->getProfile($profile, $request->user(), $request->input("representation"));
     }
 
     public function update(UserProfile $profile, UpdateProfileRequest $request): JsonResponse
@@ -35,5 +34,4 @@ class UserProfileController extends Controller
             "message" => "Resource updated",
         ], Response::HTTP_OK);
     }
-
 }

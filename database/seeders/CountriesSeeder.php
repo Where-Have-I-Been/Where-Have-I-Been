@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Database\Seeders;
 
-
 use App\Models\Country;
-use Database\Factories\CountryFactory;
 use GuzzleHttp\Client;
 use Illuminate\Database\Seeder;
 

@@ -28,7 +28,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->bind(LoginServiceInterface::class, LoginService::class);
         $this->app->bind(RegisterServiceInterface::class, RegisterService::class);
         $this->app->bind(PasswordServiceInterface::class, PasswordService::class);
-
     }
 
     public function boot(): void
