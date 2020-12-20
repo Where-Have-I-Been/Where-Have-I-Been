@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Services\UserProfileServices;
+namespace App\Services\UserProfileService;
 
 use App\Http\Resources\PrivateProfileResource;
 use App\Http\Resources\PublicProfileResource;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\UserProfile;
-use App\Services\Interfaces\UserProfileServiceInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\JsonResource;
 

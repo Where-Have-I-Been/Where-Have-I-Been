@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Services\Interfaces\LoginServiceInterface;
-use App\Services\Interfaces\RegisterServiceInterface;
+use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\LoginService\LoginServiceInterface;
+use App\Services\CountryService\AuthenticationServices\RegisterService\RegisterServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

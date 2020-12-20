@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Services\Interfaces\CountryServiceInterface;
+use App\Services\CountryService\CountryServiceInterface;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CountryController extends Controller

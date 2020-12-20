@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Interfaces;
+namespace App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService;
 
 use App\Models\User;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\AuthenticationServices;
+namespace App\Services\CountryService\AuthenticationServices\RegisterService;
 
 use App\Models\User;
-use App\Services\Interfaces\RegisterServiceInterface;
+use App\Services\CountryService\AuthenticationServices\BaseAuthService;
 
 class RegisterService extends BaseAuthService implements RegisterServiceInterface
 {

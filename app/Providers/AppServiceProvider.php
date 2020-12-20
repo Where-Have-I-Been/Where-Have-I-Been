@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Services\CountryService;
-use App\Services\Interfaces\CountryServiceInterface;
-use App\Services\Interfaces\UserProfileServiceInterface;
-use App\Services\UserProfileServices\UserProfileService;
+use App\Services\CountryService\CountryService;
+use App\Services\CountryService\CountryServiceInterface;
+use App\Services\UserProfileService\UserProfileService;
+use App\Services\UserProfileService\UserProfileServiceInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Support\ServiceProvider;

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\CountryService;
 
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
-use App\Services\Interfaces\CountryServiceInterface;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CountryService implements CountryServiceInterface
