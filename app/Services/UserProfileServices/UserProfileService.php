@@ -28,9 +28,8 @@ class UserProfileService implements UserProfileServiceInterface
             throw new AuthorizationException("You don't have access to this representation");
         } elseif ($representation === "private") {
             return new PrivateProfileResource($profile);
-        } else {
-            return new PublicProfileResource($profile);
         }
+        return new PublicProfileResource($profile);
     }
 
     private function isThisLoggedUserProfile(UserProfile $profile, User $user): bool
