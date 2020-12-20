@@ -18,7 +18,7 @@ class CountriesSeeder extends Seeder
         $data = json_decode((string)$response->getBody(), true);
         $collection = collect($data)->map(function ($country) {
             return [
-                "name" => $country["name"],
+                "country_name" => $country["name"],
                 "code" => $country["alpha2Code"],
                 "flag_uri" => $country["flag"],
             ];
