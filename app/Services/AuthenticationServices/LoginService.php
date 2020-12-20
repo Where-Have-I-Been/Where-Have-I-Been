@@ -24,9 +24,4 @@ class LoginService extends BaseAuthService implements LoginServiceInterface
     {
         return User::query()->where("email", $email)->first();
     }
-
-    private function isPasswordCorrect(User $user, string $password): bool
-    {
-        return $this->hashes->check($password, $user->password);
-    }
 }
