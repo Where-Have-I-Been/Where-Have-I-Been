@@ -4,9 +4,10 @@
 namespace App\Services\AuthenticationServices;
 
 
-use _HumbugBoxf99c1794c57d\Nette\Schema\ValidationException;
 use App\Models\User;
 use App\Services\Interfaces\PasswordServiceInterface;
+use JsonSchema\Exception\ValidationException;
+
 
 class PasswordService extends BaseAuthService implements PasswordServiceInterface
 {

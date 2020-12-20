@@ -10,7 +10,7 @@ use Illuminate\Routing\Router;
 $router = app(Router::class);
 $router->post("/login", [AuthenticationController::class, "login"]);
 $router->post("/register", [AuthenticationController::class, "register"]);
-$router->patch("/users/{user}", [UserController::class, "edit"])->middleware("auth:sanctum");
+$router->patch("/users/{user}", [UserController::class, "update"])->middleware("auth:sanctum");
 
 $router->put("/profiles/{profile}", [UserProfileController::class, "update"])->middleware("auth:sanctum");
 $router->get("/profiles/{profile}", [UserProfileController::class, "show"])->middleware("auth:sanctum");

@@ -17,7 +17,7 @@ class UserController extends Controller
         $this->service = $service;
     }
 
-    public function edit(User $user, ChangePasswordRequest $request): JsonResponse
+    public function update(User $user, ChangePasswordRequest $request): JsonResponse
     {
         $this->authorize("changePassword", $user);
         $this->service->changePassword($request->validated(), $user);
