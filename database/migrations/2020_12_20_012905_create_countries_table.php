@@ -17,6 +17,7 @@ class CreateCountriesTable extends Migration
             $table->bigIncrements("id");
             $table->string("name");
             $table->string("code");
+            $table->string("flag_uri");
             $table->timestamps();
         });
     }

@@ -14,7 +14,6 @@ class Country extends Model
     protected $fillable = [
         "name",
         "code",
-        "flag_url",
     ];
 
     public function usersProfiles(): BelongsToMany
