@@ -13,6 +13,8 @@ class CreateUserProfileTable extends Migration
         Schema::create("users_profiles", function (Blueprint $table): void {
             $table->bigIncrements("id");
             $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("country_id");
+            $table->foreignUuid("photo_id");
 
             $table->foreign("user_id")->references("id")->on("users")
                 ->onDelete("cascade");
