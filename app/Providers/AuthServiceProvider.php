@@ -8,12 +8,12 @@ use App\Models\User;
 use App\Models\UserProfile;
 use App\Policies\UserPolicy;
 use App\Policies\UserProfilePolicy;
-use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\LoginService\LoginService;
-use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\LoginService\LoginServiceInterface;
-use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\PasswordService;
-use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\PasswordServiceInterface;
-use App\Services\CountryService\AuthenticationServices\RegisterService\RegisterService;
-use App\Services\CountryService\AuthenticationServices\RegisterService\RegisterServiceInterface;
+use App\Services\AuthenticationServices\LoginService\LoginService;
+use App\Services\AuthenticationServices\LoginService\LoginServiceInterface;
+use App\Services\AuthenticationServices\PasswordService\PasswordService;
+use App\Services\AuthenticationServices\PasswordService\PasswordServiceInterface;
+use App\Services\AuthenticationServices\RegisterService\RegisterService;
+use App\Services\AuthenticationServices\RegisterService\RegisterServiceInterface;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider

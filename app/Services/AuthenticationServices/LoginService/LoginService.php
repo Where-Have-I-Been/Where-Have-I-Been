@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\LoginService;
+namespace App\Services\AuthenticationServices\LoginService;
 
 use App\Models\User;
-use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\BaseAuthService;
+use App\Services\AuthenticationServices\BaseAuthService;
 use Illuminate\Auth\AuthenticationException;
 
 class LoginService extends BaseAuthService implements LoginServiceInterface

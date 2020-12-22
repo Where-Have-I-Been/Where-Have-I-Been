@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService;
+namespace App\Services\AuthenticationServices\PasswordService;
 
 use App\Models\User;
-use App\Services\CountryService\AuthenticationServices\RegisterService\BaseAuthService;
+use App\Services\AuthenticationServices\BaseAuthService;
 use JsonSchema\Exception\ValidationException;
 
 class PasswordService extends BaseAuthService implements PasswordServiceInterface

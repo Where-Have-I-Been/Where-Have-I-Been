@@ -13,7 +13,7 @@ class CreateUserProfileTable extends Migration
         Schema::create("users_profiles", function (Blueprint $table): void {
             $table->bigIncrements("id");
             $table->unsignedBigInteger("user_id");
-            $table->foreignUuid("country_id")->nullable()->default(null);
+            $table->unsignedBigInteger("country_id")->nullable()->default(null);
             $table->foreignUuid("photo_id")->nullable()->default(null);
 
             $table->foreign("user_id")->references("id")->on("users")
