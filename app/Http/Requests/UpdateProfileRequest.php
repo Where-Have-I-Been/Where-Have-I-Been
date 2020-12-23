@@ -12,9 +12,8 @@ class UpdateProfileRequest extends ApiRequest
             "name" => [
                 "string",
             ],
-            "country_name" => [
-                "string",
-                "exists:countries",
+            "country_id" => [
+                "exists:countries,id",
             ],
             "gender" => [
                 "string",

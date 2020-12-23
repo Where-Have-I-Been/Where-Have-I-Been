@@ -6,7 +6,6 @@ namespace App\Services\UserProfileService;
 
 use App\Http\Resources\PrivateProfileResource;
 use App\Http\Resources\PublicProfileResource;
-use App\Models\Country;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -16,8 +15,6 @@ class UserProfileService implements UserProfileServiceInterface
 {
     public function updateProfile(UserProfile $profile, array $data): void
     {
-        $country = Country::query()->where("country_name", $data["country_name"])->first();
-        $profile["country_id"] = $country["id"];
         $profile->update($data);
     }
 

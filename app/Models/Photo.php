@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Photo extends Model
@@ -31,8 +33,13 @@ class Photo extends Model
         return false;
     }
 
-    public function usersProfiles(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->BelongsToMany(UserProfile::class);
+        return $this->BelongsTo(User::class);
+    }
+
+    public function usersProfiles(): HasMany
+    {
+        return $this->HasMany(UserProfile::class);
     }
 }

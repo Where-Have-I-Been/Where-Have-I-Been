@@ -16,7 +16,7 @@ class UserProfile extends Model
         "name",
         "description",
         "gender",
-        "nationality",
+        "country_id",
         "birthdate",
     ];
 
@@ -25,13 +25,13 @@ class UserProfile extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function country(): HasOne
+    public function country(): BelongsTo
     {
-        return $this->hasOne(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
-    public function photo(): HasOne
+    public function photo(): BelongsTo
     {
-        return $this->hasOne(Photo::class);
+        return $this->belongsTo(Photo::class);
     }
 }

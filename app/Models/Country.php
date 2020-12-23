@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
@@ -15,8 +16,8 @@ class Country extends Model
         "name",
     ];
 
-    public function usersProfiles(): BelongsToMany
+    public function usersProfiles(): HasMany
     {
-        return $this->BelongsToMany(UserProfile::class);
+        return $this->HasMany(UserProfile::class);
     }
 }
