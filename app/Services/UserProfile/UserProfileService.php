@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\UserProfileService;
+namespace App\Services\UserProfile;
 
 use App\Http\Resources\PrivateProfileResource;
 use App\Http\Resources\PublicProfileResource;

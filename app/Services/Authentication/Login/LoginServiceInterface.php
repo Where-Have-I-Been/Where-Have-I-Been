@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\AuthenticationServices\LoginService;
+namespace App\Services\Authentication\Login;
 
 interface LoginServiceInterface
 {

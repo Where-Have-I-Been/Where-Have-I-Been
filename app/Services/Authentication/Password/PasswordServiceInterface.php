@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\AuthenticationServices\PasswordService;
+namespace App\Services\Authentication\Password;
 
 use App\Models\User;
 

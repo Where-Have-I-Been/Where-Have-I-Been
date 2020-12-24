@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\CountryService;
+namespace App\Services\Country;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

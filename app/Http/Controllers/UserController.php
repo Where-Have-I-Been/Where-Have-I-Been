@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
-use App\Services\CountryService\AuthenticationServices\RegisterService\PasswordService\PasswordServiceInterface;
+use App\Services\Country\AuthenticationServices\RegisterService\PasswordService\PasswordServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

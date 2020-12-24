@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\AuthenticationServices\RegisterService;
+namespace App\Services\Authentication\Register;
 
 interface RegisterServiceInterface
 {

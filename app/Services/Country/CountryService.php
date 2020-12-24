@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\CountryService;
+namespace App\Services\Country;
 
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
