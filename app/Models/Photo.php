@@ -6,7 +6,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
@@ -16,17 +15,8 @@ class Photo extends Model
 
     protected $fillable = [
         "path",
-        "user_id"
+        "user_id",
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($photo) {
-            $photo->{$photo->getKeyName()} = (string) Str::uuid();
-        });
-    }
 
     public function getIncrementing()
     {
@@ -41,5 +31,14 @@ class Photo extends Model
     public function usersProfiles(): HasMany
     {
         return $this->HasMany(UserProfile::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($photo): void {
+            $photo->{$photo->getKeyName()} = (string)Str::uuid();
+        });
     }
 }

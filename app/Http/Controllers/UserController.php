@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
-use App\Services\Country\AuthenticationServices\RegisterService\PasswordService\PasswordServiceInterface;
+use App\Services\Authentication\Password\PasswordServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,11 +21,10 @@ class UserController extends Controller
 
     public function update(User $user, ChangePasswordRequest $request): JsonResponse
     {
-        $this->authorize("changePassword", $user);
         $this->service->changePassword($request->validated(), $user);
 
         return response()->json([
-            "message" => __("Password changes successfully"),
+            "message" => __("password.updated"),
         ], Response::HTTP_OK);
     }
 }

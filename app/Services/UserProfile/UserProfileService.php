@@ -13,15 +13,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserProfileService implements UserProfileServiceInterface
 {
-    public function updateProfile(UserProfile $profile, array $data): void
+    public function updateProfile(UserProfile $profile, array $data): PrivateProfileResource
     {
         $profile->update($data);
+
+        return new PrivateProfileResource($profile);
     }
 
     public function getProfile(UserProfile $profile, User $user, ?string $representation): JsonResource
     {
         if (!$this->isThisLoggedUserProfile($profile, $user) && $representation === "private") {
-            throw new AuthorizationException("You don't have access to this representation");
+            throw new AuthorizationException(__("resources.access_denied"));
         } elseif ($representation === "private") {
             return new PrivateProfileResource($profile);
         }

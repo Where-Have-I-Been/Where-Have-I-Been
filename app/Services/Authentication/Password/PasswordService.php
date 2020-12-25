@@ -13,7 +13,7 @@ class PasswordService extends BaseAuthService implements PasswordServiceInterfac
     public function changePassword(array $data, User $user): void
     {
         if (!$this->isPasswordCorrect($user, $data["current_password"])) {
-            throw new ValidationException("current password is incorrect");
+            throw new ValidationException(__("passwords.wrong"));
         }
 
         $user["password"] = $this->hashes->make($data["password"]);

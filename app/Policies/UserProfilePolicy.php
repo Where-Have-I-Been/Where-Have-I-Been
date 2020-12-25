@@ -14,6 +14,6 @@ class UserProfilePolicy
 
     public function update(User $user, UserProfile $profile)
     {
-        return $user->id === $profile->user_id;
+        return $user->userProfile()->is($profile);
     }
 }

@@ -28,10 +28,11 @@ class UserProfileController extends Controller
 
     public function update(UserProfile $profile, UpdateProfileRequest $request): JsonResponse
     {
-        $this->authorize("update", $profile);
-        $this->service->updateProfile($profile, $request->validated());
+        $profile = $this->service->updateProfile($profile, $request->validated());
+
         return response()->json([
             "message" => "Resource updated",
+            "data" => $profile,
         ], Response::HTTP_OK);
     }
 }

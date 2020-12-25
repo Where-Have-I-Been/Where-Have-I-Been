@@ -15,7 +15,7 @@ class PublicProfileResource extends JsonResource
         return [
             "name" => $this->name,
             "gender" => $this->gender,
-            "nationality" => $this->when($country != null, new CountryResource($country),null),
+            "nationality" => $this->when($country !== null, new CountryResource($country), null),
             "description" => $this->description,
         ];
     }
