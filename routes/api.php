@@ -17,7 +17,7 @@ $router->get("/countries", [CountryController::class, "index"]);
 
 
 $router->middleware("auth:sanctum")->group(function ($router): void {
-    $router->patch("/users/{user}", [UserController::class, "update"])->middleware("can:update,profile");
+    $router->patch("/users/{user}", [UserController::class, "update"])->middleware("can:update,user");
 
     $router->get("/profiles/{profile}", [UserProfileController::class, "show"]);
     $router->put("/profiles/{profile}", [UserProfileController::class, "update"])->middleware("can:update,profile");

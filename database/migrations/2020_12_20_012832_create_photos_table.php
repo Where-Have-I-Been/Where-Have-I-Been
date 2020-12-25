@@ -18,6 +18,7 @@ class CreatePhotosTable extends Migration
                 ->onDelete("cascade");
 
             $table->string("path");
+            $table->string("name");
             $table->timestamps();
         });
     }

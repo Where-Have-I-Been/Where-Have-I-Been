@@ -31,7 +31,7 @@ class UserProfileController extends Controller
         $profile = $this->service->updateProfile($profile, $request->validated());
 
         return response()->json([
-            "message" => "Resource updated",
+            "message" => "resources.updated",
             "data" => $profile,
         ], Response::HTTP_OK);
     }
