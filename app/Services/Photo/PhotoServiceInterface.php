@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Photo;
 
 use App\Models\Photo;
 use App\Models\User;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 
 interface PhotoServiceInterface
 {
     public function uploadPhoto(UploadedFile $photoFile, User $user): Photo;
     public function deletePhoto(Photo $photo): void;
-    public function getPhotos(string $userId): Collection;
+    public function getUserPhotos(User $userId): Paginator;
 }

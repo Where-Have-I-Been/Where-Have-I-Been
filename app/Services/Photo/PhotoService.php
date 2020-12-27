@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Photo;
 
 use App\Models\Photo;
 use App\Models\User;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PhotoService implements PhotoServiceInterface
 {
@@ -25,18 +26,14 @@ class PhotoService implements PhotoServiceInterface
         $photo->delete();
     }
 
-    public function getPhotos(string $userId): Collection
+    public function getUserPhotos(User $user): Paginator
     {
-        if (User::query()->find($userId) === null){
-            throw new NotFoundHttpException("User don't exist");
-        }
-
-        return Photo::query()->where("user_id",$userId)->get();
+        return $user->photos()->simplePaginate(15);
     }
 
     private function createPhotoName(UploadedFile $photoFile): string
     {
-        return Str::random(3)."_".$photoFile->getClientOriginalName();
+        return Str::random(3) . "_" . $photoFile->getClientOriginalName();
     }
 
     private function createPhoto(string $path, string $name, User $user): Photo

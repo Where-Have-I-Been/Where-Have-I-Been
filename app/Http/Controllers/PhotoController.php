@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PhotoResource;
 use App\Models\Photo;
+use App\Models\User;
 use App\Services\Photo\PhotoServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,9 +23,9 @@ class PhotoController extends Controller
         $this->service = $service;
     }
 
-    public function index(Request $request): ResourceCollection
+    public function index(User $user): ResourceCollection
     {
-        $photos = $this->service->getPhotos($request->input("user"));
+        $photos = $this->service->getUserPhotos($user);
 
         return PhotoResource::collection($photos);
     }
@@ -33,8 +35,9 @@ class PhotoController extends Controller
         $photo = $this->service->uploadPhoto($request->file("image"), $request->user());
 
         return response()->json([
-            "message" =>"Photo was uploaded successfully",
-            "data"=> $photo["id"]],
+            "message" => "Photo was uploaded successfully",
+            "data" => $photo["id"],
+        ],
             Response::HTTP_OK);
     }
 
@@ -48,7 +51,7 @@ class PhotoController extends Controller
         $this->service->deletePhoto($photo);
 
         return response()->json([
-            "message" =>"Photo was deleted successfully",
+            "message" => "Photo was deleted successfully",
         ],
             Response::HTTP_OK);
     }
