@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
+use App\Services\Photo\PhotoService;
+use App\Services\Photo\PhotoServiceInterface;
 use App\Services\UserProfile\UserProfileService;
 use App\Services\UserProfile\UserProfileServiceInterface;
 use Illuminate\Contracts\Hashing\Hasher;

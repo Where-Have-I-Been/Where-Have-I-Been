@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PhotoService implements PhotoServiceInterface
 {
@@ -26,9 +27,11 @@ class PhotoService implements PhotoServiceInterface
 
     public function getPhotos(string $userId): Collection
     {
-        /** @var User $user */
-       $user = User::query()->where("id",$userId)->first();
-        return $user->photo()->get();
+        if (User::query()->find($userId) === null){
+            throw new NotFoundHttpException("User don't exist");
+        }
+
+        return Photo::query()->where("user_id",$userId)->get();
     }
 
     private function createPhotoName(UploadedFile $photoFile): string

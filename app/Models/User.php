@@ -37,8 +37,8 @@ class User extends Authenticated
         return $this->HasOne(UserProfile::class);
     }
 
-    public function photo(): HasMany
+    public function photos(): HasMany
     {
-        return $this->HasMany(UserProfile::class);
+        return $this->HasMany(Photo::class);
     }
 }
