@@ -36,6 +36,7 @@ class UserProfileService implements UserProfileServiceInterface
     private function getPublicProfile(UserProfile $profile): UserProfile
     {
         $publicProfileData = $profile->makeHidden("birth_date")->toArray();
+
         return new UserProfile($publicProfileData);
     }
 }

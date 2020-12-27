@@ -19,12 +19,12 @@ class UserController extends Controller
         $this->service = $service;
     }
 
-    public function update(User $user, ChangePasswordRequest $request): JsonResponse
+    public function changePassword(User $user, ChangePasswordRequest $request): JsonResponse
     {
         $this->service->changePassword($request->validated(), $user);
 
         return response()->json([
-            "message" => __("password.updated"),
+            "message" => __("passwords.updated"),
         ], Response::HTTP_OK);
     }
 }
