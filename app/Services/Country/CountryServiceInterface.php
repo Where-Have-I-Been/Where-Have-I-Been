@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Country;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 interface CountryServiceInterface
 {
-    public function getCountries(): ResourceCollection;
+    public function getCountries(): Collection;
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Resources\ProfileResource;
 use App\Models\UserProfile;
 use App\Services\UserProfile\UserProfileServiceInterface;
 use Illuminate\Http\JsonResponse;
@@ -23,7 +24,9 @@ class UserProfileController extends Controller
 
     public function show(UserProfile $profile, Request $request): JsonResource
     {
-        return $this->service->getProfile($profile, $request->user(), $request->input("representation"));
+        $profileData = $this->service->getProfile($profile, $request->user(), $request->input("representation"));
+
+        return new ProfileResource($profileData);
     }
 
     public function update(UserProfile $profile, UpdateProfileRequest $request): JsonResponse
@@ -31,8 +34,8 @@ class UserProfileController extends Controller
         $profile = $this->service->updateProfile($profile, $request->validated());
 
         return response()->json([
-            "message" => "resources.updated",
-            "data" => $profile,
+            "message" => __("resources.updated"),
+            "data" => new ProfileResource($profile),
         ], Response::HTTP_OK);
     }
 }

@@ -16,7 +16,7 @@ class UserProfile extends Model
         "description",
         "gender",
         "country_id",
-        "birthdate",
+        "birth_date",
     ];
 
     public function user(): BelongsTo

@@ -6,15 +6,15 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PrivateProfileResource extends JsonResource
+class ProfileResource extends JsonResource
 {
     public function toArray($request): array
     {
-        $country = $this->country()->first();
+        $country = $this->country;
 
         return [
             "name" => $this->name,
-            "birth_date" => $this->birth_date,
+            "birth_date" => $this->when($this->birth_date !== null, $this->birth_date),
             "gender" => $this->gender,
             "nationality" => $this->when($country !== null, new CountryResource($country), null),
             "description" => $this->description,
