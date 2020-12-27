@@ -3,10 +3,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PhotoResource;
 use App\Models\Photo;
 use App\Services\Photo\PhotoServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +19,13 @@ class PhotoController extends Controller
     public function __construct(PhotoServiceInterface $service)
     {
         $this->service = $service;
+    }
+
+    public function index(Request $request): ResourceCollection
+    {
+        $photos = $this->service->getPhotos($request->input("user"));
+
+        return PhotoResource::collection($photos);
     }
 
     public function create(Request $request): JsonResponse

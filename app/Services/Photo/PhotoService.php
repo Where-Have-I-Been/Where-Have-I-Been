@@ -5,6 +5,7 @@ namespace App\Services\Photo;
 use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class PhotoService implements PhotoServiceInterface
@@ -17,10 +18,17 @@ class PhotoService implements PhotoServiceInterface
         return $this->createPhoto($uploadedPhotoPath, $photoName, $user);
     }
 
-    public function deletePhoto(Photo $photo)
+    public function deletePhoto(Photo $photo): void
     {
         unlink(public_path($photo["path"]));
         $photo->delete();
+    }
+
+    public function getPhotos(string $userId): Collection
+    {
+        /** @var User $user */
+       $user = User::query()->where("id",$userId)->first();
+        return $user->photo()->get();
     }
 
     private function createPhotoName(UploadedFile $photoFile): string
