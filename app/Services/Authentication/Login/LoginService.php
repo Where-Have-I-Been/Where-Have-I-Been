@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\AuthenticationServices;
+namespace App\Services\Authentication\Login;
 
 use App\Models\User;
-use App\Services\Interfaces\LoginServiceInterface;
+use App\Services\Authentication\BaseAuthService;
 use Illuminate\Auth\AuthenticationException;
 
 class LoginService extends BaseAuthService implements LoginServiceInterface
@@ -23,10 +23,5 @@ class LoginService extends BaseAuthService implements LoginServiceInterface
     private function getUser(string $email): ?User
     {
         return User::query()->where("email", $email)->first();
-    }
-
-    private function isPasswordCorrect(User $user, string $password): bool
-    {
-        return $this->hashes->check($password, $user->password);
     }
 }
