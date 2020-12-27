@@ -30,7 +30,7 @@ class UserProfileService implements UserProfileServiceInterface
 
     private function isThisLoggedUserProfile(UserProfile $profile, User $user): bool
     {
-        return $profile->user()->first()->is($user);
+        return $profile->user->is($user);
     }
 
     private function getPublicProfile(UserProfile $profile): UserProfile

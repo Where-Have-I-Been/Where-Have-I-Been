@@ -11,6 +11,6 @@ class CountryService implements CountryServiceInterface
 {
     public function getCountries(): Collection
     {
-        return collect(Country::query()->get());
+        return Country::query()->get();
     }
 }
