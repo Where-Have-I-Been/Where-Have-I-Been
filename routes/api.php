@@ -25,5 +25,5 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->put("/profiles/{profile}", [UserProfileController::class, "update"])->middleware("can:update,profile");
 
     $router->post("/photos", [PhotoController::class, "create"]);
-    $router->delete("/photos/{photo}", [PhotoController::class, "delete"]);
+    $router->delete("/photos/{photo}", [PhotoController::class, "delete"])->middleware("can:deletePhoto,photo");
 });
