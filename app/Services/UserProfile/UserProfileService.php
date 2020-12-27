@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\UserProfile;
 
-use App\Http\Resources\ProfileResource;
-use App\Http\Resources\PublicProfileResource;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserProfileService implements UserProfileServiceInterface
 {
@@ -41,6 +38,4 @@ class UserProfileService implements UserProfileServiceInterface
         $publicProfileData = $profile->makeHidden("birth_date")->toArray();
         return new UserProfile($publicProfileData);
     }
-
-
 }
