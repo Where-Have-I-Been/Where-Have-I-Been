@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PhotoRequest;
 use App\Http\Resources\PhotoResource;
 use App\Models\Photo;
 use App\Models\User;
@@ -23,27 +24,27 @@ class PhotoController extends Controller
         $this->service = $service;
     }
 
-    public function index(User $user): ResourceCollection
+    public function index(User $user, Request $request): ResourceCollection
     {
-        $photos = $this->service->getUserPhotos($user);
+        $photos = $this->service->getUserPhotos($user, $request->only("pages", "per-page"));
 
         return PhotoResource::collection($photos);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(PhotoRequest $request): JsonResponse
     {
         $photo = $this->service->uploadPhoto($request->file("image"), $request->user());
 
         return response()->json([
             "message" => "Photo was uploaded successfully",
-            "data" => $photo["id"],
+            "data" => new PhotoResource($photo),
         ],
             Response::HTTP_OK);
     }
 
     public function show(Photo $photo): BinaryFileResponse
     {
-        return response()->file(public_path($photo["path"]));
+        return response()->file(public_path($photo->path));
     }
 
     public function delete(Photo $photo): JsonResponse

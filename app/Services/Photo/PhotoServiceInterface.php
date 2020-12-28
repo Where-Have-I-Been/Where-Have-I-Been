@@ -13,5 +13,5 @@ interface PhotoServiceInterface
 {
     public function uploadPhoto(UploadedFile $photoFile, User $user): Photo;
     public function deletePhoto(Photo $photo): void;
-    public function getUserPhotos(User $userId): Paginator;
+    public function getUserPhotos(User $userId, array $paginationOptions): Paginator;
 }
