@@ -8,16 +8,14 @@ use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 
 class PhotoService implements PhotoServiceInterface
 {
     public function uploadPhoto(UploadedFile $photoFile, User $user): Photo
     {
-        $photoName = $this->createPhotoName($photoFile);
-        $uploadedPhotoPath = $photoFile->storeAs("/images", $photoName);
+        $uploadedPhotoPath = $photoFile->store("/images");
 
-        return $this->createPhoto($uploadedPhotoPath, $photoName, $user);
+        return $this->createPhoto($uploadedPhotoPath, $user);
     }
 
     public function deletePhoto(Photo $photo): void
@@ -31,16 +29,11 @@ class PhotoService implements PhotoServiceInterface
         return $user->photos()->simplePaginate($paginationOptions["per-page"],"*","",$paginationOptions["pages"]);
     }
 
-    private function createPhotoName(UploadedFile $photoFile): string
-    {
-        return Str::random(3) . "_" . $photoFile->getClientOriginalName();
-    }
-
-    private function createPhoto(string $path, string $name, User $user): Photo
+    private function createPhoto(string $path, User $user): Photo
     {
         $photo = new Photo([
             "user_id" => $user["id"],
-            "name" => $name,
+            "name" => basename($path),
             "path" => $path,
         ]);
         $photo->save();
