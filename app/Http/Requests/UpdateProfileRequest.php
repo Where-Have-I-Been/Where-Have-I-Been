@@ -25,6 +25,10 @@ class UpdateProfileRequest extends ApiRequest
             "description" => [
                 "string",
             ],
+            "photo_id" => [
+                "string",
+                "exists:photos,id",
+            ],
         ];
     }
 }

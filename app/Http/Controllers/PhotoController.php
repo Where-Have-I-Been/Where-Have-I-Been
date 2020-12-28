@@ -12,7 +12,6 @@ use App\Services\Photo\PhotoServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class PhotoController extends Controller
@@ -36,15 +35,10 @@ class PhotoController extends Controller
         $photo = $this->service->uploadPhoto($request->file("image"), $request->user());
 
         return response()->json([
-            "message" => "Photo was uploaded successfully",
+            "message" => __("resources.image_uploaded"),
             "data" => new PhotoResource($photo),
         ],
             Response::HTTP_OK);
-    }
-
-    public function show(Photo $photo): BinaryFileResponse
-    {
-        return response()->file(public_path($photo->path));
     }
 
     public function delete(Photo $photo): JsonResponse
@@ -52,7 +46,7 @@ class PhotoController extends Controller
         $this->service->deletePhoto($photo);
 
         return response()->json([
-            "message" => "Photo was deleted successfully",
+            "message" => __("resources.deleted"),
         ],
             Response::HTTP_OK);
     }

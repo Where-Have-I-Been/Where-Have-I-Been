@@ -16,9 +16,7 @@ $router->post("/register", [AuthenticationController::class, "register"]);
 
 $router->get("/countries", [CountryController::class, "index"]);
 
-$router->get("/photos/{photo}", [PhotoController::class, "show"]);
 $router->get("/photos/user/{user}", [PhotoController::class, "index"]);
-
 
 $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");

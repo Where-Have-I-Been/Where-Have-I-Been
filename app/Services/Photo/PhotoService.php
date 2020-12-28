@@ -20,19 +20,19 @@ class PhotoService implements PhotoServiceInterface
 
     public function deletePhoto(Photo $photo): void
     {
-        unlink(public_path($photo["path"]));
+        unlink(public_path($photo->path));
         $photo->delete();
     }
 
-    public function getUserPhotos(User $user, array $paginationOptions): Paginator
+    public function getUserPhotos(User $user, array $parameters): Paginator
     {
-        return $user->photos()->simplePaginate($paginationOptions["per-page"],"*","",$paginationOptions["pages"]);
+        return $user->photos()->simplePaginate($parameters["per-page"], "*", "", $parameters["pages"]);
     }
 
     private function createPhoto(string $path, User $user): Photo
     {
         $photo = new Photo([
-            "user_id" => $user["id"],
+            "user_id" => $user->id,
             "name" => basename($path),
             "path" => $path,
         ]);

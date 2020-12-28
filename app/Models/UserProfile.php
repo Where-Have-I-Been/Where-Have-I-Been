@@ -17,6 +17,7 @@ class UserProfile extends Model
         "gender",
         "country_id",
         "birth_date",
+        "photo_id",
     ];
 
     public function user(): BelongsTo

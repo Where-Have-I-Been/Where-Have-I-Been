@@ -12,7 +12,7 @@ class PhotoResource extends JsonResource
     {
         return [
             "photo_id" => $this->id,
-            "url" => asset($this->path)
+            "url" => asset($this->path),
         ];
     }
 }
