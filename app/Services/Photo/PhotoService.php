@@ -24,11 +24,11 @@ class PhotoService implements PhotoServiceInterface
         $photo->delete();
     }
 
-    public function getUserPhotos(User $user, array $parameters): Paginator
+    public function getUserPhotos(User $user, ?string $perPage): Paginator
     {
-        $photos = $user->photos()->simplePaginate($parameters["per-page"], "*", null, $parameters["page"]);
+        $photos = $user->photos()->simplePaginate($perPage);
 
-        return $photos->withPath($photos->path()."?per-page=".$parameters["per-page"]);
+        return $photos->withQueryString();
     }
 
     private function createPhoto(string $path, User $user): Photo
