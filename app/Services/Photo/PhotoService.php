@@ -6,7 +6,7 @@ namespace App\Services\Photo;
 
 use App\Models\Photo;
 use App\Models\User;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
 
 class PhotoService implements PhotoServiceInterface
