@@ -26,7 +26,9 @@ class PhotoService implements PhotoServiceInterface
 
     public function getUserPhotos(User $user, array $parameters): Paginator
     {
-        return $user->photos()->simplePaginate($parameters["per-page"], "*", "", $parameters["pages"]);
+        $photos = $user->photos()->simplePaginate($parameters["per-page"], "*", null, $parameters["page"]);
+
+        return $photos->withPath($photos->path()."?per-page=".$parameters["per-page"]);
     }
 
     private function createPhoto(string $path, User $user): Photo

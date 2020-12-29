@@ -25,9 +25,9 @@ class PhotoController extends Controller
 
     public function index(User $user, Request $request): ResourceCollection
     {
-        $photos = $this->service->getUserPhotos($user, $request->only("pages", "per-page"));
+        $photosWithPagination = $this->service->getUserPhotos($user, $request->only("page", "per-page"));
 
-        return PhotoResource::collection($photos);
+        return PhotoResource::collection($photosWithPagination);
     }
 
     public function create(PhotoRequest $request): JsonResponse
