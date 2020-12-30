@@ -6,7 +6,6 @@ namespace App\Services\Photo;
 
 use App\Models\Photo;
 use App\Models\User;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
 
@@ -21,8 +20,7 @@ class PhotoService implements PhotoServiceInterface
 
     public function deletePhoto(Photo $photo): void
     {
-        $storage = app(Filesystem::class);
-        $storage->delete(public_path($photo->path));
+        unlink(public_path($photo->path));
         $photo->delete();
     }
 

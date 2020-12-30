@@ -15,9 +15,4 @@ class UserPolicy
     {
         return $loggedUser->is($userToPatch);
     }
-
-    public function indexOfPhotos(User $user, User $userPhotos)
-    {
-        return $user->is($userPhotos);
-    }
 }
