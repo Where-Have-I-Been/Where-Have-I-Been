@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Photo;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Policies\PhotoPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\UserProfilePolicy;
 use App\Services\Authentication\Login\LoginService;
@@ -21,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         UserProfile::class => UserProfilePolicy::class,
         User::class => UserPolicy::class,
+        Photo::class => PhotoPolicy::class,
     ];
 
     public function register(): void

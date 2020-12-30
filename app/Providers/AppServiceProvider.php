@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
+use App\Services\Photo\PhotoService;
+use App\Services\Photo\PhotoServiceInterface;
 use App\Services\UserProfile\UserProfileService;
 use App\Services\UserProfile\UserProfileServiceInterface;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Hasher::class, BcryptHasher::class);
         $this->app->bind(UserProfileServiceInterface::class, UserProfileService::class);
         $this->app->bind(CountryServiceInterface::class, CountryService::class);
+        $this->app->bind(PhotoServiceInterface::class, PhotoService::class);
     }
 
     public function boot(): void

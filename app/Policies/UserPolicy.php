@@ -15,4 +15,9 @@ class UserPolicy
     {
         return $loggedUser->is($userToPatch);
     }
+
+    public function listPhotos(User $user, User $userPhotos)
+    {
+        return $user->is($userPhotos);
+    }
 }
