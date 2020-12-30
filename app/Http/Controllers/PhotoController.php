@@ -23,7 +23,7 @@ class PhotoController extends Controller
         $this->service = $service;
     }
 
-    public function index(User $user, Request $request): ResourceCollection
+    public function indexOfPhotos(User $user, Request $request): ResourceCollection
     {
         $photosWithPagination = $this->service->getUserPhotos($user, $request->query("per-page"));
 
