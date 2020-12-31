@@ -16,7 +16,8 @@
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.8",
         "laravel/telescope": "^4.3",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "rennokki/befriended": "^3.7"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

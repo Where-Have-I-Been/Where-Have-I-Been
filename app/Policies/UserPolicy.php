@@ -20,4 +20,9 @@ class UserPolicy
     {
         return $user->is($userPhotos);
     }
+
+    public function createFollow(User $user, User $userToFollow)
+    {
+        return !$user->is($userToFollow);
+    }
 }
