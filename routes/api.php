@@ -28,7 +28,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/photos/user/{user}", [PhotoController::class, "index"])->middleware("can:listPhotos,user");
 
     $router->post("/follows/user/{user}", [FollowController::class, "create"])->middleware("can:createFollow,user");
-    $router->delete("/follows/user/{user}", [FollowController::class, "delete"]);
+    $router->delete("/follows/user/{user}", [FollowController::class, "delete"])->middleware("can:deleteFollow,user");
     $router->get("/followers/user/{user}", [FollowController::class, "followersIndex"]);
     $router->get("/following/user/{user}", [FollowController::class, "followingIndex"]);
 });

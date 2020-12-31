@@ -25,4 +25,9 @@ class UserPolicy
     {
         return !$user->is($userToFollow);
     }
+
+    public function deleteFollow(User $user, User $userToFollow)
+    {
+        return $user->is($userToFollow);
+    }
 }
