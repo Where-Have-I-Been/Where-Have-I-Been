@@ -33,21 +33,19 @@ class FollowController extends Controller
 
     public function create(User $user, Request $request)
     {
-        $result = $this->service->createFollow($request->user(), $user);
+        $this->service->createFollow($request->user(), $user);
+
         return response()->json([
-            "message" => [
-                "result" => $result,
-            ],
+            "message" => __("resources.created"),
         ], Response::HTTP_OK);
     }
 
     public function delete(User $user, Request $request)
     {
-        $result = $this->service->deleteFollow($request->user(), $user);
+        $this->service->deleteFollow($request->user(), $user);
+
         return response()->json([
-            "message" => [
-                "result" => $result,
-            ],
+            "message" => __("resources.deleted"),
         ], Response::HTTP_OK);
     }
 }

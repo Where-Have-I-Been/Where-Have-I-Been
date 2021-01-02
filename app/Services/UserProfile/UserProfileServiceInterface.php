@@ -6,7 +6,6 @@ namespace App\Services\UserProfile;
 
 use App\Models\User;
 use App\Models\UserProfile;
-use Illuminate\Support\Collection;
 
 interface UserProfileServiceInterface
 {
