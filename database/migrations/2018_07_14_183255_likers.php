@@ -8,13 +8,10 @@ use Illuminate\Support\Facades\Schema;
 
 class Likers extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create("likers", function (Blueprint $table): void {
-            $table->increments("id");
+            $table->bigIncrements("id");
 
             $table->integer("likeable_id");
             $table->string("likeable_type");
@@ -26,9 +23,6 @@ class Likers extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists("likers");

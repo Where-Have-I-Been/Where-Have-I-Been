@@ -8,13 +8,10 @@ use Illuminate\Support\Facades\Schema;
 
 class Followers extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create("followers", function (Blueprint $table): void {
-            $table->increments("id");
+            $table->bigIncrements("id");
 
             $table->integer("followable_id");
             $table->string("followable_type");
@@ -26,9 +23,6 @@ class Followers extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists("followers");

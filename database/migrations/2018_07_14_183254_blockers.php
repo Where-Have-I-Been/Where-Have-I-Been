@@ -8,13 +8,10 @@ use Illuminate\Support\Facades\Schema;
 
 class Blockers extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create("blockers", function (Blueprint $table): void {
-            $table->increments("id");
+            $table->bigIncrements("id");
 
             $table->integer("blockable_id");
             $table->string("blockable_type");
@@ -26,9 +23,6 @@ class Blockers extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists("blockers");
