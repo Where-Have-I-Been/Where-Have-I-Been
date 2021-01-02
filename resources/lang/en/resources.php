@@ -9,4 +9,7 @@ return [
     "image_uploaded" => "Image has been uploaded successfully",
     "updated" => "Resource has been updated successfully",
     "deleted" => "Resource has been deleted successfully",
+    "not_exist" => "This resource does not exist",
+    "exist" => "This resource already exists exist ",
+
 ];
