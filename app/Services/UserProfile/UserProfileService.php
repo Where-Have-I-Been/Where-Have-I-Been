@@ -7,7 +7,6 @@ namespace App\Services\UserProfile;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Collection;
 
 class UserProfileService implements UserProfileServiceInterface
 {
@@ -27,16 +26,6 @@ class UserProfileService implements UserProfileServiceInterface
         }
 
         return $this->getPublicProfile($profile);
-    }
-
-    public function getPublicProfiles(Collection $users): Collection
-    {
-        $profiles = new Collection();
-        foreach ($users as $user) {
-            $profiles->add($this->getPublicProfile($user->userProfile));
-        }
-
-        return $profiles;
     }
 
     private function isThisLoggedUserProfile(UserProfile $profile, User $user): bool

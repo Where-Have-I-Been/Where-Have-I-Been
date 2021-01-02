@@ -12,5 +12,4 @@ interface UserProfileServiceInterface
 {
     public function updateProfile(UserProfile $profile, array $data): UserProfile;
     public function getProfile(UserProfile $profile, User $user, ?string $representation): UserProfile;
-    public function getPublicProfiles(Collection $users): Collection;
 }

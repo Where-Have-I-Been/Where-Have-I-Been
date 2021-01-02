@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FollowCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\Follow\FollowServiceInterface;
 use Illuminate\Http\Request;
@@ -22,13 +22,13 @@ class FollowController extends Controller
     public function followersIndex(User $user)
     {
         $followers = $this->service->getFollowers($user);
-        return new FollowCollection($followers);
+        return UserResource::collection($followers);
     }
 
     public function followingIndex(User $user)
     {
         $following = $this->service->getFollowing($user);
-        return new FollowCollection($following);
+        return UserResource::collection($following);
     }
 
     public function create(User $user, Request $request)
