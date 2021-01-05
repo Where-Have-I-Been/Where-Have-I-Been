@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Routing\Router;
@@ -25,4 +27,14 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/photos", [PhotoController::class, "create"]);
     $router->delete("/photos/{photo}", [PhotoController::class, "delete"])->middleware("can:deletePhoto,photo");
     $router->get("/photos/user/{user}", [PhotoController::class, "index"])->middleware("can:listPhotos,user");
+
+    $router->get("/trips", [TripController::class, "index"]);
+    $router->post("/trips", [TripController::class, "create"]);
+    $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:access,trip");
+    $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:access,trip");
+
+    $router->post("/places", [PlaceController::class, "create"]);
+    $router->patch("/places/{place}", [PlaceController::class, "addPhoto"])->middleware("can:access,place");
+    $router->put("/places/{place}", [PlaceController::class, "update"])->middleware("can:access,place");
+    $router->delete("/places/{place}", [PlaceController::class, "delete"])->middleware("can:access,place");
 });

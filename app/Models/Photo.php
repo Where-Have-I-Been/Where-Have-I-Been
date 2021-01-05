@@ -34,6 +34,16 @@ class Photo extends Model
         return $this->HasMany(UserProfile::class);
     }
 
+    public function trips(): HasMany
+    {
+        return $this->HasMany(Trip::class);
+    }
+
+    public function placePhotos(): HasMany
+    {
+        return $this->HasMany(PlacePhoto::class);
+    }
+
     protected static function boot(): void
     {
         parent::boot();

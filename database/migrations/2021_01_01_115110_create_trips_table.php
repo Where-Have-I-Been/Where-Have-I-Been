@@ -15,7 +15,8 @@ class CreateTripsTable extends Migration
             $table->string("description");
             $table->foreignUuid("photo_id")->nullable()->default(null);
 
-            $table->boolean("published");
+            $table->boolean("draft")->default(true);
+            $table->boolean("published")->default(false);
 
             $table->foreign("user_id")->references("id")->on("users")
                 ->onDelete("cascade");

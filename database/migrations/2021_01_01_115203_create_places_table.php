@@ -14,6 +14,8 @@ class CreatePlacesTable extends Migration
             $table->unsignedBigInteger("trip_id");
             $table->unsignedBigInteger("country_id");
             $table->string("city");
+            $table->decimal("lng");
+            $table->decimal("lat");
 
             $table->foreign("trip_id")->references("id")->on("trips")
                 ->onDelete("cascade");
