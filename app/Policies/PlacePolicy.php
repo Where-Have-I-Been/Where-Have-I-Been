@@ -2,17 +2,16 @@
 
 namespace App\Policies;
 
-use App\Models\Trip;
+use App\Models\Place;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TripPolicy
+class PlacePolicy
 {
     use HandlesAuthorization;
 
-    public function access(User $user, Trip $trip)
+    public function access(User $user, Place $place)
     {
-        return $trip->user->is($user);
+        return $place->user->is($user);
     }
-
 }
