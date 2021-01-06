@@ -14,6 +14,7 @@ class UserResource extends JsonResource
 
         return [
             "id" => $this->id,
+            "profile_id" => $this->userProfile->id,
             "email" => $this->email,
             "name" => $this->userProfile->name,
             "avatar" => $this->when($photo !== null, new PhotoResource($photo), null),
