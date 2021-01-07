@@ -15,7 +15,7 @@ class PlaceService implements PlaceServiceInterface
             "name" => $data["name"],
             "description" => $data["description"],
             "city" => $data["city"],
-            "country_id" => $data["country_id"],
+            "country" => $data["country"],
             "lng" => $data["lng"],
             "lat" => $data["lat"],
             "user_id" => $trip->user_id,

@@ -16,7 +16,7 @@ class PlaceResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "description" => $this->description,
-            "country" => $this->when($country !== null, new CountryResource($country), null),
+            "country" => $this->country,
             "city" => $this->city,
             "lng" => $this->lng,
             "lat" => $this->lat,

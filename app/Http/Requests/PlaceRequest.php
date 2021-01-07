@@ -13,9 +13,9 @@ class PlaceRequest extends ApiRequest
                 "required",
                 "string",
             ],
-            "country_id" => [
+            "country" => [
                 "required",
-                "exists:countries,id",
+                "string",
             ],
             "city" => [
                 "required",

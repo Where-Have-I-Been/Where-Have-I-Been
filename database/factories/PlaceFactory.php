@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Place;
+use App\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PlaceFactory extends Factory
@@ -11,13 +12,17 @@ class PlaceFactory extends Factory
 
     public function definition()
     {
+        $trip = Trip::all()->random();
+
         return [
-            "user_id" => rand(1, 5),
-            "trip_id" => rand(1, 5),
-            "country_id" => rand(1, 100),
+            "user_id" => $trip->user_id,
+            "trip_id" =>$trip->id,
+            "country" => $this->faker->country,
             "city" => $this->faker->unique()->city,
-            "name" => $this->faker->unique()->name,
-            "description" => $this->faker->randomLetter,
+            "name" => $this->faker->unique()->word(),
+            "description" =>implode(" ", $this->faker->words),
+            "lat" => rand(1,1000)/2,
+            "lng" => rand(1,1000)/2,
         ];
     }
 }

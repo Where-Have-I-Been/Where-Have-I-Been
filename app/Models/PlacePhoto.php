@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PlacePhoto extends Model
 {
-    protected $table = "placePhotos";
+    protected $table = "place_photo";
 
     protected $fillable = [
-        "user_id",
+        "photo_id",
         "place_id",
     ];
 

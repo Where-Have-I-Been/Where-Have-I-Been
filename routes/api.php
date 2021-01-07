@@ -28,6 +28,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->delete("/photos/{photo}", [PhotoController::class, "delete"])->middleware("can:deletePhoto,photo");
     $router->get("/photos/user/{user}", [PhotoController::class, "index"])->middleware("can:listPhotos,user");
 
+    $router->get("/trips/{trip}", [TripController::class, "show"]);
     $router->get("/trips", [TripController::class, "index"]);
     $router->post("/trips", [TripController::class, "create"]);
     $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:access,trip");

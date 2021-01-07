@@ -11,6 +11,6 @@ class TripsSeeder extends Seeder
 {
     public function run(): void
     {
-        TripFactory::new()->times(5)->create();
+        TripFactory::new()->times(50)->create();
     }
 }
