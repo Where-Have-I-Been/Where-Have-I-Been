@@ -4,6 +4,7 @@ namespace App\Services\Trip;
 
 use App\Models\Trip;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Collection;
 
 
@@ -30,13 +31,24 @@ class TripService implements TripServiceInterface
         $trip->save();
     }
 
-    public function getTrips(User $user): Collection
+    public function getTrips(User $user, User $loggedUser): Collection
     {
-        return $user->trips()->get();
+        if ($user->is($loggedUser)){
+            return $user->trips()->get();
+        }
+
+        return $user->trips()->where("published",true)->get();
     }
 
     public function deleteTrip(Trip $trip)
     {
         $trip->delete();
+    }
+
+    public function checkAccess(Trip $trip, User $loggedUser): void
+    {
+        if ($trip->published === false && !$trip->user->is($loggedUser)) {
+            throw new AuthorizationException(__("resources.access_denied"));
+        }
     }
 }

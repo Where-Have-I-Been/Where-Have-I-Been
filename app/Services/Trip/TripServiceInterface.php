@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 
 interface TripServiceInterface
 {
-    public function getTrips(User $user): Collection;
+    public function checkAccess(Trip $trip, User $loggedUser): void;
+    public function getTrips(User $user, User $loggedUser): Collection;
     public function createTrip(array $data, User $user): void;
     public function updateTrip(Trip $trip, array $data): void;
     public function publishTrip(Trip $trip): void;

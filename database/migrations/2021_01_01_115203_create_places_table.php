@@ -13,6 +13,8 @@ class CreatePlacesTable extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("trip_id");
             $table->unsignedBigInteger("country_id");
+            $table->string("name");
+            $table->string("description");
             $table->string("city");
             $table->decimal("lng");
             $table->decimal("lat");

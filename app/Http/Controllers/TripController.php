@@ -8,6 +8,7 @@ use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
 use App\Services\Trip\TripServiceInterface;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TripController extends Controller
@@ -19,9 +20,15 @@ class TripController extends Controller
         $this->service = $service;
     }
 
-    public function index(User $user)
+    public function show(Trip $trip,Request $request)
     {
-        $trips = $this->service->getTrips($user);
+        $this->service->checkAccess($trip, $request->user());
+        return new TripResource($trip);
+    }
+
+    public function index(User $user, Request $request)
+    {
+        $trips = $this->service->getTrips($user, $request->user());
         return TripResource::collection($trips);
     }
 
@@ -51,7 +58,7 @@ class TripController extends Controller
         $this->service->publishTrip($trip);
 
         return response()->json([
-            "message" => __("trip.published"),
+            "message" => __("resource.published"),
         ],
             Response::HTTP_OK);
     }

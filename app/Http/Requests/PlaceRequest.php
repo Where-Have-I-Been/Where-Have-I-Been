@@ -27,11 +27,9 @@ class PlaceRequest extends ApiRequest
             ],
             "lng" => [
                 "required",
-                "decimal",
             ],
             "lat" => [
                 "required",
-                "decimal",
             ],
         ];
     }
