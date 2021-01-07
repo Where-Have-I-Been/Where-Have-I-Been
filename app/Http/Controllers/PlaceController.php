@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlaceRequest;
+use App\Http\Requests\UpdatePlaceRequest;
 use App\Http\Resources\PlaceResource;
 use App\Models\Place;
 use App\Models\Trip;
 use App\Services\Place\PlaceServiceInterface;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PlaceController extends Controller
@@ -28,7 +30,7 @@ class PlaceController extends Controller
             Response::HTTP_OK);
     }
 
-    public function update(Place $place, PlaceRequest $request)
+    public function update(Place $place, UpdatePlaceRequest $request)
     {
         $this->service->updatePlace($place,$request->validated());
 
@@ -39,9 +41,9 @@ class PlaceController extends Controller
             Response::HTTP_OK);
     }
 
-    public function addPhoto(Place $place, PlaceRequest $request)
+    public function addPhoto(Place $place, Request $request)
     {
-        $this->service->addPhoto($place,$request->input("photo-id"));
+        $this->service->addPhoto($place,$request->query("photo-id"));
 
         return response()->json([
             "message" => __("resources.updated"),

@@ -28,6 +28,11 @@ class Place extends Model
         return $this->BelongsTo(Trip::class);
     }
 
+    public function country(): BelongsTo
+    {
+        return $this->BelongsTo(Country::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->BelongsTo(User::class);

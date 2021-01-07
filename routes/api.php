@@ -32,6 +32,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/trips", [TripController::class, "create"]);
     $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:access,trip");
     $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:access,trip");
+    $router->put("/trips/{trip}/publish", [TripController::class, "publish"])->middleware("can:access,trip");
 
     $router->post("/places", [PlaceController::class, "create"]);
     $router->patch("/places/{place}", [PlaceController::class, "addPhoto"])->middleware("can:access,place");

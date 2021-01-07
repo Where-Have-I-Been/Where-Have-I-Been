@@ -18,7 +18,6 @@ class Trip extends Model
         "name",
         "description",
         "draft",
-        "published",
     ];
 
     public function user(): BelongsTo

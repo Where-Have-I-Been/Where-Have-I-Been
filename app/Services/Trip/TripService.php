@@ -11,13 +11,23 @@ class TripService implements TripServiceInterface
 {
     public function createTrip(array $data, User $user): void
     {
-        Trip::query()->create([$data, "user_id" => $user->id]);
+        Trip::query()->create([
+            "user_id" => $user->id,
+            "name" => $data["name"],
+            "description" => $data["description"]
+        ]);
+
     }
 
-    public function updateTrip(Trip $trip, array $data): Trip
+    public function updateTrip(Trip $trip, array $data): void
     {
         $trip->update($data);
-        return $trip;
+    }
+
+    public function publishTrip(Trip $trip): void
+    {
+        $trip->published = true;
+        $trip->save();
     }
 
     public function getTrips(User $user): Collection

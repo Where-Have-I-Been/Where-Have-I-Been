@@ -4,17 +4,15 @@
 namespace App\Http\Requests;
 
 
-class TripRequest extends ApiRequest
+class UpdateTripRequest extends ApiRequest
 {
     public function rules(): array
     {
         return [
             "name" => [
-                "required",
                 "string",
             ],
             "description" => [
-                "required",
                 "string",
             ],
             "photo_id" => [

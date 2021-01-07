@@ -1,15 +1,13 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\TripRequest;
+use App\Http\Requests\UpdateTripRequest;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
 use App\Services\Trip\TripServiceInterface;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TripController extends Controller
@@ -29,7 +27,7 @@ class TripController extends Controller
 
     public function create(TripRequest $request)
     {
-        $this->service->createTrip($request->validated(),$request->user());
+        $this->service->createTrip($request->validated(), $request->user());
 
         return response()->json([
             "message" => __("resources.created"),
@@ -37,13 +35,23 @@ class TripController extends Controller
             Response::HTTP_OK);
     }
 
-    public function update(Trip $trip, Request $request)
+    public function update(Trip $trip, UpdateTripRequest $request)
     {
-        $trip = $this->service->updateTrip($trip, $request->validated());
+        $this->service->updateTrip($trip, $request->validated());
 
         return response()->json([
             "message" => __("resources.updated"),
             "data" => new TripResource($trip),
+        ],
+            Response::HTTP_OK);
+    }
+
+    public function publish(Trip $trip)
+    {
+        $this->service->publishTrip($trip);
+
+        return response()->json([
+            "message" => __("trip.published"),
         ],
             Response::HTTP_OK);
     }

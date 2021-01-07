@@ -10,22 +10,27 @@ class PlaceRequest extends ApiRequest
     {
         return [
             "name" => [
+                "required",
                 "string",
             ],
             "country_id" => [
+                "required",
                 "exists:countries,id",
             ],
-            "description" => [
+            "city" => [
+                "required",
                 "string",
             ],
-            "photo_id" => [
+            "description" => [
+                "required",
                 "string",
-                "exists:photos,id",
             ],
             "lng" => [
+                "required",
                 "decimal",
             ],
             "lat" => [
+                "required",
                 "decimal",
             ],
         ];

@@ -9,12 +9,18 @@ class PlacePhoto extends Migration
 
     public function up()
     {
-        Schema::create("placePhotos", function (Blueprint $table) {
-            $table->foreignUuid("photo_id")->nullable(false);
+        Schema::create("place_photo", function (Blueprint $table) {
+            $table->string("photo_id")
+                ->nullable(false);
             $table->unsignedBigInteger("place_id");
-            $table->foreign("place_id")->references("id")->on("places")
+            $table->foreign("place_id")
+                ->references("id")
+                ->on("places")
                 ->onDelete("cascade");
-
+            $table->foreign("photo_id")
+                ->references("id")
+                ->on("photos")
+                ->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ class PlacePhoto extends Migration
 
     public function down()
     {
-        Schema::dropIfExists("placePhotos");
+        Schema::dropIfExists("place_photo");
     }
 }
