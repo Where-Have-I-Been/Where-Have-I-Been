@@ -15,7 +15,6 @@ class UpdatePhotos extends Migration
         });
     }
 
-
     public function down(): void
     {
     }

@@ -26,7 +26,6 @@ class PlacePhoto extends Migration
         });
     }
 
-
     public function down(): void
     {
         Schema::dropIfExists("place_photo");

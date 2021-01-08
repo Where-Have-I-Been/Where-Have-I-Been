@@ -12,17 +12,20 @@ class CreateTripsTable extends Migration
     {
         Schema::create("trips", function (Blueprint $table): void {
             $table->bigIncrements("id");
-            $table->unsignedBigInteger("user_id");
             $table->string("name");
             $table->string("description");
-            $table->foreignUuid("photo_id")->nullable()->default(null);
-
-            $table->boolean("published")->default(false);
-
-            $table->foreign("user_id")->references("id")->on("users")
-                ->onDelete("cascade");
-
+            $table->boolean("published")
+                ->default(false);
             $table->timestamps();
+
+            $table->unsignedBigInteger("user_id");
+            $table->foreignUuid("photo_id")
+                ->nullable()
+                ->default(null);
+            $table->foreign("user_id")
+                ->references("id")
+                ->on("users")
+                ->onDelete("cascade");
         });
     }
 

@@ -12,21 +12,20 @@ class CreatePlacesTable extends Migration
     {
         Schema::create("places", function (Blueprint $table): void {
             $table->bigIncrements("id");
-            $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("trip_id");
-            $table->string("country");
             $table->string("name");
             $table->string("description");
+            $table->string("country");
             $table->string("city");
             $table->decimal("lng");
             $table->decimal("lat");
+            $table->timestamps();
 
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("trip_id");
             $table->foreign("trip_id")->references("id")->on("trips")
                 ->onDelete("cascade");
             $table->foreign("user_id")->references("id")->on("users")
                 ->onDelete("cascade");
-
-            $table->timestamps();
         });
     }
 
