@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Http\Resources;
-
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -10,7 +10,7 @@ class PlaceResource extends JsonResource
 {
     public function toArray($request): array
     {
-        $country = $this->country;
+        $photos = $this->placePhotos()->get();
 
         return [
             "id" => $this->id,
@@ -20,7 +20,7 @@ class PlaceResource extends JsonResource
             "city" => $this->city,
             "lng" => $this->lng,
             "lat" => $this->lat,
-            "photos" => PhotoResource::collection($this->photos),
+            "photos" => $this->when($photos !== null, PlacePhotoResource::collection($photos), null),
         ];
     }
 }

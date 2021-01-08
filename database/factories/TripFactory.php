@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use App\Models\Photo;
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -18,10 +19,10 @@ class TripFactory extends Factory
         return [
             "user_id" => $user->id,
             "photo_id" => $user->photos()->inRandomOrder()->firstOrCreate([
-                "path" =>"images/image.png",
-                "name" =>"image.png",
+                "path" => "images/image.png",
+                "name" => "image.png",
                 "user_id" => $user->id,
-                    ])->id,
+            ])->id,
             "name" => $this->faker->unique()->name,
             "description" => $this->faker->randomLetter,
         ];

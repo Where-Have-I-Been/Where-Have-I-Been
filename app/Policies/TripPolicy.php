@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Trip;
@@ -10,9 +12,13 @@ class TripPolicy
 {
     use HandlesAuthorization;
 
-    public function access(User $user, Trip $trip)
+    public function changeState(User $user, Trip $trip)
     {
         return $trip->user->is($user);
     }
 
+    public function getTrip(User $user, Trip $trip)
+    {
+        return $trip->published === true || $trip->user->is($user);
+    }
 }

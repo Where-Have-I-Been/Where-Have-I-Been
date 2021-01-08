@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripRequest;
@@ -20,9 +22,8 @@ class TripController extends Controller
         $this->service = $service;
     }
 
-    public function show(Trip $trip,Request $request)
+    public function show(Trip $trip)
     {
-        $this->service->checkAccess($trip, $request->user());
         return new TripResource($trip);
     }
 
@@ -58,7 +59,7 @@ class TripController extends Controller
         $this->service->publishTrip($trip);
 
         return response()->json([
-            "message" => __("resource.published"),
+            "message" => __("resources.published"),
         ],
             Response::HTTP_OK);
     }

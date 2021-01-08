@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Place;
@@ -10,7 +12,7 @@ class PlacePolicy
 {
     use HandlesAuthorization;
 
-    public function access(User $user, Place $place)
+    public function changeState(User $user, Place $place)
     {
         return $place->user->is($user);
     }

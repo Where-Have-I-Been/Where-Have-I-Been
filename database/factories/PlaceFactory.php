@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Place;
@@ -16,13 +18,13 @@ class PlaceFactory extends Factory
 
         return [
             "user_id" => $trip->user_id,
-            "trip_id" =>$trip->id,
+            "trip_id" => $trip->id,
             "country" => $this->faker->country,
             "city" => $this->faker->unique()->city,
             "name" => $this->faker->unique()->word(),
-            "description" =>implode(" ", $this->faker->words),
-            "lat" => rand(1,1000)/2,
-            "lng" => rand(1,1000)/2,
+            "description" => implode(" ", $this->faker->words),
+            "lat" => rand(1, 1000) / 2,
+            "lng" => rand(1, 1000) / 2,
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Photo;
@@ -10,11 +12,11 @@ class PhotosSeeder extends Seeder
 {
     public function run(): void
     {
-        for ($i=0; $i<50; $i++){
+        for ($i = 0; $i < 50; $i++) {
             $user = User::all()->random();
             Photo::query()->create([
-                "path" =>"images/image.png",
-                "name" =>"image.png",
+                "path" => "images/image.png",
+                "name" => "image.png",
                 "user_id" => $user->id,
             ]);
         }

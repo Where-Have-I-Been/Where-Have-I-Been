@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\User;
@@ -9,10 +11,10 @@ class FollowSeeder extends Seeder
 {
     public function run(): void
     {
-        for ($i=0; $i<50; $i++){
+        for ($i = 0; $i < 50; $i++) {
             $follower = User::all()->random()->follow();
             $following = User::all()->random()->follow();
-            if (!$follower->is($following)){
+            if (!$follower->is($following)) {
                 $follower->follow($following);
             }
         }

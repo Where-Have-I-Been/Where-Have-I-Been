@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlaceRequest;
@@ -22,7 +24,7 @@ class PlaceController extends Controller
 
     public function create(Trip $trip, PlaceRequest $request)
     {
-        $this->service->createPlace($trip,$request->validated());
+        $this->service->createPlace($trip, $request->validated());
 
         return response()->json([
             "message" => __("resources.created"),
@@ -32,10 +34,10 @@ class PlaceController extends Controller
 
     public function update(Place $place, UpdatePlaceRequest $request)
     {
-        $this->service->updatePlace($place,$request->validated());
+        $this->service->updatePlace($place, $request->validated());
 
         return response()->json([
-            "message" => __("resources.created"),
+            "message" => __("resources.updated"),
             "data" => new PlaceResource($place),
         ],
             Response::HTTP_OK);
@@ -43,7 +45,7 @@ class PlaceController extends Controller
 
     public function addPhoto(Place $place, Request $request)
     {
-        $this->service->addPhoto($place,$request->query("photo-id"));
+        $this->service->addPhoto($request->user(), $place, $request->query("photo-id"));
 
         return response()->json([
             "message" => __("resources.updated"),
@@ -56,7 +58,7 @@ class PlaceController extends Controller
         $this->service->deletePlace($place);
 
         return response()->json([
-            "message" => __("resources.created"),
+            "message" => __("resources.deleted"),
         ],
             Response::HTTP_OK);
     }
