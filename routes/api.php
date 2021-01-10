@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\TripController;
@@ -19,6 +20,7 @@ $router->post("/register", [AuthenticationController::class, "register"]);
 $router->get("/countries", [CountryController::class, "index"]);
 
 $router->middleware("auth:sanctum")->group(function ($router): void {
+    $router->get("/users", [UserController::class, "show"]);
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");
 
     $router->get("/profiles/{profile}", [UserProfileController::class, "show"]);
@@ -37,4 +39,9 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/places/trip/{trip}", [PlaceController::class, "create"])->middleware("can:changeState,trip");
     $router->put("/places/{place}", [PlaceController::class, "update"])->middleware("can:changeState,place");
     $router->delete("/places/{place}", [PlaceController::class, "delete"])->middleware("can:changeState,place");
+
+    $router->post("/follows/user/{user}", [FollowController::class, "create"])->middleware("can:createFollow,user");
+    $router->delete("/follows/user/{user}", [FollowController::class, "delete"]);
+    $router->get("/followers/user/{user}", [FollowController::class, "followersIndex"]);
+    $router->get("/following/user/{user}", [FollowController::class, "followingIndex"]);
 });

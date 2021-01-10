@@ -16,6 +16,9 @@ services:
         build:
             context: ./docker/php
             dockerfile: Dockerfile
+            args:
+              XDEBUG_HOST: ${XDEBUG_HOST}
+              XDEBUG_PORT: ${XDEBUG_PORT}
         container_name: map-api
         working_dir: /application
         volumes:

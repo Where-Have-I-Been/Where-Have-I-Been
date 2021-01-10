@@ -10,12 +10,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticated;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Rennokki\Befriended\Contracts\Following;
+use Rennokki\Befriended\Traits\Follow;
 
-class User extends Authenticated
+class User extends Authenticated implements Following
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use Follow;
 
     protected $table = "users";
 
