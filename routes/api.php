@@ -30,13 +30,11 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
 
     $router->post("/trips", [TripController::class, "create"]);
     $router->get("/trips/user/{user}", [TripController::class, "index"]);
-    $router->get("/trips/{trip}", [TripController::class, "show"])->middleware("can:getTrip,trip");
+    $router->get("/trips/{trip}", [TripController::class, "show"])->middleware("can:view,trip");
     $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:changeState,trip");
     $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:changeState,trip");
-    $router->patch("/trips/{trip}/publish", [TripController::class, "publish"])->middleware("can:changeState,trip");
 
     $router->post("/places/trip/{trip}", [PlaceController::class, "create"])->middleware("can:changeState,trip");
     $router->put("/places/{place}", [PlaceController::class, "update"])->middleware("can:changeState,place");
     $router->delete("/places/{place}", [PlaceController::class, "delete"])->middleware("can:changeState,place");
-    $router->patch("/places/{place}", [PlaceController::class, "addPhoto"])->middleware("can:changeState,place");
 });

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Rules\PhotoExists;
+
 class TripRequest extends ApiRequest
 {
     public function rules(): array
@@ -19,7 +21,7 @@ class TripRequest extends ApiRequest
             ],
             "photo_id" => [
                 "string",
-                "exists:photos,id",
+                new PhotoExists($this->user()),
             ],
         ];
     }

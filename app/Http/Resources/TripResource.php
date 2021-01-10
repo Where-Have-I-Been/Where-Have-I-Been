@@ -19,7 +19,7 @@ class TripResource extends JsonResource
             "description" => $this->description,
             "published" => $this->published,
             "photo" => $this->when($photo !== null, new PhotoResource($photo), null),
-            "places" => $this->when($places !== null, PlaceResource::collection($places), null),
+            "places" => $this->when($places !== null, PlaceResource::collection($places), []),
         ];
     }
 }

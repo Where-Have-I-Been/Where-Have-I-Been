@@ -54,16 +54,6 @@ class TripController extends Controller
             Response::HTTP_OK);
     }
 
-    public function publish(Trip $trip)
-    {
-        $this->service->publishTrip($trip);
-
-        return response()->json([
-            "message" => __("resources.published"),
-        ],
-            Response::HTTP_OK);
-    }
-
     public function delete(Trip $trip)
     {
         $this->service->deleteTrip($trip);

@@ -7,14 +7,12 @@ namespace App\Services\Place;
 use App\Models\Place;
 use App\Models\PlacePhoto;
 use App\Models\Trip;
-use App\Models\User;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class PlaceService implements PlaceServiceInterface
 {
     public function createPlace(Trip $trip, array $data): void
     {
-        Place::query()->create([
+        $place = new Place([
             "country" => $data["country"],
             "name" => $data["name"],
             "description" => $data["description"],
@@ -24,6 +22,8 @@ class PlaceService implements PlaceServiceInterface
             "user_id" => $trip->user_id,
             "trip_id" => $trip->id,
         ]);
+        $place->save();
+        $this->addPhotos($place, $data["photos"]);
     }
 
     public function updatePlace(Place $place, array $data): void
@@ -36,15 +36,13 @@ class PlaceService implements PlaceServiceInterface
         $place->delete();
     }
 
-    public function addPhoto(User $user, Place $place, string $photoId): void
+    private function addPhotos(Place $place, array $photos): void
     {
-        if (!$user->photos()->where("id", $photoId)->exists()) {
-            throw new AuthorizationException(__("resources.photo_access_denied"));
+        foreach ($photos as $photoId) {
+            PlacePhoto::query()->create([
+                "place_id" => $place->id,
+                "photo_id" => $photoId,
+            ]);
         }
-
-        PlacePhoto::query()->create([
-            "place_id" => $place->id,
-            "photo_id" => $photoId,
-        ]);
     }
 }

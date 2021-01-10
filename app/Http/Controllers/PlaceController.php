@@ -10,7 +10,6 @@ use App\Http\Resources\PlaceResource;
 use App\Models\Place;
 use App\Models\Trip;
 use App\Services\Place\PlaceServiceInterface;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PlaceController extends Controller
@@ -39,16 +38,6 @@ class PlaceController extends Controller
         return response()->json([
             "message" => __("resources.updated"),
             "data" => new PlaceResource($place),
-        ],
-            Response::HTTP_OK);
-    }
-
-    public function addPhoto(Place $place, Request $request)
-    {
-        $this->service->addPhoto($request->user(), $place, $request->query("photo-id"));
-
-        return response()->json([
-            "message" => __("resources.updated"),
         ],
             Response::HTTP_OK);
     }

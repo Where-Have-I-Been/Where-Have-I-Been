@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-use App\Models\Photo;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PlacePhotoResource extends JsonResource
@@ -13,7 +12,7 @@ class PlacePhotoResource extends JsonResource
     {
         return [
             "photo_id" => $this->photo_id,
-            "url" => asset(Photo::query()->where("id", $this->photo_id)->first()->path),
+            "url" => asset($this->photo->path),
         ];
     }
 }

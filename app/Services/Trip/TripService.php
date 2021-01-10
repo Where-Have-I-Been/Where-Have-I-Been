@@ -6,17 +6,12 @@ namespace App\Services\Trip;
 
 use App\Models\Trip;
 use App\Models\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Collection;
 
 class TripService implements TripServiceInterface
 {
     public function createTrip(array $data, User $user): void
     {
-        if ($data["photo_id"] !== null && !$user->photos()->where("id", $data["photo_id"])->exists()) {
-            throw new AuthorizationException(__("resources.photo_access_denied"));
-        }
-
         Trip::query()->create([
             "user_id" => $user->id,
             "photo_id" => $data["photo_id"],
@@ -42,11 +37,5 @@ class TripService implements TripServiceInterface
     public function deleteTrip(Trip $trip): void
     {
         $trip->delete();
-    }
-
-    public function publishTrip(Trip $trip): void
-    {
-        $trip->published = true;
-        $trip->save();
     }
 }

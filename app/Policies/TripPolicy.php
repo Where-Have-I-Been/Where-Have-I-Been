@@ -17,8 +17,8 @@ class TripPolicy
         return $trip->user->is($user);
     }
 
-    public function getTrip(User $user, Trip $trip)
+    public function view(User $user, Trip $trip)
     {
-        return $trip->published === true || $trip->user->is($user);
+        return $trip->published === 1 || $trip->user->is($user);
     }
 }

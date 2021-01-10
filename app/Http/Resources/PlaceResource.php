@@ -20,7 +20,7 @@ class PlaceResource extends JsonResource
             "city" => $this->city,
             "lng" => $this->lng,
             "lat" => $this->lat,
-            "photos" => $this->when($photos !== null, PlacePhotoResource::collection($photos), null),
+            "photos" => $this->when($photos !== null, PlacePhotoResource::collection($photos), []),
         ];
     }
 }

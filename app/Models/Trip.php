@@ -17,6 +17,7 @@ class Trip extends Model
         "photo_id",
         "name",
         "description",
+        "published",
     ];
 
     public function user(): BelongsTo
