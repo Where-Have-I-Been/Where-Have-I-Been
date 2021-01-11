@@ -19,4 +19,9 @@ class Country extends Model
     {
         return $this->HasMany(UserProfile::class);
     }
+
+    public function places(): HasMany
+    {
+        return $this->HasMany(Place::class);
+    }
 }

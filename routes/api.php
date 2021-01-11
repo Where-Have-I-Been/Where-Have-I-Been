@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Routing\Router;
@@ -25,8 +27,18 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->put("/profiles/{profile}", [UserProfileController::class, "update"])->middleware("can:update,profile");
 
     $router->post("/photos", [PhotoController::class, "create"]);
-    $router->delete("/photos/{photo}", [PhotoController::class, "delete"])->middleware("can:deletePhoto,photo");
     $router->get("/photos/user/{user}", [PhotoController::class, "index"])->middleware("can:listPhotos,user");
+    $router->delete("/photos/{photo}", [PhotoController::class, "delete"])->middleware("can:deletePhoto,photo");
+
+    $router->post("/trips", [TripController::class, "create"]);
+    $router->get("/trips/user/{user}", [TripController::class, "index"]);
+    $router->get("/trips/{trip}", [TripController::class, "show"])->middleware("can:view,trip");
+    $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:changeState,trip");
+    $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:changeState,trip");
+
+    $router->post("/places/trip/{trip}", [PlaceController::class, "create"])->middleware("can:changeState,trip");
+    $router->put("/places/{place}", [PlaceController::class, "update"])->middleware("can:changeState,place");
+    $router->delete("/places/{place}", [PlaceController::class, "delete"])->middleware("can:changeState,place");
 
     $router->post("/follows/user/{user}", [FollowController::class, "create"])->middleware("can:createFollow,user");
     $router->delete("/follows/user/{user}", [FollowController::class, "delete"]);

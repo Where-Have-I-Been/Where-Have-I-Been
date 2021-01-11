@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use Database\Factories\UserFactory;
+use Database\Factories\PlaceFactory;
 use Illuminate\Database\Seeder;
 
-class UsersSeeder extends Seeder
+class PlacesSeeder extends Seeder
 {
     public function run(): void
     {
-        UserFactory::new()->times(20)->create();
+        PlaceFactory::new()->times(100)->create();
     }
 }

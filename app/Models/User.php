@@ -44,4 +44,14 @@ class User extends Authenticated implements Following
     {
         return $this->HasMany(Photo::class);
     }
+
+    public function places(): HasMany
+    {
+        return $this->HasMany(Place::class);
+    }
+
+    public function trips(): HasMany
+    {
+        return $this->HasMany(Trip::class);
+    }
 }
