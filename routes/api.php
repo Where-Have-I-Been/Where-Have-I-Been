@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\TripController;
@@ -44,4 +45,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->delete("/follows/user/{user}", [FollowController::class, "delete"]);
     $router->get("/followers/user/{user}", [FollowController::class, "followersIndex"]);
     $router->get("/following/user/{user}", [FollowController::class, "followingIndex"]);
+
+    $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
+
 });
