@@ -8,6 +8,8 @@ use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
 use App\Services\Follow\FollowService;
 use App\Services\Follow\FollowServiceInterface;
+use App\Services\Like\LikeService;
+use App\Services\Like\LikeServiceInterface;
 use App\Services\Photo\PhotoService;
 use App\Services\Photo\PhotoServiceInterface;
 use App\Services\Place\PlaceService;
@@ -31,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TripServiceInterface::class, TripService::class);
         $this->app->bind(PlaceServiceInterface::class, PlaceService::class);
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
+        $this->app->bind(LikeServiceInterface::class, LikeService::class);
     }
 
     public function boot(): void

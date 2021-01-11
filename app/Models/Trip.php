@@ -7,9 +7,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Rennokki\Befriended\Contracts\Likeable;
+use Rennokki\Befriended\Traits\CanBeLiked;
 
-class Trip extends Model
+class Trip extends Model implements Likeable
 {
+    use CanBeLiked;
+
     protected $table = "trips";
 
     protected $fillable = [
