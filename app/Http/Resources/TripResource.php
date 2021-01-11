@@ -17,7 +17,7 @@ class TripResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "description" => $this->description,
-            "published" => $this->published,
+            "user" => new UserResource($this->user),
             "photo" => $this->when($photo !== null, new PhotoResource($photo), null),
             "places" => $this->when($places !== null, PlaceResource::collection($places), []),
         ];
