@@ -7,12 +7,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 use Rennokki\Befriended\Contracts\Likeable;
+use Rennokki\Befriended\Scopes\LikeFilterable;
 use Rennokki\Befriended\Traits\CanBeLiked;
 
 class Trip extends Model implements Likeable
 {
     use CanBeLiked;
+    use LikeFilterable;
+    use Searchable;
 
     protected $table = "trips";
 
