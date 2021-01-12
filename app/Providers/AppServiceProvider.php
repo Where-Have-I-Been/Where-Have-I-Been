@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
+use App\Services\Filter\FilterService;
+use App\Services\Filter\FilterServiceInterface;
 use App\Services\Follow\FollowService;
 use App\Services\Follow\FollowServiceInterface;
 use App\Services\Like\LikeService;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PlaceServiceInterface::class, PlaceService::class);
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
         $this->app->bind(LikeServiceInterface::class, LikeService::class);
+        $this->app->bind(FilterServiceInterface::class, FilterService::class);
     }
 
     public function boot(): void
