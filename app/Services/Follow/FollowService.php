@@ -15,7 +15,7 @@ class FollowService implements FollowServiceInterface
         $result = $loggedUser->follow($following);
 
         if ($result === false) {
-            throw new ResourceException(__("resources.not_exist"));
+            throw new ResourceException(__("resources.exists"));
         }
     }
 
@@ -24,7 +24,7 @@ class FollowService implements FollowServiceInterface
         $result = $loggedUser->unfollow($following);
 
         if ($result === false) {
-            throw new ResourceException(__("resources.exists"));
+            throw new ResourceException(__("resources.not_exist"));
         }
     }
 
