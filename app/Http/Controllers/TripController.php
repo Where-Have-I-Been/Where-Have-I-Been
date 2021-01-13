@@ -9,17 +9,20 @@ use App\Http\Requests\UpdateTripRequest;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
+use App\Services\Trip\QueryTripServiceInterface;
 use App\Services\Trip\TripServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TripController extends Controller
 {
-    private TripServiceInterface $service;
+    private TripServiceInterface $tripService;
+    private QueryTripServiceInterface $queryService;
 
-    public function __construct(TripServiceInterface $service)
+    public function __construct(TripServiceInterface $tripService, QueryTripServiceInterface $queryService)
     {
-        $this->service = $service;
+        $this->tripService = $tripService;
+        $this->queryService = $queryService;
     }
 
     public function show(Trip $trip)
@@ -29,13 +32,31 @@ class TripController extends Controller
 
     public function index(User $user, Request $request)
     {
-        $trips = $this->service->getTrips($user, $request->user());
+        $trips = $this->queryService->getTrips([
+            "city" => $request->query("city"),
+            "only-liked"=>$request->query("only-liked"),
+            "only-followings"=>$request->query("only-followings"),
+        ],
+            $request->query("sort"),
+            $request->user());
+        return TripResource::collection($trips);
+    }
+
+    public function search(Request $request)
+    {
+        $trips = $this->queryService->searchTrips($request->query("search-query"));
+        return TripResource::collection($trips);
+    }
+
+    public function indexForUser(User $user, Request $request)
+    {
+        $trips = $this->tripService->getTrips($user, $request->user());
         return TripResource::collection($trips);
     }
 
     public function create(TripRequest $request)
     {
-        $this->service->createTrip($request->validated(), $request->user());
+        $this->tripService->createTrip($request->validated(), $request->user());
 
         return response()->json([
             "message" => __("resources.created"),
@@ -45,7 +66,7 @@ class TripController extends Controller
 
     public function update(Trip $trip, UpdateTripRequest $request)
     {
-        $this->service->updateTrip($trip, $request->validated());
+        $this->tripService->updateTrip($trip, $request->validated());
 
         return response()->json([
             "message" => __("resources.updated"),
@@ -56,7 +77,7 @@ class TripController extends Controller
 
     public function delete(Trip $trip)
     {
-        $this->service->deleteTrip($trip);
+        $this->tripService->deleteTrip($trip);
 
         return response()->json([
             "message" => __("resources.deleted"),

@@ -6,8 +6,6 @@ namespace App\Providers;
 
 use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
-use App\Services\Filter\FilterService;
-use App\Services\Filter\FilterServiceInterface;
 use App\Services\Follow\FollowService;
 use App\Services\Follow\FollowServiceInterface;
 use App\Services\Like\LikeService;
@@ -16,6 +14,8 @@ use App\Services\Photo\PhotoService;
 use App\Services\Photo\PhotoServiceInterface;
 use App\Services\Place\PlaceService;
 use App\Services\Place\PlaceServiceInterface;
+use App\Services\Trip\QueryTripService;
+use App\Services\Trip\QueryTripServiceInterface;
 use App\Services\Trip\TripService;
 use App\Services\Trip\TripServiceInterface;
 use App\Services\UserProfile\UserProfileService;
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PlaceServiceInterface::class, PlaceService::class);
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
         $this->app->bind(LikeServiceInterface::class, LikeService::class);
-        $this->app->bind(FilterServiceInterface::class, FilterService::class);
+        $this->app->bind(QueryTripServiceInterface::class, QueryTripService::class);
     }
 
     public function boot(): void

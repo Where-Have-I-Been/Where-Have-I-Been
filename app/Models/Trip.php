@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -41,5 +42,24 @@ class Trip extends Model implements Likeable
     public function places(): HasMany
     {
         return $this->HasMany(Place::class);
+    }
+
+    public function scopeFollowings(Builder $query, User $user): Builder
+    {
+        return $query->whereHas("user", function ($query) use ($user) {
+            $query->whereHas("followers", function ($query) use ($user) {
+                $query->where("follower_id", $user->id);
+            });
+        });
+    }
+
+    public function scopeCity(Builder $query, string $city): Builder
+    {
+        return $query->orderBy("city",$city);
+    }
+
+    public function scopeCountry(Builder $query, string $country): Builder
+    {
+        return $query->orderBy("city",$country);
     }
 }
