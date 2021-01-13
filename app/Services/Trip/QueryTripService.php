@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Trip;
 
 use App\Models\Trip;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class QueryTripService implements QueryTripServiceInterface
 {
@@ -17,7 +19,7 @@ class QueryTripService implements QueryTripServiceInterface
 
     public function searchTrips(string $searchRequest): Collection
     {
-        return Trip::search($searchRequest)->where("published",1)->get();
+        return Trip::search($searchRequest)->where("published", 1)->get();
     }
 
     private function filterTrips(array $filtersParameters, User $user): Builder
@@ -27,10 +29,10 @@ class QueryTripService implements QueryTripServiceInterface
         if ($filtersParameters["city"] !== null) {
             $query = Trip::City($filtersParameters["city"]);
         }
-        if ($filtersParameters["only-followings"] == true) {
+        if ($filtersParameters["only-followings"] === true) {
             $query = Trip::followings($user);
         }
-        if ($filtersParameters["only-liked"] == true) {
+        if ($filtersParameters["only-liked"] === true) {
             $query = Trip::likedBy($user);
         }
 
@@ -39,16 +41,13 @@ class QueryTripService implements QueryTripServiceInterface
 
     private function sort(Builder $query, ?string $sortParameter): Collection
     {
-       if ($sortParameter == "likes") {
+        if ($sortParameter === "likes") {
             return $this->sortByLikes($query);
-        }
-        else if ($sortParameter == "updated") {
+        } elseif ($sortParameter === "updated") {
             return $query->orderBy("updated_at")->get();
-        }
-        else if ($sortParameter == "created") {
+        } elseif ($sortParameter === "created") {
             return $query->orderBy("created_at")->get();
-        }
-        else {
+        } else {
             return $query->get();
         }
     }

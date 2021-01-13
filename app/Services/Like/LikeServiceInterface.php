@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Like;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,5 +11,4 @@ interface LikeServiceInterface
 {
     public function createLike(Model $model, Liker $liker): void;
     public function deleteLike(Model $model, Liker $liker): void;
-
 }

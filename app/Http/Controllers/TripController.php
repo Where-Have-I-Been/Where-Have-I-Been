@@ -34,8 +34,8 @@ class TripController extends Controller
     {
         $trips = $this->queryService->getTrips([
             "city" => $request->query("city"),
-            "only-liked"=>$request->query("only-liked"),
-            "only-followings"=>$request->query("only-followings"),
+            "only-liked" => $request->query("only-liked"),
+            "only-followings" => $request->query("only-followings"),
         ],
             $request->query("sort"),
             $request->user());

@@ -24,7 +24,7 @@ class TripFactory extends Factory
                 "user_id" => $user->id,
             ])->id,
             "name" => $this->faker->unique()->word,
-            "description" => implode(" ", $this->faker->words)
+            "description" => implode(" ", $this->faker->words),
         ];
     }
 }
