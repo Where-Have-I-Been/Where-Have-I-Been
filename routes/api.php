@@ -51,8 +51,8 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
     $router->delete("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
 
-    $router->get("/trips-result", [SearchController::class, "trips"]);
+    $router->get("/trips-result", [TripController::class, "search"]);
 
-    $router->get("/filters/trips", [FilterController::class, "trips"]);
+    $router->get("/trips", [TripController::class, "index"]);
 
 });

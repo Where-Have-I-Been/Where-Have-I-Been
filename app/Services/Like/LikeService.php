@@ -25,7 +25,4 @@ class LikeService implements LikeServiceInterface
             throw new ResourceException("you can't delete this resource");
         }
     }
-
-
-
 }

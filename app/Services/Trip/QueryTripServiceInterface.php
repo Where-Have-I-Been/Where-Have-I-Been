@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Services\Trip;
+
+use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+
+interface QueryTripServiceInterface
+{
+    public function getTrips(array $filtersParameters, ?string $sortParameter, User $user): Collection;
+    public function searchTrips(string $searchRequest): Collection;
+}

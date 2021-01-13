@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             TripsSeeder::class,
             PlacesSeeder::class,
             PlacePhotosSeeder::class,
+            FollowSeeder::class,
+            LikesSeeder::class,
         ]);
     }
 }
