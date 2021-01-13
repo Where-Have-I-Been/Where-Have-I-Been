@@ -29,6 +29,7 @@ class PlaceService implements PlaceServiceInterface
     public function updatePlace(Place $place, array $data): void
     {
         $place->update($data);
+        $this->addPhotos($place, $data["photos"]);
     }
 
     public function deletePlace(Place $place): void
