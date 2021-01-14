@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Scopes\FollowingsFilterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ class Trip extends Model implements Likeable
     use CanBeLiked;
     use LikeFilterable;
     use Searchable;
+    use FollowingsFilterable;
 
     protected $table = "trips";
 
@@ -27,6 +29,11 @@ class Trip extends Model implements Likeable
         "name",
         "description",
         "published",
+        "likes",
+    ];
+
+    protected $casts = [
+        "published" => "boolean",
     ];
 
     public function user(): BelongsTo
@@ -44,22 +51,13 @@ class Trip extends Model implements Likeable
         return $this->HasMany(Place::class);
     }
 
-    public function scopeFollowings(Builder $query, User $user): Builder
+    public function scopeByCity(Builder $query, string $city): Builder
     {
-        return $query->whereHas("user", function ($query) use ($user): void {
-            $query->whereHas("followers", function ($query) use ($user): void {
-                $query->where("follower_id", $user->id);
-            });
-        });
+        return $query->groupBy("city", $city);
     }
 
-    public function scopeCity(Builder $query, string $city): Builder
+    public function scopeByCountry(Builder $query, string $country): Builder
     {
-        return $query->orderBy("city", $city);
-    }
-
-    public function scopeCountry(Builder $query, string $country): Builder
-    {
-        return $query->orderBy("city", $country);
+        return $query->groupBy("country", $country);
     }
 }

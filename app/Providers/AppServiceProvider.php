@@ -14,6 +14,8 @@ use App\Services\Photo\PhotoService;
 use App\Services\Photo\PhotoServiceInterface;
 use App\Services\Place\PlaceService;
 use App\Services\Place\PlaceServiceInterface;
+use App\Services\Search\SearchService;
+use App\Services\Search\SearchServiceInterface;
 use App\Services\Trip\QueryTripService;
 use App\Services\Trip\QueryTripServiceInterface;
 use App\Services\Trip\TripService;
@@ -37,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
         $this->app->bind(LikeServiceInterface::class, LikeService::class);
         $this->app->bind(QueryTripServiceInterface::class, QueryTripService::class);
+        $this->app->bind(SearchServiceInterface::class, SearchService::class);
     }
 
     public function boot(): void

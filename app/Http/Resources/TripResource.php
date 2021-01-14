@@ -13,7 +13,6 @@ class TripResource extends JsonResource
     {
         $places = $this->places()->get();
         $photo = $this->photo;
-
         return [
             "id" => $this->id,
             "name" => $this->name,

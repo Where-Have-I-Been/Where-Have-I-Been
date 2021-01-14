@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTripRequest;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
+use App\Services\Search\SearchServiceInterface;
 use App\Services\Trip\QueryTripServiceInterface;
 use App\Services\Trip\TripServiceInterface;
 use Illuminate\Http\Request;
@@ -17,12 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
 class TripController extends Controller
 {
     private TripServiceInterface $tripService;
-    private QueryTripServiceInterface $queryService;
 
-    public function __construct(TripServiceInterface $tripService, QueryTripServiceInterface $queryService)
+    public function __construct(TripServiceInterface $tripService)
     {
         $this->tripService = $tripService;
-        $this->queryService = $queryService;
     }
 
     public function show(Trip $trip)
@@ -30,9 +29,9 @@ class TripController extends Controller
         return new TripResource($trip);
     }
 
-    public function index(User $user, Request $request)
+    public function index(Request $request, QueryTripServiceInterface $service)
     {
-        $trips = $this->queryService->getTrips([
+        $trips = $service->getTrips([
             "city" => $request->query("city"),
             "only-liked" => $request->query("only-liked"),
             "only-followings" => $request->query("only-followings"),
@@ -42,9 +41,9 @@ class TripController extends Controller
         return TripResource::collection($trips);
     }
 
-    public function search(Request $request)
+    public function search(Request $request, SearchServiceInterface $service)
     {
-        $trips = $this->queryService->searchTrips($request->query("search-query"));
+        $trips = $service->searchTrips($request->query("search-query"));
         return TripResource::collection($trips);
     }
 
