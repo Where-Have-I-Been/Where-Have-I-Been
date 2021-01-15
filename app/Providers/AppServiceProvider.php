@@ -16,8 +16,9 @@ use App\Services\Place\PlaceService;
 use App\Services\Place\PlaceServiceInterface;
 use App\Services\Search\SearchService;
 use App\Services\Search\SearchServiceInterface;
-use App\Services\Trip\QueryTripService;
-use App\Services\Trip\QueryTripServiceInterface;
+use App\Services\Trip\Filter\TripFilter;
+use App\Services\Trip\Filter\TripFilterInterface;
+use App\Services\Trip\Sorter\TripSorter;
 use App\Services\Trip\TripService;
 use App\Services\Trip\TripServiceInterface;
 use App\Services\UserProfile\UserProfileService;
@@ -38,7 +39,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PlaceServiceInterface::class, PlaceService::class);
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
         $this->app->bind(LikeServiceInterface::class, LikeService::class);
-        $this->app->bind(QueryTripServiceInterface::class, QueryTripService::class);
+        $this->app->bind(TripFilterInterface::class, TripFilter::class);
+        $this->app->bind(TripServiceInterface::class, TripSorter::class);
         $this->app->bind(SearchServiceInterface::class, SearchService::class);
     }
 

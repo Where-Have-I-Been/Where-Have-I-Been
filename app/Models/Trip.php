@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Scopes\FollowingsFilterable;
-use Illuminate\Database\Eloquent\Builder;
+use App\Scopes\TripFilters;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,8 +17,9 @@ use Rennokki\Befriended\Traits\CanBeLiked;
 class Trip extends Model implements Likeable
 {
     use CanBeLiked;
-    use LikeFilterable;
     use Searchable;
+    use LikeFilterable;
+    use TripFilters;
     use FollowingsFilterable;
 
     protected $table = "trips";
@@ -49,15 +50,5 @@ class Trip extends Model implements Likeable
     public function places(): HasMany
     {
         return $this->HasMany(Place::class);
-    }
-
-    public function scopeByCity(Builder $query, string $city): Builder
-    {
-        return $query->groupBy("city", $city);
-    }
-
-    public function scopeByCountry(Builder $query, string $country): Builder
-    {
-        return $query->groupBy("country", $country);
     }
 }

@@ -6,6 +6,8 @@ namespace App\Services\Trip;
 
 use App\Models\Trip;
 use App\Models\User;
+use App\Services\Trip\Filter\TripFilterInterface;
+use App\Services\Trip\Sorter\TripSorterInterface;
 use Illuminate\Support\Collection;
 
 class TripService implements TripServiceInterface
@@ -20,7 +22,16 @@ class TripService implements TripServiceInterface
         ]);
     }
 
-    public function getTrips(User $user, User $loggedUser): Collection
+    public function getTrips(array $filters, ?string $sortBy, User $user): Collection
+    {
+        $filter = app(TripFilterInterface::class);
+        $sorter = app(TripSorterInterface::class);
+        $query = $filter->filterTrips($filters, $user);
+        return $sorter->sortTrips($query, $sortBy);
+    }
+
+
+    public function getUserTrips(User $user, User $loggedUser): Collection
     {
         if ($user->is($loggedUser)) {
             return $user->trips()->get();
