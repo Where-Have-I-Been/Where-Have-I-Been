@@ -10,13 +10,11 @@
         "php": "^7.4",
         "ext-json": "*",
         "ext-pdo": "*",
-        "algolia/algoliasearch-client-php": "^2.7",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.8",
-        "laravel/scout": "^8.5",
         "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.5",
         "rennokki/befriended": "^3.7"
