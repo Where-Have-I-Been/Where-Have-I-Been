@@ -22,7 +22,7 @@ class PlaceFactory extends Factory
             "country" => $this->faker->country,
             "city" => $this->faker->unique()->city,
             "name" => $this->faker->unique()->word(),
-            "description" => implode(" ", $this->faker->words),
+            "description" => $this->faker->sentence,
             "lat" => rand(1, 1000) / 2,
             "lng" => rand(1, 1000) / 2,
         ];

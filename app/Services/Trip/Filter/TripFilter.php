@@ -6,24 +6,25 @@ namespace App\Services\Trip\Filter;
 
 use App\Models\Trip;
 use App\Models\User;
+use App\Services\Trip\TripQueryString\QueryStringData;
 use Illuminate\Database\Eloquent\Builder;
 
 class TripFilter implements TripFilterInterface
 {
-    public function filterTrips(array $filters, User $user): Builder
+    public function filterTrips(QueryStringData $data, User $user): Builder
     {
         $query = Trip::query();
 
-        if (array_key_exists("city", $filters)) {
-            $query = $query->byCity($filters["city"]);
+        if ($data->byCity()) {
+            $query = $query->byCity($data->city);
         }
-        if (array_key_exists("country", $filters)) {
-            $query = $query->byCountry($filters["country"]);
+        if ($data->byCountry()) {
+            $query = $query->byCountry($data->country);
         }
-        if (array_key_exists("only-followings", $filters) && $filters["only-followings"] === "true") {
+        if ($data->onlyByFollowings) {
             $query = $query->byFollowings($user);
         }
-        if (array_key_exists("only-liked", $filters) && $filters["only-liked"] === "true") {
+        if ($data->onlyByLiked) {
             $query = $query->likedBy($user);
         }
 

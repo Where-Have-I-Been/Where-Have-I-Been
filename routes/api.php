@@ -32,10 +32,12 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->delete("/photos/{photo}", [PhotoController::class, "delete"])->middleware("can:deletePhoto,photo");
 
     $router->post("/trips", [TripController::class, "create"]);
-    $router->get("/trips/user/{user}", [TripController::class, "index"]);
+    $router->get("/trips/user/{user}", [TripController::class, "indexForUser"]);
     $router->get("/trips/{trip}", [TripController::class, "show"])->middleware("can:view,trip");
     $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:changeState,trip");
     $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:changeState,trip");
+    $router->get("/trips-result", [TripController::class, "search"]);
+    $router->get("/trips", [TripController::class, "index"]);
 
     $router->post("/places/trip/{trip}", [PlaceController::class, "create"])->middleware("can:changeState,trip");
     $router->put("/places/{place}", [PlaceController::class, "update"])->middleware("can:changeState,place");
@@ -48,8 +50,4 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
 
     $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
     $router->delete("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
-
-    $router->get("/trips-result", [TripController::class, "search"]);
-
-    $router->get("/trips", [TripController::class, "index"]);
 });

@@ -10,6 +10,7 @@ use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
 use App\Services\Search\SearchServiceInterface;
+use App\Services\Trip\TripQueryString\TripRequestMapperInterface;
 use App\Services\Trip\TripServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +29,10 @@ class TripController extends Controller
         return new TripResource($trip);
     }
 
-    public function index(Request $request)
+    public function index(Request $request, TripRequestMapperInterface $mapperService)
     {
-        $trips = $this->service->getTrips($request->all(),
-            $request->query("sort"),
+        $trips = $this->service->getTrips($mapperService->map(
+            $request->only("sort", "country", "city", "only-followings", "only-liked")),
             $request->user());
         return TripResource::collection($trips);
     }
