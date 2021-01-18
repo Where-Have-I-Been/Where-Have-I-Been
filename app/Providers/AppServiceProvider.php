@@ -45,7 +45,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TripFilterInterface::class, TripFilter::class);
         $this->app->bind(TripSorterInterface::class, TripSorter::class);
         $this->app->bind(TripRequestMapperInterface::class, TripRequestMapper::class);
-        $this->app->bind(SearchServiceInterface::class, SearchService::class);
     }
 
     public function boot(): void

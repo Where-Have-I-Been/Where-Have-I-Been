@@ -32,6 +32,13 @@ class TripService implements TripServiceInterface
         ]);
     }
 
+    public function searchTrips(string $searchRequest, ?string $perPage): LengthAwarePaginator
+    {
+        return Trip::query()
+            ->where("name", "like", "%{$searchRequest}%")
+            ->paginate($perPage);
+    }
+
     public function getTrips(QueryStringData $data, User $user, ?string $perPage): LengthAwarePaginator
     {
         $query = Trip::query();

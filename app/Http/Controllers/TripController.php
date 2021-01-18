@@ -10,7 +10,6 @@ use App\Http\Resources\PaginationCollection;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
-use App\Services\Search\SearchServiceInterface;
 use App\Services\Trip\TripQueryString\Mapper\TripRequestMapperInterface;
 use App\Services\Trip\TripServiceInterface;
 use Illuminate\Http\Request;
@@ -39,9 +38,9 @@ class TripController extends Controller
         return new PaginationCollection($trips);
     }
 
-    public function search(Request $request, SearchServiceInterface $service)
+    public function search(Request $request)
     {
-        $trips = $service->searchTrips($request->query("search-query"), $request->input("per-page"));
+        $trips = $this->service->searchTrips($request->query("search-query"), $request->input("per-page"));
         return new PaginationCollection($trips);
     }
 
