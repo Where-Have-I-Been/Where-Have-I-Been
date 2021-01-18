@@ -21,7 +21,7 @@ $router->post("/register", [AuthenticationController::class, "register"]);
 $router->get("/countries", [CountryController::class, "index"]);
 
 $router->middleware("auth:sanctum")->group(function ($router): void {
-    $router->get("/users", [UserController::class, "show"]);
+    $router->get("/user", [UserController::class, "show"]);
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");
 
     $router->get("/profiles/{profile}", [UserProfileController::class, "show"]);
@@ -49,5 +49,5 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/following/user/{user}", [FollowController::class, "followingIndex"]);
 
     $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
-    $router->delete("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
+    $router->delete("/likes/trip/{trip}", [LikeController::class, "unlikeTrip"]);
 });

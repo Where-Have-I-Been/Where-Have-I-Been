@@ -23,8 +23,9 @@ class TripFactory extends Factory
                 "name" => "image.png",
                 "user_id" => $user->id,
             ])->id,
-            "name" => $this->faker->unique()->word,
+            "name" => $this->faker->word,
             "description" => $this->faker->sentence,
+            "published" => $this->faker->boolean(60),
         ];
     }
 }

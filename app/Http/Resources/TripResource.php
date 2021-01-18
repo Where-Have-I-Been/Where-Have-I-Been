@@ -12,9 +12,11 @@ class TripResource extends JsonResource
     public function toArray($request): array
     {
         $photo = $this->photo;
+
         return [
             "id" => $this->id,
             "name" => $this->name,
+            "public" => $this->published,
             "description" => $this->description,
             "user" => new UserResource($this->user),
             "likes" => $this->likers(User::class)->count(),

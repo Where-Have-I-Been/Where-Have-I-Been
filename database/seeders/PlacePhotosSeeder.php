@@ -12,7 +12,7 @@ class PlacePhotosSeeder extends Seeder
 {
     public function run(): void
     {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $place = Place::all()->random();
             PlacePhoto::query()->create([
                 "place_id" => $place->id,

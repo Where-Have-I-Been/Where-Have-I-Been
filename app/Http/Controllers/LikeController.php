@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Place;
 use App\Models\Trip;
-use App\Services\Like\LikeServiceInterface;
+use App\Services\Like\TripLikeServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
 {
-    private LikeServiceInterface $service;
+    private TripLikeServiceInterface $service;
 
-    public function __construct(LikeServiceInterface $service)
+    public function __construct(TripLikeServiceInterface $service)
     {
         $this->service = $service;
     }
@@ -29,7 +28,7 @@ class LikeController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function unlikeTrip(Place $trip, Request $request): JsonResponse
+    public function unlikeTrip(Trip $trip, Request $request): JsonResponse
     {
         $this->service->deleteLike($trip, $request->user());
 

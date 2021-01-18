@@ -7,9 +7,9 @@ namespace App\Services\Trip;
 use App\Models\Trip;
 use App\Models\User;
 use App\Services\Trip\Filter\TripFilterInterface;
-use App\Services\Trip\TripQueryString\QueryStringData;
 use App\Services\Trip\Sorter\TripSorterInterface;
-use Illuminate\Support\Collection;
+use App\Services\Trip\TripQueryString\QueryStringData;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class TripService implements TripServiceInterface
 {
@@ -32,26 +32,27 @@ class TripService implements TripServiceInterface
         ]);
     }
 
-    public function getTrips(QueryStringData $data, User $user): Collection
+    public function getTrips(QueryStringData $data, User $user, ?string $perPage): LengthAwarePaginator
     {
         $query = Trip::query();
         if ($data->isToBeFiltered()) {
             $query = $this->filter->filterTrips($data, $user);
         }
         if ($data->isToBeSorted()) {
-            return $this->sorter->sort($query, $data);
+            $query = $this->sorter->sort($query, $data);
         }
 
-        return $query->get();
+        return $query->paginate($perPage);
     }
 
-    public function getUserTrips(User $user, User $loggedUser): Collection
+    public function getUserTrips(User $user, User $loggedUser, ?string $perPage): LengthAwarePaginator
     {
         if ($user->is($loggedUser)) {
-            return $user->trips()->with("places")->get();
+            return $user->trips()->withoutGlobalScope("published")
+                ->with("places")->paginate($perPage);
         }
 
-        return $user->trips()->where("published", true)->with("places")->get();
+        return $user->trips()->with("places")->paginate($perPage);
     }
 
     public function updateTrip(Trip $trip, array $data): void

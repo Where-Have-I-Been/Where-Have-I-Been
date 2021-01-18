@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Trip\TripQueryString;
 
 class QueryStringData
@@ -26,7 +28,7 @@ class QueryStringData
     public function isToBeFiltered(): bool
     {
         return $this->onlyByFollowings || $this->onlyByLiked
-            || $this->city != "" || $this->country != "";
+            || $this->city !== "" || $this->country !== "";
     }
 
     public function isToBeSorted(): bool

@@ -6,11 +6,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TripRequest;
 use App\Http\Requests\UpdateTripRequest;
+use App\Http\Resources\PaginationCollection;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
 use App\Services\Search\SearchServiceInterface;
-use App\Services\Trip\TripQueryString\TripRequestMapperInterface;
+use App\Services\Trip\TripQueryString\Mapper\TripRequestMapperInterface;
 use App\Services\Trip\TripServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,20 +34,21 @@ class TripController extends Controller
     {
         $trips = $this->service->getTrips($mapperService->map(
             $request->only("sort", "country", "city", "only-followings", "only-liked")),
-            $request->user());
-        return TripResource::collection($trips);
+            $request->user(),
+            $request->input("per-page"));
+        return new PaginationCollection($trips);
     }
 
     public function search(Request $request, SearchServiceInterface $service)
     {
-        $trips = $service->searchTrips($request->query("search-query"));
-        return TripResource::collection($trips);
+        $trips = $service->searchTrips($request->query("search-query"), $request->input("per-page"));
+        return new PaginationCollection($trips);
     }
 
     public function indexForUser(User $user, Request $request)
     {
-        $trips = $this->service->getUserTrips($user, $request->user());
-        return TripResource::collection($trips);
+        $trips = $this->service->getUserTrips($user, $request->user(), $request->input("per-page"));
+        return new PaginationCollection($trips);
     }
 
     public function create(TripRequest $request)

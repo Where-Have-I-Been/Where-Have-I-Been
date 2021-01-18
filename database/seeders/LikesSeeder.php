@@ -12,10 +12,12 @@ class LikesSeeder extends Seeder
 {
     public function run(): void
     {
-        for ($i = 0; $i < 40; $i++) {
+        for ($i = 0; $i < 80; $i++) {
             $liker = User::all()->random();
             $trip = Trip::all()->random();
             $liker->like($trip);
+            ++$trip->likes_count;
+            $trip->save();
         }
     }
 }

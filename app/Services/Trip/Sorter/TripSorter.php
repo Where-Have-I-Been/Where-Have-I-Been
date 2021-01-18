@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace App\Services\Trip\Sorter;
 
-use App\Models\User;
-use App\Services\Like\LikeServiceInterface;
+use App\Exceptions\ApiException;
 use App\Services\Trip\TripQueryString\QueryStringData;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 
 class TripSorter implements TripSorterInterface
 {
-    public function sort(Builder $query, QueryStringData $data): Collection
+    public function sort(Builder $query, QueryStringData $data): Builder
     {
         if ($data->sortByLikes) {
-            $service = app(LikeServiceInterface::class);
-            return $service->sortByLikes($query, User::class);
+            return $query->orderByDesc("likes_count");
         }
         if ($data->sortByUpdated) {
-            return $query->orderBy("updated_at")->get();
+            return $query->orderBy("updated_at");
         }
         if ($data->sortByCreated) {
-            return $query->orderBy("created_at")->get();
+            return $query->orderBy("created_at");
         }
-
-        return $query->get();
+        throw new ApiException("Invalid sort parameter");
     }
 }
