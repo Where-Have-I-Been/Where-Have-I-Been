@@ -20,9 +20,9 @@ class PlaceFactory extends Factory
             "user_id" => $trip->user_id,
             "trip_id" => $trip->id,
             "country" => $this->faker->country,
-            "city" => $this->faker->unique()->city,
-            "name" => $this->faker->unique()->word(),
-            "description" => implode(" ", $this->faker->words),
+            "city" => $this->faker->city,
+            "name" => $this->faker->word(),
+            "description" => $this->faker->sentence,
             "lat" => rand(1, 1000) / 2,
             "lng" => rand(1, 1000) / 2,
         ];

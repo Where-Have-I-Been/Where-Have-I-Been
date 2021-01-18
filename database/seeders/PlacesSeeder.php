@@ -11,6 +11,6 @@ class PlacesSeeder extends Seeder
 {
     public function run(): void
     {
-        PlaceFactory::new()->times(100)->create();
+        PlaceFactory::new()->times(120)->create();
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PhotoRequest;
+use App\Http\Resources\PaginationCollection;
 use App\Http\Resources\PhotoResource;
 use App\Models\Photo;
 use App\Models\User;
@@ -27,7 +28,7 @@ class PhotoController extends Controller
     {
         $photosWithPagination = $this->service->getUserPhotos($user, $request->query("per-page"));
 
-        return PhotoResource::collection($photosWithPagination);
+        return new PaginationCollection($photosWithPagination);
     }
 
     public function create(PhotoRequest $request): JsonResponse

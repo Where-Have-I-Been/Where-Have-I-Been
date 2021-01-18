@@ -11,14 +11,17 @@ use Illuminate\Foundation\Auth\User as Authenticated;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Rennokki\Befriended\Contracts\Following;
+use Rennokki\Befriended\Contracts\Liker;
+use Rennokki\Befriended\Traits\CanLike;
 use Rennokki\Befriended\Traits\Follow;
 
-class User extends Authenticated implements Following
+class User extends Authenticated implements Following, Liker
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
     use Follow;
+    use CanLike;
 
     protected $table = "users";
 

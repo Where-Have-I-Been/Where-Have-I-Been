@@ -6,9 +6,9 @@ namespace App\Services\Photo;
 
 use App\Models\Photo;
 use App\Models\User;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Pagination\Paginator;
 
 class PhotoService implements PhotoServiceInterface
 {
@@ -26,11 +26,9 @@ class PhotoService implements PhotoServiceInterface
         $photo->delete();
     }
 
-    public function getUserPhotos(User $user, ?string $perPage): Paginator
+    public function getUserPhotos(User $user, ?string $perPage): LengthAwarePaginator
     {
-        $photos = $user->photos()->simplePaginate($perPage);
-
-        return $photos->withQueryString();
+        return $user->photos()->paginate($perPage);
     }
 
     private function createPhoto(string $path, User $user): Photo

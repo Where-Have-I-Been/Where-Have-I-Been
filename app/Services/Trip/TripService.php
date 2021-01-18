@@ -6,10 +6,22 @@ namespace App\Services\Trip;
 
 use App\Models\Trip;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use App\Services\Trip\Filter\TripFilterInterface;
+use App\Services\Trip\Sorter\TripSorterInterface;
+use App\Services\Trip\TripQueryString\QueryStringData;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class TripService implements TripServiceInterface
 {
+    protected TripFilterInterface $filter;
+    protected TripSorterInterface $sorter;
+
+    public function __construct(TripFilterInterface $filter, TripSorterInterface $sorter)
+    {
+        $this->filter = $filter;
+        $this->sorter = $sorter;
+    }
+
     public function createTrip(array $data, User $user): void
     {
         Trip::query()->create([
@@ -20,13 +32,34 @@ class TripService implements TripServiceInterface
         ]);
     }
 
-    public function getTrips(User $user, User $loggedUser): Collection
+    public function searchTrips(string $searchRequest, ?string $perPage): LengthAwarePaginator
     {
-        if ($user->is($loggedUser)) {
-            return $user->trips()->get();
+        return Trip::query()
+            ->where("name", "like", "%{$searchRequest}%")
+            ->paginate($perPage);
+    }
+
+    public function getTrips(QueryStringData $data, User $user, ?string $perPage): LengthAwarePaginator
+    {
+        $query = Trip::query();
+        if ($data->isToBeFiltered()) {
+            $query = $this->filter->filterTrips($data, $user);
+        }
+        if ($data->isToBeSorted()) {
+            $query = $this->sorter->sort($query, $data);
         }
 
-        return $user->trips()->where("published", true)->get();
+        return $query->paginate($perPage);
+    }
+
+    public function getUserTrips(User $user, User $loggedUser, ?string $perPage): LengthAwarePaginator
+    {
+        if ($user->is($loggedUser)) {
+            return $user->trips()->withoutGlobalScope("published")
+                ->with("places")->paginate($perPage);
+        }
+
+        return $user->trips()->with("places")->paginate($perPage);
     }
 
     public function updateTrip(Trip $trip, array $data): void
