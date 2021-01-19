@@ -77,4 +77,9 @@ class Trip extends Model implements Likeable
             $builder->where("published", 1);
         });
     }
+
+    public function resolveRouteBinding($key, $field = null)
+    {
+        return Trip::query()->with("places")->with("likers")->withoutGlobalScope("published")->find($key);
+    }
 }
