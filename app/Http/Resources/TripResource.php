@@ -9,6 +9,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class TripResource extends JsonResource
 {
+    private User $loggedUser;
+
+    public function __construct($resource,User $user)
+    {
+        parent::__construct($resource);
+        $this->resource = $resource;
+
+        $this->loggedUser = $user;
+    }
     public function toArray($request): array
     {
         $photo = $this->photo;
@@ -18,10 +27,11 @@ class TripResource extends JsonResource
             "name" => $this->name,
             "public" => $this->published,
             "description" => $this->description,
-            "user" => new UserResource($this->user),
+            "user" => new UserResource($this->loggedUser),
             "likes" => $this->likers(User::class)->count(),
-            "create-date" => $this->created_at->format("Y-m-d"),
-            "update-date" => $this->updated_at->format("Y-m-d"),
+            "liked" => $this->loggedUser->isLiking($this->resource),
+            "create_date" => $this->created_at->format("Y-m-d"),
+            "update_date" => $this->updated_at->format("Y-m-d"),
             "photo" => $this->when($photo !== null, new PhotoResource($photo), null),
             "places" => PlaceResource::collection($this->whenLoaded("places")),
         ];

@@ -55,11 +55,10 @@ class TripService implements TripServiceInterface
     public function getUserTrips(User $user, User $loggedUser, ?string $perPage): LengthAwarePaginator
     {
         if ($user->is($loggedUser)) {
-            return $user->trips()->withoutGlobalScope("published")
-                ->with("places")->paginate($perPage);
+            return $user->trips()->withoutGlobalScope("published")->paginate($perPage);
         }
 
-        return $user->trips()->with("places")->paginate($perPage);
+        return $user->trips()->paginate($perPage);
     }
 
     public function updateTrip(Trip $trip, array $data): void
