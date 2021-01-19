@@ -14,8 +14,6 @@ use App\Services\Photo\PhotoService;
 use App\Services\Photo\PhotoServiceInterface;
 use App\Services\Place\PlaceService;
 use App\Services\Place\PlaceServiceInterface;
-use App\Services\Search\SearchService;
-use App\Services\Search\SearchServiceInterface;
 use App\Services\Trip\Filter\TripFilter;
 use App\Services\Trip\Filter\TripFilterInterface;
 use App\Services\Trip\Sorter\TripSorter;
@@ -24,6 +22,12 @@ use App\Services\Trip\TripQueryString\Mapper\TripRequestMapper;
 use App\Services\Trip\TripQueryString\Mapper\TripRequestMapperInterface;
 use App\Services\Trip\TripService;
 use App\Services\Trip\TripServiceInterface;
+use App\Services\User\Filter\UserFilter;
+use App\Services\User\Filter\UserFilterInterface;
+use App\Services\User\UserQueryString\Mapper\UserMapper;
+use App\Services\User\UserQueryString\Mapper\UserMapperInterface;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceInterface;
 use App\Services\UserProfile\UserProfileService;
 use App\Services\UserProfile\UserProfileServiceInterface;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -45,6 +49,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TripFilterInterface::class, TripFilter::class);
         $this->app->bind(TripSorterInterface::class, TripSorter::class);
         $this->app->bind(TripRequestMapperInterface::class, TripRequestMapper::class);
+        $this->app->bind(UserMapperInterface::class, UserMapper::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
+        $this->app->bind(UserFilterInterface::class, UserFilter::class);
     }
 
     public function boot(): void
