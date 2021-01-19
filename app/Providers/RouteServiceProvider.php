@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Trip;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -23,6 +24,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware("web")
                 ->group(base_path("routes/web.php"));
+
+            Route::bind("trip", function ($key){
+                return Trip::query()->with("places")->withoutGlobalScope("published")->with("likers")->find($key);
+            });
         });
     }
 

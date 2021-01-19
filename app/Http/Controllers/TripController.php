@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TripRequest;
 use App\Http\Requests\UpdateTripRequest;
-use App\Http\Resources\PaginationCollection;
+use App\Http\Resources\TripCollection;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Models\User;
@@ -24,9 +24,9 @@ class TripController extends Controller
         $this->service = $tripService;
     }
 
-    public function show(Trip $trip)
+    public function show(Trip $trip, Request $request)
     {
-        return new TripResource($trip);
+        return new TripResource($trip, $request->user());
     }
 
     public function index(Request $request, TripRequestMapperInterface $mapperService)
@@ -35,19 +35,19 @@ class TripController extends Controller
             $request->only("sort", "country", "city", "only-followings", "only-liked")),
             $request->user(),
             $request->input("per-page"));
-        return new PaginationCollection($trips);
+        return new TripCollection($trips, $request->user());
     }
 
     public function search(Request $request)
     {
         $trips = $this->service->searchTrips($request->query("search-query"), $request->input("per-page"));
-        return new PaginationCollection($trips);
+        return new TripCollection($trips, $request->user());
     }
 
     public function indexForUser(User $user, Request $request)
     {
         $trips = $this->service->getUserTrips($user, $request->user(), $request->input("per-page"));
-        return new PaginationCollection($trips);
+        return new TripCollection($trips, $request->user());
     }
 
     public function create(TripRequest $request)
