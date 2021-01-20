@@ -20,7 +20,7 @@ class TripRequestMapper implements TripRequestMapperInterface
         $mappedData->onlyByFollowings = array_key_exists("only-followings", $data)
             && $data["only-followings"] === "true" && $data["only-followings"] !== null;
         $mappedData->onlyByLiked = array_key_exists("only-liked", $data)
-            && $data["only-liked"] === "true"  && $data["only-liked"] !== null;
+            && $data["only-liked"] === "true" && $data["only-liked"] !== null;
 
         if (array_key_exists("city", $data) && $data["city"] !== null) {
             $mappedData->city = $data["city"];
