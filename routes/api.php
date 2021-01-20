@@ -37,7 +37,6 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/trips/{trip}", [TripController::class, "show"])->middleware("can:view,trip");
     $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:changeState,trip");
     $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:changeState,trip");
-    $router->get("/trips-result", [TripController::class, "search"]);
     $router->get("/trips", [TripController::class, "index"]);
 
     $router->post("/places/trip/{trip}", [PlaceController::class, "create"])->middleware("can:changeState,trip");

@@ -13,6 +13,8 @@ class QueryStringData
     public bool $sortByLikes;
     public bool $sortByUpdated;
     public bool $sortByCreated;
+    public string $searchQuery;
+
 
     public function __construct()
     {
@@ -23,12 +25,19 @@ class QueryStringData
         $this->sortByLikes = false;
         $this->sortByUpdated = false;
         $this->sortByCreated = false;
+        $this->searchQuery = "";
+
     }
 
     public function isToBeFiltered(): bool
     {
         return $this->onlyByFollowings || $this->onlyByLiked
-            || $this->city !== "" || $this->country !== "";
+            || $this->byCity() || $this->byCountry() || $this->isToBeSearch();
+    }
+
+    public function isToBeSearch(): bool
+    {
+        return $this->searchQuery !== "";
     }
 
     public function isToBeSorted(): bool
