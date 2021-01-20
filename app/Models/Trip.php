@@ -75,6 +75,11 @@ class Trip extends Model implements Likeable
         return $query->where("name", "like", "%{$searchRequest}%");
     }
 
+    public function resolveRouteBinding($key, $field = null)
+    {
+        return self::query()->with("places")->with("likers")->withoutGlobalScope("published")->find($key);
+    }
+
     protected static function boot(): void
     {
         parent::boot();
@@ -82,10 +87,5 @@ class Trip extends Model implements Likeable
         static::addGlobalScope("published", function (Builder $builder): void {
             $builder->where("published", 1);
         });
-    }
-
-    public function resolveRouteBinding($key, $field = null)
-    {
-        return Trip::query()->with("places")->with("likers")->withoutGlobalScope("published")->find($key);
     }
 }

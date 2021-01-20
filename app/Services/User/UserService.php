@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\User;
 
 use App\Models\User;
@@ -17,11 +19,11 @@ class UserService implements UserServiceInterface
     }
 
     public function getUsers(QueryStringData $data, User $user, ?string $perPage): LengthAwarePaginator
-   {
-       if ($data->isToBeFiltered()) {
-           return $this->filter->filterUsers($data, $user)->paginate($perPage);
-       }
+    {
+        if ($data->isToBeFiltered()) {
+            return $this->filter->filterUsers($data, $user)->paginate($perPage);
+        }
 
-       return User::query()->paginate($perPage);
-   }
+        return User::query()->paginate($perPage);
+    }
 }

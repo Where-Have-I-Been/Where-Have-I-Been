@@ -13,6 +13,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "~6.0",
+        "krzysztofrewak/larahat": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.8",
         "laravel/telescope": "^4.3",
@@ -56,9 +57,11 @@
         ],
         "psalm": "./vendor/bin/psalm",
         "ecs": "./vendor/bin/ecs check",
+        "behat": "./vendor/bin/behat --format progress",
         "check": [
             "composer psalm",
-            "composer ecs"
+            "composer ecs",
+            "composer behat"
         ]
     }
 }
