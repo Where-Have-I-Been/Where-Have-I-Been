@@ -2,21 +2,24 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Statistics\StatisticsCreatorInterface;
 use Illuminate\Console\Command;
 
 class GenerateStatistics extends Command
 {
-    protected $signature = 'command:name';
+    protected $signature = "statistics:generate";
 
-    protected $description = 'Command description';
+    private StatisticsCreatorInterface $creator;
 
-    public function __construct()
+    function __construct(StatisticsCreatorInterface $creator)
     {
         parent::__construct();
+        $this->creator = $creator;
     }
+
 
     public function handle()
     {
-        return 0;
+        $this->creator->save();
     }
 }

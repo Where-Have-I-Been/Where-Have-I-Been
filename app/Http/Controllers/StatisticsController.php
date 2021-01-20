@@ -17,7 +17,8 @@ class StatisticsController extends Controller
 
     public function show(Request $request): JsonResponse
     {
-
+        $statisticsReport = $this->getter->getStatistics($request->query("month"),$request->query("year"));
+        return response()->json($statisticsReport);
     }
 
 }

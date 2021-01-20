@@ -13,6 +13,7 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Artisan;
 
 $router = app(Router::class);
 
@@ -53,5 +54,8 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->delete("/likes/trip/{trip}", [LikeController::class, "unlikeTrip"]);
 
     $router->get("/statistics", [StatisticsController::class, "show"]);
+    $router->post('/statistics', function () {
+          Artisan::call("statistics:generate");
+    });
 
 });

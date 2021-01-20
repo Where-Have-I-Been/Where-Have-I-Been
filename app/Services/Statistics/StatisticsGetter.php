@@ -6,8 +6,10 @@ use App\Models\StatisticsReport;
 
 class StatisticsGetter implements StatisticsGetterInterface
 {
-    public function getStatistics(string $date): StatisticsReport
+    public function getStatistics(string $month,string $year)
     {
-
+        return StatisticsReport::query()
+            ->whereYear("created_at","=", $year)
+            ->whereMonth("created_at","=",$month)->first()->get();
     }
 }
