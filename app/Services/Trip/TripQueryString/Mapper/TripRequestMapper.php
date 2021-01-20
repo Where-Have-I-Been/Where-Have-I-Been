@@ -17,18 +17,20 @@ class TripRequestMapper implements TripRequestMapperInterface
 
     private function mapFilters(QueryStringData $mappedData, array $data): QueryStringData
     {
-        $mappedData->onlyByFollowings = array_key_exists("only-followings", $data) && $data["only-followings"] === "true";
-        $mappedData->onlyByLiked = array_key_exists("only-liked", $data) && $data["only-liked"] === "true";
+        $mappedData->onlyByFollowings = array_key_exists("only-followings", $data)
+            && $data["only-followings"] === "true" && $data["only-followings"] !== null;
+        $mappedData->onlyByLiked = array_key_exists("only-liked", $data)
+            && $data["only-liked"] === "true" && $data["only-liked"] !== null;
 
-        if (array_key_exists("city", $data)) {
+        if (array_key_exists("city", $data) && $data["city"] !== null) {
             $mappedData->city = $data["city"];
         }
 
-        if (array_key_exists("country", $data)) {
+        if (array_key_exists("country", $data) && $data["country"] !== null) {
             $mappedData->country = $data["country"];
         }
 
-        if (array_key_exists("search-query", $data)) {
+        if (array_key_exists("search-query", $data) && $data["search-query"] !== null) {
             $mappedData->searchQuery = $data["search-query"];
         }
 
@@ -37,7 +39,7 @@ class TripRequestMapper implements TripRequestMapperInterface
 
     private function mapSortParameter(QueryStringData $mappedData, array $data): QueryStringData
     {
-        if (array_key_exists("sort", $data)) {
+        if (array_key_exists("sort", $data) && $data["sort"] !== null) {
             $mappedData->sortByLikes = $data["sort"] === "likes";
             $mappedData->sortByCreated = $data["sort"] === "updated";
             $mappedData->sortByUpdated = $data["sort"] === "created";
