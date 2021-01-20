@@ -35,7 +35,7 @@ class UserController extends Controller
     public function index(Request $request, UserMapperInterface $mapperService)
     {
         $trips = $this->service->getUsers($mapperService->map(
-            $request->only("by-followings", "by-friends", "search-query")),
+            $request->only("by-followings", "by-followers", "search-query")),
             $request->user(),
             $request->input("per-page"));
         return UserResource::collection($trips);

@@ -7,20 +7,20 @@ namespace App\Services\User\UserQueryString;
 class QueryStringData
 {
     public bool $byFollowings;
-    public bool $byFriends;
+    public bool $byFollowers;
     public string $searchQuery;
 
     public function __construct()
     {
         $this->byFollowings = false;
-        $this->byFriends = false;
+        $this->byFollowers = false;
         $this->searchQuery = "";
 
     }
 
     public function isToBeFiltered(): bool
     {
-        return $this->byFollowings || $this->byFriends;
+        return $this->byFollowings || $this->byFollowers;
     }
 
     public function isToBeSearch(): bool

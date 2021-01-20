@@ -15,8 +15,8 @@ class UserFilter implements UserFilterInterface
         if ($data->byFollowings) {
             $query = $query->byFollowings($user);
         }
-        if ($data->byFriends) {
-            $query = $query->byFriends($user);
+        if ($data->byFollowers) {
+            $query = $query->byFollowers($user);
         }
         if ($data->isToBeSearch()) {
             $query = $query->search($user);

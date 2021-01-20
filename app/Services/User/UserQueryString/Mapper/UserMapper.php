@@ -13,7 +13,7 @@ class UserMapper implements UserMapperInterface
     {
         $mappedData = new QueryStringData();
         $mappedData->byFollowings = array_key_exists("by-followings", $data) && $data["by-followings"] === "true";
-        $mappedData->byFriends = array_key_exists("by-friends", $data) && $data["by-friends"] === "true";
+        $mappedData->byFollowers = array_key_exists("by-followers", $data) && $data["by-followers"] === "true";
 
         if (array_key_exists("search-query", $data)){
             $mappedData->searchQuery = $data["search-query"];
