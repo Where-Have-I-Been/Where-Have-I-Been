@@ -16,6 +16,12 @@ use App\Services\Place\PlaceService;
 use App\Services\Place\PlaceServiceInterface;
 use App\Services\Search\SearchService;
 use App\Services\Search\SearchServiceInterface;
+use App\Services\Statistics\StatisticsGenerator;
+use App\Services\Statistics\StatisticsGeneratorInterface;
+use App\Services\Statistics\StatisticsGetter;
+use App\Services\Statistics\StatisticsGetterInterface;
+use App\Services\Statistics\StatisticsWriter;
+use App\Services\Statistics\StatisticsWriterInterface;
 use App\Services\Trip\Filter\TripFilter;
 use App\Services\Trip\Filter\TripFilterInterface;
 use App\Services\Trip\Sorter\TripSorter;
@@ -45,6 +51,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TripFilterInterface::class, TripFilter::class);
         $this->app->bind(TripSorterInterface::class, TripSorter::class);
         $this->app->bind(TripRequestMapperInterface::class, TripRequestMapper::class);
+
+
+        $this->app->bind(StatisticsGeneratorInterface::class, StatisticsGenerator::class);
+        $this->app->bind(StatisticsGetterInterface::class, StatisticsGetter::class);
+        $this->app->bind(StatisticsWriterInterface::class, StatisticsWriter::class);
     }
 
     public function boot(): void

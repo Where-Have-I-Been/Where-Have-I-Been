@@ -8,6 +8,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
@@ -50,4 +51,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
 
     $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
     $router->delete("/likes/trip/{trip}", [LikeController::class, "unlikeTrip"]);
+
+    $router->get("/statistics", [StatisticsController::class, "show"]);
+
 });
