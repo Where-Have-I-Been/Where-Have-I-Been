@@ -2,9 +2,9 @@ name: Build & Test the application
 
 on:
   push:
-    branches: [ "#4-set-up-github-actions" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "#4-set-up-github-actions" ]
+    branches: [ "develop" ]
 
 jobs:
   build:
