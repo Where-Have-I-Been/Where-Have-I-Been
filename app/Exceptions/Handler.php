@@ -11,6 +11,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
@@ -24,7 +25,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof AuthenticationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
-        if ($exception instanceof ModelNotFoundException || $exception instanceof RouteNotFoundException) {
+        if ($exception instanceof ModelNotFoundException || $exception instanceof RouteNotFoundException || $exception instanceof NotFoundHttpException) {
             return $this->renderJsonResponse("Not found", Response::HTTP_NOT_FOUND);
         }
         if ($exception instanceof ValidationException) {

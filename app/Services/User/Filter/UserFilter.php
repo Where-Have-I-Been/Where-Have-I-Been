@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\User\Filter;
 
 use App\Models\User;
@@ -12,16 +14,13 @@ class UserFilter implements UserFilterInterface
     {
         $query = User::query();
 
-        if ($data->isToBeSearch())
-        {
+        if ($data->isToBeSearch()) {
             $query = $query->search($data->searchQuery);
         }
-        if ($data->byFollowings)
-        {
+        if ($data->byFollowings) {
             $query = $query->byFollowings($user);
         }
-        if ($data->byFollowers)
-        {
+        if ($data->byFollowers) {
             $query = $query->byFollowers($user);
         }
 

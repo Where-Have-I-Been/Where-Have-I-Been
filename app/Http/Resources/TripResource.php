@@ -11,9 +11,10 @@ class TripResource extends JsonResource
 {
     private User $loggedUser;
 
-    public function __construct($resource,User $user)
+    public function __construct($resource, User $user)
     {
         parent::__construct($resource);
+
         $this->resource = $resource;
 
         $this->loggedUser = $user;

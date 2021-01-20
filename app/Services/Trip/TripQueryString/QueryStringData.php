@@ -26,7 +26,6 @@ class QueryStringData
         $this->sortByUpdated = false;
         $this->sortByCreated = false;
         $this->searchQuery = "";
-
     }
 
     public function isToBeFiltered(): bool

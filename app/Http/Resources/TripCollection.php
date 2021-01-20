@@ -12,9 +12,10 @@ class TripCollection extends ResourceCollection
 {
     private User $loggedUser;
 
-    public function __construct($resource,User $user)
+    public function __construct($resource, User $user)
     {
         parent::__construct($resource);
+
         $this->resource = $resource;
 
         $this->loggedUser = $user;
@@ -22,12 +23,12 @@ class TripCollection extends ResourceCollection
     public function toArray($request)
     {
         $collection = new Collection();
-        foreach ($this->collection as $element){
+        foreach ($this->collection as $element) {
             $collection->add(new TripResource($element, $this->loggedUser));
         }
 
         return [
-            "data" =>[$collection],
+            "data" => [$collection],
             "pagination" => [
                 "total" => $this->total(),
                 "count" => $this->count(),

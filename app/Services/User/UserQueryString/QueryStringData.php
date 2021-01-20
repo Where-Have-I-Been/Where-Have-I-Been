@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Services\User\UserQueryString;
-
 
 class QueryStringData
 {
@@ -15,7 +15,6 @@ class QueryStringData
         $this->byFollowings = false;
         $this->byFollowers = false;
         $this->searchQuery = "";
-
     }
 
     public function isToBeFiltered(): bool
