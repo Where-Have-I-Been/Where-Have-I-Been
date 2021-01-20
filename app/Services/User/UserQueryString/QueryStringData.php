@@ -20,7 +20,7 @@ class QueryStringData
 
     public function isToBeFiltered(): bool
     {
-        return $this->byFollowings || $this->byFollowers;
+        return $this->byFollowings || $this->byFollowers || $this->isToBeSearch();
     }
 
     public function isToBeSearch(): bool

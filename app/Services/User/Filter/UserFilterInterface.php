@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 interface UserFilterInterface
 {
-    public function filterTrips(QueryStringData $data, User $user): Builder;
+    public function filterUsers(QueryStringData $data, User $user): Builder;
 
 }

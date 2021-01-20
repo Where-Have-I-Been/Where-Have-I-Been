@@ -18,11 +18,10 @@ class UserService implements UserServiceInterface
 
     public function getUsers(QueryStringData $data, User $user, ?string $perPage): LengthAwarePaginator
    {
-       $query = User::query();
        if ($data->isToBeFiltered()) {
-           $query = $this->filter->filterTrips($data, $user);
+           return $this->filter->filterUsers($data, $user)->paginate($perPage);
        }
 
-       return $query->paginate($perPage);
+       return User::query()->paginate($perPage);
    }
 }

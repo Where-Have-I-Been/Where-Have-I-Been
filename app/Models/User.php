@@ -75,7 +75,8 @@ class User extends Authenticated implements Following, Liker
 
     public function scopeSearch(Builder $query, string $searchQuery): Builder
     {
-        return  $query->where("name", "like", "%{$searchQuery}%")
-            ->orWhere("email", "like", "%{$searchQuery}%");
+        return $query->whereHas("userProfile",function (Builder $query) use ($searchQuery){
+            $query->where("name","like","%{$searchQuery}%");
+        })->orWhere("email", "like", "%{$searchQuery}%");
     }
 }

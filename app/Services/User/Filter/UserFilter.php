@@ -8,19 +8,23 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UserFilter implements UserFilterInterface
 {
-    public function filterTrips(QueryStringData $data, User $user): Builder
+    public function filterUsers(QueryStringData $data, User $user): Builder
     {
         $query = User::query();
 
-        if ($data->byFollowings) {
+        if ($data->isToBeSearch())
+        {
+            $query = $query->search($data->searchQuery);
+        }
+        if ($data->byFollowings)
+        {
             $query = $query->byFollowings($user);
         }
-        if ($data->byFollowers) {
+        if ($data->byFollowers)
+        {
             $query = $query->byFollowers($user);
         }
-        if ($data->isToBeSearch()) {
-            $query = $query->search($user);
-        }
+
         return $query;
     }
 }
