@@ -28,6 +28,10 @@ class TripRequestMapper implements TripRequestMapperInterface
             $mappedData->country = $data["country"];
         }
 
+        if (array_key_exists("search-query", $data)) {
+            $mappedData->searchQuery = $data["search-query"];
+        }
+
         return $mappedData;
     }
 

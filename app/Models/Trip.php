@@ -69,6 +69,12 @@ class Trip extends Model implements Likeable
             $query->where("country", $country);
         });
     }
+
+    public function scopeSearch(Builder $query, string $searchRequest): Builder
+    {
+        return $query->where("name", "like", "%{$searchRequest}%");
+    }
+
     protected static function boot(): void
     {
         parent::boot();

@@ -22,6 +22,7 @@ $router->get("/countries", [CountryController::class, "index"]);
 
 $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/user", [UserController::class, "show"]);
+    $router->get("/users", [UserController::class, "index"]);
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");
 
     $router->get("/profiles/{profile}", [UserProfileController::class, "show"]);
@@ -36,7 +37,6 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/trips/{trip}", [TripController::class, "show"])->middleware("can:view,trip");
     $router->put("/trips/{trip}", [TripController::class, "update"])->middleware("can:changeState,trip");
     $router->delete("/trips/{trip}", [TripController::class, "delete"])->middleware("can:changeState,trip");
-    $router->get("/trips-result", [TripController::class, "search"]);
     $router->get("/trips", [TripController::class, "index"]);
 
     $router->post("/places/trip/{trip}", [PlaceController::class, "create"])->middleware("can:changeState,trip");
