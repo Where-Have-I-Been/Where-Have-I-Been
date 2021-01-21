@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Collection;
 
-class TripCollection extends ResourceCollection
+class TripCollection extends PaginatedCollection
 {
     private User $loggedUser;
 
@@ -28,20 +28,7 @@ class TripCollection extends ResourceCollection
 
         return [
             "data" =>[$collection],
-            "pagination" => [
-                "total" => $this->total(),
-                "count" => $this->count(),
-                "per_page" => $this->perPage(),
-                "current_page" => $this->currentPage(),
-                "total_pages" => $this->lastPage(),
-            ],
+            "pagination" => $this->getPaginationLinks($request),
         ];
-    }
-
-    public function withResponse($request, $response): void
-    {
-        $jsonResponse = json_decode($response->getContent(), true);
-        unset($jsonResponse["links"],$jsonResponse["meta"]);
-        $response->setContent(json_encode($jsonResponse));
     }
 }

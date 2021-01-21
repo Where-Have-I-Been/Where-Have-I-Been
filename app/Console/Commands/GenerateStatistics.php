@@ -2,16 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Statistics\StatisticsCreatorInterface;
+use App\Services\Statistics\StatisticsSaverInterface;
 use Illuminate\Console\Command;
 
 class GenerateStatistics extends Command
 {
     protected $signature = "statistics:generate";
 
-    private StatisticsCreatorInterface $creator;
+    private StatisticsSaverInterface $creator;
 
-    function __construct(StatisticsCreatorInterface $creator)
+    function __construct(StatisticsSaverInterface $creator)
     {
         parent::__construct();
         $this->creator = $creator;
@@ -20,6 +20,6 @@ class GenerateStatistics extends Command
 
     public function handle()
     {
-        $this->creator->save();
+        $this->creator->saveMonthlyReport();
     }
 }

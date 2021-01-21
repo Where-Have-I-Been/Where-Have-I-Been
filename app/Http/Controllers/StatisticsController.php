@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Statistics\StatisticsGetter;
-use Illuminate\Http\JsonResponse;
+use App\Http\Resources\MonthlyReportCollection;
+use App\Http\Resources\MonthlyReportResource;
+use App\Models\StatisticsReport;
+use App\Services\Statistics\MonthlyReportsGetter;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class StatisticsController extends Controller
 {
-    private StatisticsGetter $getter;
+    private MonthlyReportsGetter $getter;
 
-    public function __construct(StatisticsGetter $getter)
+    public function __construct(MonthlyReportsGetter $getter)
     {
         $this->getter = $getter;
     }
 
-    public function show(Request $request): JsonResponse
+    public function show(StatisticsReport $report): JsonResource
     {
-        $statisticsReport = $this->getter->getStatistics($request->query("month"),$request->query("year"));
-        return response()->json($statisticsReport);
+        return new MonthlyReportResource($report);
     }
 
+    public function index(Request $request): ResourceCollection
+    {
+        $statisticsReport = $this->getter->getMonthlyReports($request->input("per-page"));
+        return new MonthlyReportCollection($statisticsReport);
+    }
 }

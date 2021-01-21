@@ -53,7 +53,8 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
     $router->delete("/likes/trip/{trip}", [LikeController::class, "unlikeTrip"]);
 
-    $router->get("/statistics", [StatisticsController::class, "show"]);
+    $router->get("/statistics/{report}", [StatisticsController::class, "show"]);
+    $router->get("/statistics", [StatisticsController::class, "index"]);
     $router->post('/statistics', function () {
           Artisan::call("statistics:generate");
     });
