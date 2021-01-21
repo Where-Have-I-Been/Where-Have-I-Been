@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Statistics;
+
+use App\Services\Helpers\ArrayKeyHelperInterface;
 
 class MonthlyReportData
 {
@@ -17,25 +21,13 @@ class MonthlyReportData
                                 array $mostLikedTrips, array $theBiggestTrips,
                                 array $byNationality, int $maleTripsCount, int $femaleTripsCount)
     {
-        $this->mostVisitedCities = $this->changeKeysForIncrements($mostVisitedCities,"city");
-        $this->mostVisitedCountries = $this->changeKeysForIncrements($mostVisitedCountries,"country");
+        $arrayKeyHelper = app(ArrayKeyHelperInterface::class);
+        $this->mostVisitedCities = $arrayKeyHelper->addIncrementsKeys($mostVisitedCities);
+        $this->mostVisitedCountries = $arrayKeyHelper->addIncrementsKeys($mostVisitedCountries);
         $this->mostLikedTrips = $mostLikedTrips;
         $this->theBiggestTrips = $theBiggestTrips;
         $this->byNationality = $byNationality;
         $this->maleTripsCount = $maleTripsCount;
         $this->femaleTripsCount = $femaleTripsCount;
-
-    }
-
-    private function changeKeysForIncrements(array $data, string $key)
-    {
-        $newData = array();
-
-        $index = 1;
-        foreach ($data as $element) {
-            $newData+=["position_$index" => $element];
-            $index++;
-        }
-        return $newData;
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Statistics;
 
-use App\Http\Resources\MonthlyReportCollection;
 use App\Models\StatisticsReport;
 
 class StatisticsSaver implements StatisticsSaverInterface

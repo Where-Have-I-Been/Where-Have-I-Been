@@ -1,48 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Statistics;
 
-use App\Models\Country;
 use App\Models\Place;
 use App\Models\Trip;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 
 class MonthlyReportsGenerator implements MonthlyReportsGeneratorInterface
 {
     public function generate(): MonthlyReportData
     {
-        $cities = (array) $this->getMostVisitedCities(10);
-        $countries = (array) $this->getMostVisitedCountries(10);
-        $mostLikedTrips = (array) $this->getMostLikedTrips(5);
-        $theBiggestTrips = (array) $this->getBiggestTrips(5);
-      //  $nationality = $this->getMostTravelingNationalities(5);
-        $maleTrips =  $this->getTripsCountByGender("male");
-        $femaleTrips =  $this->getTripsCountByGender("female");
+        $cities = $this->getMostVisitedCities(10);
+        $countries = $this->getMostVisitedCountries(10);
+        $mostLikedTrips = $this->getMostLikedTrips(5);
+        $theBiggestTrips = $this->getBiggestTrips(5);
+        //   $nationality = $this->getMostTravelingNationalities(5);
+        $maleTrips = $this->getTripsCountByGender("male");
+        $femaleTrips = $this->getTripsCountByGender("female");
 
-        return  new MonthlyReportData([], [], [], [],[],$maleTrips,$femaleTrips);
+        return new MonthlyReportData($cities, $countries, $mostLikedTrips, $theBiggestTrips, [], $maleTrips, $femaleTrips);
     }
 
-    private function getMostVisitedCities(int $amount): Collection
+    private function getMostVisitedCities(int $amount): array
     {
-        return Place::query()->where("created_at",">",now()->addMonths(-1))
+        return Place::query()->where("created_at", ">", now()->addMonths(-1))
             ->select("city")
             ->groupBy("city")
             ->orderByRaw("COUNT(*) DESC")
             ->selectRaw("COUNT(*) as count")
             ->take($amount)
-            ->get();
+            ->get()
+            ->toArray();
     }
 
-    private function getMostVisitedCountries(int $amount): Collection
+    private function getMostVisitedCountries(int $amount): array
     {
-        return Place::query()->where("created_at",">",now()->addMonths(-1))
+        return Place::query()->where("created_at", ">", now()->addMonths(-1))
             ->select("country")
             ->groupBy("country")
             ->orderByRaw("COUNT(*) DESC")
             ->selectRaw("COUNT(*) as count")
             ->take($amount)
-            ->get();
+            ->get()
+            ->toArray();
     }
 
     private function getMostLikedTrips(int $amount)
@@ -54,7 +57,7 @@ class MonthlyReportsGenerator implements MonthlyReportsGeneratorInterface
             ->toArray();
     }
 
-    private function getBiggestTrips(int $amount)
+    private function getBiggestTrips(int $amount): array
     {
         return Trip::query()
             ->withCount("places")
@@ -64,16 +67,12 @@ class MonthlyReportsGenerator implements MonthlyReportsGeneratorInterface
             ->toArray();
     }
 
-    private function getMostTravelingNationalities(int $amount)
+    private function getMostTravelingNationalities(int $amount): array
     {
-        return Country::query()
-            ->with("usersProfiles")
-            ->with("users")
-            ->withCount("trips")->get()
-            ->take($amount)->toArray();
+        throw new NotImplementedException();
     }
 
-    private function getTripsCountByGender(string $gender)
+    private function getTripsCountByGender(string $gender): int
     {
         return Trip::query()->whereHas("user", function (Builder $query) use ($gender): void {
             $query->whereHas("userProfile", function (Builder $query) use ($gender): void {

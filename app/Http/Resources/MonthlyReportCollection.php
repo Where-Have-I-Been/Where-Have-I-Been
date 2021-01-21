@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 class MonthlyReportCollection extends PaginatedCollection
@@ -11,5 +13,4 @@ class MonthlyReportCollection extends PaginatedCollection
             "pagination" => $this->getPaginationLinks($request),
         ];
     }
-
 }

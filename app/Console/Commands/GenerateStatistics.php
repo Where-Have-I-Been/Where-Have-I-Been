@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Services\Statistics\StatisticsSaverInterface;
@@ -11,14 +13,15 @@ class GenerateStatistics extends Command
 
     private StatisticsSaverInterface $creator;
 
-    function __construct(StatisticsSaverInterface $creator)
+    public function __construct(StatisticsSaverInterface $creator)
     {
         parent::__construct();
+
         $this->creator = $creator;
     }
 
 
-    public function handle()
+    public function handle(): void
     {
         $this->creator->saveMonthlyReport();
     }
