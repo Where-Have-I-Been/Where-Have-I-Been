@@ -26,6 +26,7 @@ class Trip extends Model implements Likeable
         "description",
         "published",
         "likes_count",
+        "country_id",
     ];
 
     protected $casts = [
@@ -40,6 +41,11 @@ class Trip extends Model implements Likeable
     public function photo(): BelongsTo
     {
         return $this->BelongsTo(Photo::class);
+    }
+
+    public function nationality(): BelongsTo
+    {
+        return $this->BelongsTo(Country::class);
     }
 
     public function places(): HasMany

@@ -14,6 +14,13 @@ use App\Services\Photo\PhotoService;
 use App\Services\Photo\PhotoServiceInterface;
 use App\Services\Place\PlaceService;
 use App\Services\Place\PlaceServiceInterface;
+use App\Services\Statistics\Generator\MonthlyReportsGenerator;
+use App\Services\Statistics\Generator\MonthlyReportsGeneratorInterface;
+use App\Services\Statistics\Getter\MonthlyReportsGetter;
+use App\Services\Statistics\Provider\StatisticsDataProvider;
+use App\Services\Statistics\Provider\StatisticsDataProviderInterface;
+use App\Services\Statistics\Saver\StatisticsSaver;
+use App\Services\Statistics\Saver\StatisticsSaverInterface;
 use App\Services\Trip\Filter\TripFilter;
 use App\Services\Trip\Filter\TripFilterInterface;
 use App\Services\Trip\Sorter\TripSorter;
@@ -55,6 +62,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TripFilterInterface::class, TripFilter::class);
         $this->app->bind(TripSorterInterface::class, TripSorter::class);
         $this->app->bind(TripRequestMapperInterface::class, TripRequestMapper::class);
+
+        $this->app->bind(MonthlyReportsGeneratorInterface::class, MonthlyReportsGenerator::class);
+        $this->app->bind(MonthlyReportsGetter::class, MonthlyReportsGetter::class);
+        $this->app->bind(StatisticsSaverInterface::class, StatisticsSaver::class);
+        $this->app->bind(StatisticsDataProviderInterface::class, StatisticsDataProvider::class);
 
         $this->app->bind(UserMapperInterface::class, UserMapper::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);

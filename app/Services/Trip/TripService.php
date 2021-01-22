@@ -26,6 +26,7 @@ class TripService implements TripServiceInterface
     {
         Trip::query()->create([
             "user_id" => $user->id,
+            "nat_id" => $user->userProfile->country_id,
             "photo_id" => $data["photo_id"],
             "name" => $data["name"],
             "description" => $data["description"],
