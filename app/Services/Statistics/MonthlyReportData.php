@@ -40,6 +40,7 @@ class MonthlyReportData
     {
         $arrayKeyHelper = app(ArrayKeyHelper::class);
         $this->mostVisitedCities = $arrayKeyHelper->addIncrementsKeys($this->mostVisitedCities);
+        $this->mostVisitedCountries = $arrayKeyHelper->addIncrementsKeys($this->mostVisitedCountries);
         $this->mostLikedTrips = $arrayKeyHelper->addIncrementsKeys($this->mostLikedTrips);
         $this->theBiggestTrips = $arrayKeyHelper->addIncrementsKeys($this->theBiggestTrips);
         $this->mostTravelingNationalities = $arrayKeyHelper->addIncrementsKeys($this->mostTravelingNationalities);
