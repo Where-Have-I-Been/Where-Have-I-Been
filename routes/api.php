@@ -13,7 +13,6 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Artisan;
 
 $router = app(Router::class);
 
