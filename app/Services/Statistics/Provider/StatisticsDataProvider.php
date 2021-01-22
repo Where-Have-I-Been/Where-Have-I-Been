@@ -58,6 +58,7 @@ class StatisticsDataProvider implements StatisticsDataProviderInterface
     public function getMostTravelingNationalities(int $amount): array
     {
         return Country::query()
+            ->select("id", "country_name", "flag_uri", "code")
             ->withCount("trips")
             ->orderByDesc("trips_count")
             ->take(10)
