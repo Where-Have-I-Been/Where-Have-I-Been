@@ -55,7 +55,4 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
 
     $router->get("/statistics/{report}", [StatisticsController::class, "show"]);
     $router->get("/statistics", [StatisticsController::class, "index"]);
-    $router->post("/statistics", function (): void {
-        Artisan::call("statistics:generate");
-    });
 });

@@ -26,6 +26,7 @@ class MonthlyReportsGenerator implements MonthlyReportsGeneratorInterface
         $data->mostTravelingNationalities = $this->dataProvider->getMostTravelingNationalities(5);
         $data->maleTripsCount = $this->dataProvider->getTripsCountByGender("male");
         $data->femaleTripsCount = $this->dataProvider->getTripsCountByGender("female");
+
         return $data->prepareToSave();
     }
 }

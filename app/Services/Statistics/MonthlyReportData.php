@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Statistics;
 
-use App\Services\Helpers\ArrayKeyHelperInterface;
+use App\Services\Helpers\ArrayKeyHelper;
 
 class MonthlyReportData
 {
@@ -21,6 +21,7 @@ class MonthlyReportData
         $this->mostLikedTrips = $this->addUrlFromPath($this->mostLikedTrips);
         $this->theBiggestTrips = $this->addUrlFromPath($this->theBiggestTrips);
         $this->addKeys();
+
         return $this;
     }
 
@@ -31,12 +32,13 @@ class MonthlyReportData
                 $element["photo"]["path"] = asset($element["photo"]["path"]);
             }
         }
+
         return $data;
     }
 
     private function addKeys(): void
     {
-        $arrayKeyHelper = app(ArrayKeyHelperInterface::class);
+        $arrayKeyHelper = app(ArrayKeyHelper::class);
         $this->mostVisitedCities = $arrayKeyHelper->addIncrementsKeys($this->mostVisitedCities);
         $this->mostLikedTrips = $arrayKeyHelper->addIncrementsKeys($this->mostLikedTrips);
         $this->theBiggestTrips = $arrayKeyHelper->addIncrementsKeys($this->theBiggestTrips);

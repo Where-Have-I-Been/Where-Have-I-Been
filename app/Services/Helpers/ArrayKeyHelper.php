@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Helpers;
 
-class ArrayKeyHelper implements ArrayKeyHelperInterface
+class ArrayKeyHelper
 {
     public function addIncrementsKeys(array $data): array
     {

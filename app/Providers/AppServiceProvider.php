@@ -8,8 +8,6 @@ use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
 use App\Services\Follow\FollowService;
 use App\Services\Follow\FollowServiceInterface;
-use App\Services\Helpers\ArrayKeyHelper;
-use App\Services\Helpers\ArrayKeyHelperInterface;
 use App\Services\Like\TripLikeServiceInterface;
 use App\Services\Like\TripTripLikeService;
 use App\Services\Photo\PhotoService;
@@ -57,8 +55,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MonthlyReportsGetter::class, MonthlyReportsGetter::class);
         $this->app->bind(StatisticsSaverInterface::class, StatisticsSaver::class);
         $this->app->bind(StatisticsDataProviderInterface::class, StatisticsDataProvider::class);
-
-        $this->app->bind(ArrayKeyHelperInterface::class, ArrayKeyHelper::class);
     }
 
     public function boot(): void
