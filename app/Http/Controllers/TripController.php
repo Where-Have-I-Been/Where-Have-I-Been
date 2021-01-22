@@ -12,7 +12,10 @@ use App\Models\Trip;
 use App\Models\User;
 use App\Services\Trip\TripQueryString\Mapper\TripRequestMapperInterface;
 use App\Services\Trip\TripServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
 
 class TripController extends Controller
@@ -24,7 +27,7 @@ class TripController extends Controller
         $this->service = $tripService;
     }
 
-    public function show(Trip $trip, Request $request)
+    public function show(Trip $trip, Request $request): JsonResource
     {
         return new TripResource($trip, $request->user());
     }
@@ -32,25 +35,19 @@ class TripController extends Controller
     public function index(Request $request, TripRequestMapperInterface $mapperService)
     {
         $trips = $this->service->getTrips($mapperService->map(
-            $request->only("sort", "country", "city", "only-followings", "only-liked")),
+            $request->only("sort", "country", "city", "only-followings", "only-liked", "search-query")),
             $request->user(),
             $request->input("per-page"));
         return new TripCollection($trips, $request->user());
     }
 
-    public function search(Request $request)
-    {
-        $trips = $this->service->searchTrips($request->query("search-query"), $request->input("per-page"));
-        return new TripCollection($trips, $request->user());
-    }
-
-    public function indexForUser(User $user, Request $request)
+    public function indexForUser(User $user, Request $request): ResourceCollection
     {
         $trips = $this->service->getUserTrips($user, $request->user(), $request->input("per-page"));
         return new TripCollection($trips, $request->user());
     }
 
-    public function create(TripRequest $request)
+    public function create(TripRequest $request): JsonResponse
     {
         $this->service->createTrip($request->validated(), $request->user());
 
@@ -60,18 +57,18 @@ class TripController extends Controller
             Response::HTTP_OK);
     }
 
-    public function update(Trip $trip, UpdateTripRequest $request)
+    public function update(Trip $trip, UpdateTripRequest $request): JsonResponse
     {
         $this->service->updateTrip($trip, $request->validated());
 
         return response()->json([
             "message" => __("resources.updated"),
-            "data" => new TripResource($trip),
+            "data" => new TripResource($trip, $request->user()),
         ],
             Response::HTTP_OK);
     }
 
-    public function delete(Trip $trip)
+    public function delete(Trip $trip): JsonResponse
     {
         $this->service->deleteTrip($trip);
 

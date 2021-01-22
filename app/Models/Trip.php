@@ -76,10 +76,16 @@ class Trip extends Model implements Likeable
         });
     }
 
+    public function scopeSearch(Builder $query, string $searchRequest): Builder
+    {
+        return $query->where("name", "like", "%{$searchRequest}%");
+    }
+
     public function resolveRouteBinding($key, $field = null)
     {
         return self::query()->with("places")->with("likers")->withoutGlobalScope("published")->find($key);
     }
+
     protected static function boot(): void
     {
         parent::boot();

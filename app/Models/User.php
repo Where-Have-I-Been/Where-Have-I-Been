@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -56,5 +57,26 @@ class User extends Authenticated implements Following, Liker
     public function trips(): HasMany
     {
         return $this->HasMany(Trip::class);
+    }
+
+    public function scopeByFollowings(Builder $query, self $user): Builder
+    {
+        return $query->whereHas("followers", function (Builder $query) use ($user): void {
+            $query->where("follower_id", $user->id);
+        });
+    }
+
+    public function scopeByFollowers(Builder $query, self $user): Builder
+    {
+        return $query->whereHas("followers", function (Builder $query) use ($user): void {
+            $query->where("followable_id", $user->id);
+        });
+    }
+
+    public function scopeSearch(Builder $query, string $searchQuery): Builder
+    {
+        return $query->whereHas("userProfile", function (Builder $query) use ($searchQuery): void {
+            $query->where("name", "like", "%{$searchQuery}%");
+        })->orWhere("email", "like", "%{$searchQuery}%");
     }
 }

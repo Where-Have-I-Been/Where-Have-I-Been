@@ -12,7 +12,8 @@
         "ext-pdo": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/guzzle": "~7.2",
+        "krzysztofrewak/larahat": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.8",
         "laravel/telescope": "^4.3",
@@ -26,7 +27,7 @@
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3",
-        "symplify/easy-coding-standard": "^8.3",
+        "symplify/easy-coding-standard": "^9.0",
         "vimeo/psalm": "^4.2",
         "psalm/plugin-laravel": "^1.4"
     },
@@ -56,9 +57,11 @@
         ],
         "psalm": "./vendor/bin/psalm",
         "ecs": "./vendor/bin/ecs check",
+        "behat": "./vendor/bin/behat --format progress",
         "check": [
             "composer psalm",
-            "composer ecs"
+            "composer ecs",
+            "composer behat"
         ]
     }
 }
