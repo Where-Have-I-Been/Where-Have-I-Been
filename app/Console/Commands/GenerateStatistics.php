@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Services\Statistics\StatisticsSaverInterface;
+use App\Services\Statistics\Saver\StatisticsSaverInterface;
 use Illuminate\Console\Command;
 
 class GenerateStatistics extends Command
@@ -19,7 +19,6 @@ class GenerateStatistics extends Command
 
         $this->creator = $creator;
     }
-
 
     public function handle(): void
     {

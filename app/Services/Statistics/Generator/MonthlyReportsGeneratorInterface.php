@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Statistics;
+namespace App\Services\Statistics\Generator;
+
+use App\Services\Statistics\MonthlyReportData;
 
 interface MonthlyReportsGeneratorInterface
 {

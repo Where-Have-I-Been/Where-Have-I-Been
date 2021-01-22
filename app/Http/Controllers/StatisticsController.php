@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\MonthlyReportCollection;
 use App\Http\Resources\MonthlyReportResource;
 use App\Models\StatisticsReport;
-use App\Services\Statistics\MonthlyReportsGetter;
+use App\Services\Statistics\Getter\MonthlyReportsGetter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;

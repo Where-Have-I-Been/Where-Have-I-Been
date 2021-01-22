@@ -24,4 +24,9 @@ class Country extends Model
     {
         return $this->HasMany(Place::class);
     }
+
+    public function trips(): HasMany
+    {
+        return $this->HasMany(Trip::class);
+    }
 }

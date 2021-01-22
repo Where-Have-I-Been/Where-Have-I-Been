@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Statistics;
+namespace App\Services\Statistics\Getter;
 
 use App\Models\StatisticsReport;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

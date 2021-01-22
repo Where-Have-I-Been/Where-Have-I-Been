@@ -18,6 +18,7 @@ class TripFactory extends Factory
 
         return [
             "user_id" => $user->id,
+            "country_id" => $user->userProfile->country_id,
             "photo_id" => $user->photos()->inRandomOrder()->firstOrCreate([
                 "path" => "images/image.png",
                 "name" => "image.png",
