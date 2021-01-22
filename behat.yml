@@ -1,0 +1,10 @@
+default:
+  extensions:
+    KrzysztofRewak\Larahat\BehatExtension:
+      env: ".env.behat"
+  suites:
+    http:
+      contexts:
+        - App\Testing\Context\Requesting
+      paths:
+        - features/http

@@ -15,6 +15,9 @@ class TripFilter implements TripFilterInterface
     {
         $query = Trip::query();
 
+        if ($data->isToBeSearch()) {
+            $query = $query->search($data->searchQuery);
+        }
         if ($data->byCity()) {
             $query = $query->byCity($data->city);
         }

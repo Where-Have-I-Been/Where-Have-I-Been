@@ -31,6 +31,12 @@ use App\Services\Trip\TripQueryString\Mapper\TripRequestMapper;
 use App\Services\Trip\TripQueryString\Mapper\TripRequestMapperInterface;
 use App\Services\Trip\TripService;
 use App\Services\Trip\TripServiceInterface;
+use App\Services\User\Filter\UserFilter;
+use App\Services\User\Filter\UserFilterInterface;
+use App\Services\User\UserQueryString\Mapper\UserMapper;
+use App\Services\User\UserQueryString\Mapper\UserMapperInterface;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceInterface;
 use App\Services\UserProfile\UserProfileService;
 use App\Services\UserProfile\UserProfileServiceInterface;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -42,12 +48,18 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(Hasher::class, BcryptHasher::class);
+
         $this->app->bind(UserProfileServiceInterface::class, UserProfileService::class);
+
         $this->app->bind(CountryServiceInterface::class, CountryService::class);
+
         $this->app->bind(PhotoServiceInterface::class, PhotoService::class);
-        $this->app->bind(TripServiceInterface::class, TripService::class);
+
         $this->app->bind(PlaceServiceInterface::class, PlaceService::class);
+
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
+
+        $this->app->bind(TripServiceInterface::class, TripService::class);
         $this->app->bind(TripLikeServiceInterface::class, TripTripLikeService::class);
         $this->app->bind(TripFilterInterface::class, TripFilter::class);
         $this->app->bind(TripSorterInterface::class, TripSorter::class);
@@ -59,6 +71,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StatisticsDataProviderInterface::class, StatisticsDataProvider::class);
 
         $this->app->bind(ArrayKeyHelperInterface::class, ArrayKeyHelper::class);
+        $this->app->bind(UserMapperInterface::class, UserMapper::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
+        $this->app->bind(UserFilterInterface::class, UserFilter::class);
     }
 
     public function boot(): void
