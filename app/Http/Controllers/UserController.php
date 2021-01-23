@@ -34,7 +34,7 @@ class UserController extends Controller
         return new UserResource($request->user());
     }
 
-    public function statistics(User $user, UserStatisticsGetterInterface $getter): JsonResponse
+    public function getStatistics(User $user, UserStatisticsGetterInterface $getter): JsonResponse
     {
         return response()->json($getter->getUserStatistics($user));
     }

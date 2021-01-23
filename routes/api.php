@@ -26,7 +26,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/user", [UserController::class, "show"]);
     $router->get("/users", [UserController::class, "index"]);
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");
-    $router->get("/user-statistics/{user}", [UserController::class, "statistics"]);
+    $router->get("/user-statistics/{user}", [UserController::class, "getStatistics"]);
 
     $router->get("/profiles/{profile}", [UserProfileController::class, "show"]);
     $router->put("/profiles/{profile}", [UserProfileController::class, "update"])->middleware("can:update,profile");
@@ -56,8 +56,6 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
 
     $router->get("/statistics/{report}", [MonthlyReportController::class, "show"]);
     $router->get("/statistics", [MonthlyReportController::class, "index"]);
-    $router->get("/statistics/{report}", [StatisticsController::class, "show"]);
-    $router->get("/statistics", [StatisticsController::class, "index"]);
 
     $router->get("/notifications/{user}", [NotificationController::class, "index"]);
 });
