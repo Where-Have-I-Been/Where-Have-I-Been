@@ -6,24 +6,24 @@ namespace App\Services\User\Filter;
 
 use App\Models\User;
 use App\Services\User\UserQueryString\QueryStringData;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Rennokki\Befriended\Models\FollowerModel;
 
 class UserFilter implements UserFilterInterface
 {
-    public function filterUsers(QueryStringData $data, User $user): Builder
+    public function filterUsers(QueryStringData $data, User $user): MorphToMany
     {
-        $query = User::query();
+        $query = FollowerModel::query();
 
+        if ($data->byFollowings) {
+            $query = $user->following();
+        }
+        if ($data->byFollowers) {
+            $query = $user->followers();
+        }
         if ($data->isToBeSearch()) {
             $query = $query->search($data->searchQuery);
         }
-        if ($data->byFollowings) {
-            $query = $query->byFollowings($user);
-        }
-        if ($data->byFollowers) {
-            $query = $query->byFollowers($user);
-        }
-
         return $query;
     }
 }

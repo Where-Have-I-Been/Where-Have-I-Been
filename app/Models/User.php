@@ -59,20 +59,6 @@ class User extends Authenticated implements Following, Liker
         return $this->HasMany(Trip::class);
     }
 
-    public function scopeByFollowings(Builder $query, self $user): Builder
-    {
-        return $query->whereHas("followers", function (Builder $query) use ($user): void {
-            $query->where("follower_id", $user->id);
-        });
-    }
-
-    public function scopeByFollowers(Builder $query, self $user): Builder
-    {
-        return $query->whereHas("followers", function (Builder $query) use ($user): void {
-            $query->where("followable_id", $user->id);
-        });
-    }
-
     public function scopeSearch(Builder $query, string $searchQuery): Builder
     {
         return $query->whereHas("userProfile", function (Builder $query) use ($searchQuery): void {
