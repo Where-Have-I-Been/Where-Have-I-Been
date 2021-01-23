@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\User\Statistics;
 
 use App\Models\Place;
@@ -21,8 +23,8 @@ class UserStatisticsGetter implements UserStatisticsGetterInterface
 
     private function getPlacesCount(User $user): int
     {
-        return Place::query()->whereHas("trip",function (Builder $query) use($user){
-            $query->whereHas("user",function (Builder $query) use ($user) {
+        return Place::query()->whereHas("trip", function (Builder $query) use ($user): void {
+            $query->whereHas("user", function (Builder $query) use ($user): void {
                 $query->where("id", $user->id);
             });
         })->count();

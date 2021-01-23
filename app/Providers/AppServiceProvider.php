@@ -75,7 +75,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserFilterInterface::class, UserFilter::class);
 
         $this->app->bind(UserStatisticsGetterInterface::class, UserStatisticsGetter::class);
-
     }
 
     public function boot(): void
