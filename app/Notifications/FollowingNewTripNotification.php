@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use App\Models\Trip;
@@ -7,7 +9,7 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class TripLiked extends Notification
+class FollowingNewTripNotification extends Notification
 {
     use Queueable;
 
@@ -20,10 +22,19 @@ class TripLiked extends Notification
         $this->user = $user;
     }
 
+    public function via($notifiable)
+    {
+        return ["database"];
+    }
+
     public function toArray($notifiable)
     {
         return [
-            $this->trip->name." was liked by: ".$this->user->userProfile->name,
+            "The user you are following, "
+            . $this->user->userProfile->name
+            . " created new trip: "
+            . $this->trip->name
+            . ", check this out.",
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -11,22 +13,18 @@ use Rennokki\Befriended\Contracts\Following;
 
 class NewFollowEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
+    public Follower $follower;
 
-    private Follower $follower;
-
-    private Following $following;
+    public Following $following;
 
     public function __construct(Follower $follower, Following $following)
     {
-
         $this->follower = $follower;
         $this->following = $following;
     }
 
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
-    }
 }

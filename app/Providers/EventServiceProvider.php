@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Events\NewFollowEvent;
-use App\Events\NewTripEvent;
 use App\Events\NewLikeEvent;
+use App\Events\NewTripEvent;
 use App\Listeners\SendNewFollowNotification;
 use App\Listeners\SendNewTripNotification;
 use App\Listeners\SendTripLikedNotification;
@@ -23,18 +23,20 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         NewLikeEvent::class => [
-            SendTripLikedNotification::class
+            SendTripLikedNotification::class,
         ],
         NewTripEvent::class => [
-            SendNewTripNotification::class
+            SendNewTripNotification::class,
         ],
         NewFollowEvent::class => [
-            SendNewFollowNotification::class
-        ]
+            SendNewFollowNotification::class,
+        ],
     ];
 
     public function boot(): void
     {
         User::observe(UserObserver::class);
     }
+
+
 }

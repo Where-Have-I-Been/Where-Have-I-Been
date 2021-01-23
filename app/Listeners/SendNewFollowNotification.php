@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\NewFollowEvent;
+use App\Notifications\NewFollowerNotification;
+use Illuminate\Bus\Queueable;
 
 class SendNewFollowNotification
 {
-    public function handle($event)
+    use Queueable;
+
+    public function handle(NewFollowEvent $event): void
     {
+            $event->following->notify(new NewFollowerNotification($event->follower));
     }
 }

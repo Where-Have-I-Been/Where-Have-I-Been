@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class NewTripEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public Trip $trip;
 
@@ -21,10 +24,5 @@ class NewTripEvent
     {
         $this->trip = $trip;
         $this->user = $user;
-    }
-
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

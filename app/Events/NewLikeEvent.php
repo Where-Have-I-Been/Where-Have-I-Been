@@ -1,30 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class NewLikeEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
-    private Trip $trip;
+    public Trip $trip;
 
-    private User $user;
+    public User $user;
 
     public function __construct(Trip $trip, User $user)
     {
         $this->trip = $trip;
         $this->user = $user;
-    }
-
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

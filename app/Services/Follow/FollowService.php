@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Follow;
 
+use App\Events\NewFollowEvent;
 use App\Exceptions\ResourceException;
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -17,6 +18,7 @@ class FollowService implements FollowServiceInterface
         if ($result === false) {
             throw new ResourceException(__("resources.exists"));
         }
+        event(new NewFollowEvent($loggedUser,$following));
     }
 
     public function deleteFollow(User $loggedUser, User $following): void
