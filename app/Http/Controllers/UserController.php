@@ -9,6 +9,7 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\Authentication\Password\PasswordServiceInterface;
+use App\Services\User\Statistics\UserStatisticsGetterInterface;
 use App\Services\User\UserQueryString\Mapper\UserMapperInterface;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
@@ -20,23 +21,27 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends Controller
 {
     private PasswordServiceInterface $passwordService;
-    private UserServiceInterface $service;
+    private UserServiceInterface $userService;
 
-    public function __construct(PasswordServiceInterface $passwordService, UserServiceInterface $service)
+    public function __construct(PasswordServiceInterface $passwordService, UserServiceInterface $userService)
     {
         $this->passwordService = $passwordService;
-        $this->service = $service;
+        $this->userService = $userService;
     }
-
 
     public function show(Request $request): JsonResource
     {
         return new UserResource($request->user());
     }
 
+    public function statistics(User $user, UserStatisticsGetterInterface $getter): JsonResponse
+    {
+        return response()->json($getter->getUserStatistics($user));
+    }
+
     public function index(Request $request, UserMapperInterface $mapperService): ResourceCollection
     {
-        $users = $this->service->getUsers($mapperService->map(
+        $users = $this->userService->getUsers($mapperService->map(
             $request->only("by-followings", "by-followers", "search-query")),
             $request->user(),
             $request->input("per-page"));

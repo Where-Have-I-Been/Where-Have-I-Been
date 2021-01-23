@@ -31,6 +31,8 @@ use App\Services\Trip\TripService;
 use App\Services\Trip\TripServiceInterface;
 use App\Services\User\Filter\UserFilter;
 use App\Services\User\Filter\UserFilterInterface;
+use App\Services\User\Statistics\UserStatisticsGetter;
+use App\Services\User\Statistics\UserStatisticsGetterInterface;
 use App\Services\User\UserQueryString\Mapper\UserMapper;
 use App\Services\User\UserQueryString\Mapper\UserMapperInterface;
 use App\Services\User\UserService;
@@ -71,6 +73,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserMapperInterface::class, UserMapper::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserFilterInterface::class, UserFilter::class);
+
+        $this->app->bind(UserStatisticsGetterInterface::class, UserStatisticsGetter::class);
+
     }
 
     public function boot(): void

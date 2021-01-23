@@ -8,7 +8,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PlaceController;
-use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\MonthlyReportController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
@@ -25,6 +25,7 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/user", [UserController::class, "show"]);
     $router->get("/users", [UserController::class, "index"]);
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");
+    $router->get("/user-statistics/{user}", [UserController::class, "statistics"]);
 
     $router->get("/profiles/{profile}", [UserProfileController::class, "show"]);
     $router->put("/profiles/{profile}", [UserProfileController::class, "update"])->middleware("can:update,profile");
@@ -52,6 +53,6 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->post("/likes/trip/{trip}", [LikeController::class, "likeTrip"]);
     $router->delete("/likes/trip/{trip}", [LikeController::class, "unlikeTrip"]);
 
-    $router->get("/statistics/{report}", [StatisticsController::class, "show"]);
-    $router->get("/statistics", [StatisticsController::class, "index"]);
+    $router->get("/statistics/{report}", [MonthlyReportController::class, "show"]);
+    $router->get("/statistics", [MonthlyReportController::class, "index"]);
 });
