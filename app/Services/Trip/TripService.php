@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trip;
 
+use App\Events\NewTripEvent;
 use App\Models\Trip;
 use App\Models\User;
 use App\Services\Trip\Filter\TripFilterInterface;
@@ -24,13 +25,15 @@ class TripService implements TripServiceInterface
 
     public function createTrip(array $data, User $user): void
     {
-        Trip::query()->create([
+      $trip = new Trip([
             "user_id" => $user->id,
             "nat_id" => $user->userProfile->country_id,
             "photo_id" => $data["photo_id"],
             "name" => $data["name"],
             "description" => $data["description"],
         ]);
+      $trip->save();
+        new NewTripEvent($trip, $user);
     }
 
     public function getTrips(QueryStringData $data, User $user, ?string $perPage): LengthAwarePaginator
