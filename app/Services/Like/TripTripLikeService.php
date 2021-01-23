@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Like;
 
+use App\Events\NewLikeEvent;
 use App\Exceptions\ResourceException;
 use App\Models\Trip;
 use App\Models\User;
@@ -19,6 +20,7 @@ class TripTripLikeService implements TripLikeServiceInterface
         }
 
         $this->incrementLikesCount($model);
+        event(new NewLikeEvent($model, $liker));
     }
 
     public function deleteLike(Trip $model, User $liker): void
