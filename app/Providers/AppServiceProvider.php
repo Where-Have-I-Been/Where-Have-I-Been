@@ -10,6 +10,8 @@ use App\Services\Follow\FollowService;
 use App\Services\Follow\FollowServiceInterface;
 use App\Services\Like\TripLikeServiceInterface;
 use App\Services\Like\TripTripLikeService;
+use App\Services\Notification\NotificationGetter;
+use App\Services\Notification\NotificationGetterInterface;
 use App\Services\Photo\PhotoService;
 use App\Services\Photo\PhotoServiceInterface;
 use App\Services\Place\PlaceService;
@@ -71,6 +73,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserMapperInterface::class, UserMapper::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserFilterInterface::class, UserFilter::class);
+        $this->app->bind(NotificationGetterInterface::class, NotificationGetter::class);
     }
 
     public function boot(): void

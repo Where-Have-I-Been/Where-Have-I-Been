@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\StatisticsController;
@@ -54,4 +55,6 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
 
     $router->get("/statistics/{report}", [StatisticsController::class, "show"]);
     $router->get("/statistics", [StatisticsController::class, "index"]);
+
+    $router->get("/notifications/{user}", [NotificationController::class, "index"]);
 });
