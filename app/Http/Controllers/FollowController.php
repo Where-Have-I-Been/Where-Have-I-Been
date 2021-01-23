@@ -12,28 +12,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FollowController extends Controller
 {
-    private FollowServiceInterface $service;
+    private FollowServiceInterface $followService;
 
     public function __construct(FollowServiceInterface $service)
     {
-        $this->service = $service;
+        $this->followService = $service;
     }
 
     public function followersIndex(User $user)
     {
-        $followers = $this->service->getFollowers($user);
+        $followers = $this->followService->getFollowers($user);
         return UserResource::collection($followers);
     }
 
     public function followingIndex(User $user)
     {
-        $following = $this->service->getFollowing($user);
+        $following = $this->followService->getFollowing($user);
         return UserResource::collection($following);
     }
 
     public function create(User $user, Request $request)
     {
-        $this->service->createFollow($request->user(), $user);
+        $this->followService->createFollow($request->user(), $user);
 
         return response()->json([
             "message" => __("resources.created"),
@@ -42,7 +42,7 @@ class FollowController extends Controller
 
     public function delete(User $user, Request $request)
     {
-        $this->service->deleteFollow($request->user(), $user);
+        $this->followService->deleteFollow($request->user(), $user);
 
         return response()->json([
             "message" => __("resources.deleted"),

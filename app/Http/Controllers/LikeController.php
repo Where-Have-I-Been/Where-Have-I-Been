@@ -12,16 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
 {
-    private TripLikeServiceInterface $service;
+    private TripLikeServiceInterface $likesService;
 
     public function __construct(TripLikeServiceInterface $service)
     {
-        $this->service = $service;
+        $this->likesService = $service;
     }
 
     public function likeTrip(Trip $trip, Request $request): JsonResponse
     {
-        $this->service->createLike($trip, $request->user());
+        $this->likesService->createLike($trip, $request->user());
 
         return response()->json([
             "message" => __("resources.created"),
@@ -30,7 +30,7 @@ class LikeController extends Controller
 
     public function unlikeTrip(Trip $trip, Request $request): JsonResponse
     {
-        $this->service->deleteLike($trip, $request->user());
+        $this->likesService->deleteLike($trip, $request->user());
 
         return response()->json([
             "message" => __("resources.deleted"),

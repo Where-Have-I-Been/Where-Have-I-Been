@@ -20,11 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TripController extends Controller
 {
-    private TripServiceInterface $service;
+    private TripServiceInterface $tripService;
 
     public function __construct(TripServiceInterface $tripService)
     {
-        $this->service = $tripService;
+        $this->tripService = $tripService;
     }
 
     public function show(Trip $trip, Request $request): JsonResource
@@ -34,7 +34,7 @@ class TripController extends Controller
 
     public function index(Request $request, TripRequestMapperInterface $mapperService)
     {
-        $trips = $this->service->getTrips($mapperService->map(
+        $trips = $this->tripService->getTrips($mapperService->map(
             $request->only("sort", "country", "city", "only-followings", "only-liked", "search-query")),
             $request->user(),
             $request->input("per-page"));
@@ -43,13 +43,13 @@ class TripController extends Controller
 
     public function indexForUser(User $user, Request $request): ResourceCollection
     {
-        $trips = $this->service->getUserTrips($user, $request->user(), $request->input("per-page"));
+        $trips = $this->tripService->getUserTrips($user, $request->user(), $request->input("per-page"));
         return new TripCollection($trips, $request->user());
     }
 
     public function create(TripRequest $request): JsonResponse
     {
-        $this->service->createTrip($request->validated(), $request->user());
+        $this->tripService->createTrip($request->validated(), $request->user());
 
         return response()->json([
             "message" => __("resources.created"),
@@ -59,7 +59,7 @@ class TripController extends Controller
 
     public function update(Trip $trip, UpdateTripRequest $request): JsonResponse
     {
-        $this->service->updateTrip($trip, $request->validated());
+        $this->tripService->updateTrip($trip, $request->validated());
 
         return response()->json([
             "message" => __("resources.updated"),
@@ -70,7 +70,7 @@ class TripController extends Controller
 
     public function delete(Trip $trip): JsonResponse
     {
-        $this->service->deleteTrip($trip);
+        $this->tripService->deleteTrip($trip);
 
         return response()->json([
             "message" => __("resources.deleted"),

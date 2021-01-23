@@ -17,23 +17,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PhotoController extends Controller
 {
-    private PhotoServiceInterface $service;
+    private PhotoServiceInterface $photoService;
 
     public function __construct(PhotoServiceInterface $service)
     {
-        $this->service = $service;
+        $this->photoService = $service;
     }
 
     public function index(User $user, Request $request): ResourceCollection
     {
-        $photosWithPagination = $this->service->getUserPhotos($user, $request->query("per-page"));
+        $photosWithPagination = $this->photoService->getUserPhotos($user, $request->query("per-page"));
 
         return new PhotoCollection($photosWithPagination);
     }
 
     public function create(PhotoRequest $request): JsonResponse
     {
-        $photo = $this->service->uploadPhoto($request->file("image"), $request->user());
+        $photo = $this->photoService->uploadPhoto($request->file("image"), $request->user());
 
         return response()->json([
             "message" => __("resources.image_uploaded"),
@@ -44,7 +44,7 @@ class PhotoController extends Controller
 
     public function delete(Photo $photo): JsonResponse
     {
-        $this->service->deletePhoto($photo);
+        $this->photoService->deletePhoto($photo);
 
         return response()->json([
             "message" => __("resources.deleted"),

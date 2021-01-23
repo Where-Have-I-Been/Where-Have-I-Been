@@ -15,23 +15,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserProfileController extends Controller
 {
-    private UserProfileServiceInterface $service;
+    private UserProfileServiceInterface $profilesService;
 
     public function __construct(UserProfileServiceInterface $service)
     {
-        $this->service = $service;
+        $this->profilesService = $service;
     }
 
     public function show(UserProfile $profile, Request $request): JsonResource
     {
-        $profileData = $this->service->getProfile($profile, $request->user(), $request->input("representation"));
+        $profileData = $this->profilesService->getProfile($profile, $request->user(), $request->input("representation"));
 
         return new ProfileResource($profileData);
     }
 
     public function update(UserProfile $profile, UpdateProfileRequest $request): JsonResponse
     {
-        $profile = $this->service->updateProfile($profile, $request->validated());
+        $profile = $this->profilesService->updateProfile($profile, $request->validated());
 
         return response()->json([
             "message" => __("resources.updated"),

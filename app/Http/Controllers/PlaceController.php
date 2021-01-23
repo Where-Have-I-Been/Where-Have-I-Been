@@ -14,16 +14,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PlaceController extends Controller
 {
-    private PlaceServiceInterface $service;
+    private PlaceServiceInterface $placeService;
 
     public function __construct(PlaceServiceInterface $service)
     {
-        $this->service = $service;
+        $this->placeService = $service;
     }
 
     public function create(Trip $trip, PlaceRequest $request)
     {
-        $this->service->createPlace($trip, $request->validated());
+        $this->placeService->createPlace($trip, $request->validated());
 
         return response()->json([
             "message" => __("resources.created"),
@@ -33,7 +33,7 @@ class PlaceController extends Controller
 
     public function update(Place $place, UpdatePlaceRequest $request)
     {
-        $this->service->updatePlace($place, $request->validated());
+        $this->placeService->updatePlace($place, $request->validated());
 
         return response()->json([
             "message" => __("resources.updated"),
@@ -44,7 +44,7 @@ class PlaceController extends Controller
 
     public function delete(Place $place)
     {
-        $this->service->deletePlace($place);
+        $this->placeService->deletePlace($place);
 
         return response()->json([
             "message" => __("resources.deleted"),
