@@ -18,7 +18,7 @@ class FollowService implements FollowServiceInterface
         if ($result === false) {
             throw new ResourceException(__("resources.exists"));
         }
-        event(new NewFollowEvent($loggedUser,$following));
+        event(new NewFollowEvent($loggedUser, $following));
     }
 
     public function deleteFollow(User $loggedUser, User $following): void

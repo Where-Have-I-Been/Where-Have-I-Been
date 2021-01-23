@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Trip;
 
-use App\Events\NewFollowEvent;
-use App\Events\NewLikeEvent;
 use App\Events\NewTripEvent;
 use App\Models\Trip;
 use App\Models\User;

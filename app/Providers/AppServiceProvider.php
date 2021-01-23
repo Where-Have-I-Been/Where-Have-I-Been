@@ -74,7 +74,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserFilterInterface::class, UserFilter::class);
         $this->app->bind(NotificationGetterInterface::class, NotificationGetter::class);
-
     }
 
     public function boot(): void

@@ -57,5 +57,4 @@ $router->middleware("auth:sanctum")->group(function ($router): void {
     $router->get("/statistics", [StatisticsController::class, "index"]);
 
     $router->get("/notifications/{user}", [NotificationController::class, "index"]);
-
 });

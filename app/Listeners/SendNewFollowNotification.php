@@ -14,6 +14,6 @@ class SendNewFollowNotification
 
     public function handle(NewFollowEvent $event): void
     {
-            $event->following->notify(new NewFollowerNotification($event->follower));
+        $event->following->notify(new NewFollowerNotification($event->follower));
     }
 }

@@ -37,6 +37,4 @@ class EventServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
     }
-
-
 }
