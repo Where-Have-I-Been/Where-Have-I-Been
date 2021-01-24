@@ -38,5 +38,5 @@ jobs:
       - name: Run code style checker
         run: docker-compose run php ./vendor/bin/ecs check
 
-      - name: Run Behat tests
-        run: docker-compose run php ./vendor/bin/behat --format=progress
+      - name: Run PHPUnit tests
+        run: docker-compose run php ./vendor/bin/phpunit
