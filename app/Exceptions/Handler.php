@@ -11,6 +11,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
@@ -33,6 +34,10 @@ class Handler extends ExceptionHandler
         }
         if ($exception instanceof AuthorizationException) {
             return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_FORBIDDEN);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
         return $this->renderJsonResponse($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
