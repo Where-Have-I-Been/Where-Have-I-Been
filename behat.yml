@@ -8,3 +8,26 @@ default:
         - App\Testing\Context\Requesting
       paths:
         - features/http
+    auth:
+      contexts:
+        - App\Testing\Context\Requesting
+        - App\Testing\Context\Model\Users
+      paths:
+        - features/auth
+    model:
+      contexts:
+        - App\Testing\Context\Model\Users
+      paths:
+        - features/model
+    profile:
+      contexts:
+        - App\Testing\Context\Requesting
+        - App\Testing\Context\Profile
+      paths:
+        - features/profile
+    photo:
+      contexts:
+        - App\Testing\Context\Requesting
+        - App\Testing\Context\Photo
+      paths:
+        - features/photo

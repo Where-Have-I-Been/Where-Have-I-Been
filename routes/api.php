@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Routing\Router;
 
+/** @var Router $router */
 $router = app(Router::class);
 
 $router->post("/login", [AuthenticationController::class, "login"]);
@@ -22,7 +23,7 @@ $router->post("/register", [AuthenticationController::class, "register"]);
 
 $router->get("/countries", [CountryController::class, "index"]);
 
-$router->middleware("auth:sanctum")->group(function ($router): void {
+$router->middleware("auth:sanctum")->group(function (Router $router): void {
     $router->get("/user", [UserController::class, "show"]);
     $router->get("/users", [UserController::class, "index"]);
     $router->post("/users/{user}/change-password", [UserController::class, "changePassword"])->middleware("can:changePassword,user");

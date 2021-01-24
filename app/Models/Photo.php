@@ -11,17 +11,27 @@ use Illuminate\Support\Str;
 
 class Photo extends Model
 {
+    public $incrementing = false;
+
     protected $table = "photos";
+    protected $keyType = "string";
 
     protected $fillable = [
+        "id",
         "path",
         "name",
         "user_id",
     ];
 
-    public function getIncrementing()
+    protected static function boot(): void
     {
-        return false;
+        parent::boot();
+
+        static::creating(function (Photo $photo): void {
+            if ($photo->id === null) {
+                $photo->id = (string)Str::uuid();
+            }
+        });
     }
 
     public function user(): BelongsTo
@@ -42,14 +52,5 @@ class Photo extends Model
     public function placePhotos(): HasMany
     {
         return $this->HasMany(PlacePhoto::class);
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($photo): void {
-            $photo->{$photo->getKeyName()} = (string)Str::uuid();
-        });
     }
 }

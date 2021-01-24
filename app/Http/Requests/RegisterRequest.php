@@ -10,7 +10,7 @@ class RegisterRequest extends ApiRequest
     {
         return [
             "email" => [
-                "email:rfc,dns",
+                "email:rfc",
                 "unique:users",
             ],
             "password" => [
