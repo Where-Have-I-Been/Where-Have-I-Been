@@ -33,5 +33,4 @@ class Users implements Context
     {
         Assert::assertTrue($this->user->userProfile()->exists());
     }
-
 }

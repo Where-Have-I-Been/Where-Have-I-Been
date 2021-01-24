@@ -23,17 +23,6 @@ class Photo extends Model
         "user_id",
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function (Photo $photo): void {
-            if ($photo->id === null) {
-                $photo->id = (string)Str::uuid();
-            }
-        });
-    }
-
     public function user(): BelongsTo
     {
         return $this->BelongsTo(User::class);
@@ -52,5 +41,16 @@ class Photo extends Model
     public function placePhotos(): HasMany
     {
         return $this->HasMany(PlacePhoto::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function (self $photo): void {
+            if ($photo->id === null) {
+                $photo->id = (string)Str::uuid();
+            }
+        });
     }
 }
