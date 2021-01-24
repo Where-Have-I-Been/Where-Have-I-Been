@@ -20,6 +20,7 @@ $router = app(Router::class);
 $router->post("/login", [AuthenticationController::class, "login"]);
 $router->post("/register", [AuthenticationController::class, "register"]);
 
+
 $router->get("/countries", [CountryController::class, "index"]);
 
 $router->middleware("auth:sanctum")->group(function ($router): void {

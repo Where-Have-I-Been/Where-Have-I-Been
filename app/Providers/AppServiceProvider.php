@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Services\Authentication\External\FacebookAuthService;
+use App\Services\Authentication\External\FacebookAuthServiceInterface;
 use App\Services\Country\CountryService;
 use App\Services\Country\CountryServiceInterface;
 use App\Services\Follow\FollowService;
@@ -73,7 +75,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserMapperInterface::class, UserMapper::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserFilterInterface::class, UserFilter::class);
+
         $this->app->bind(NotificationGetterInterface::class, NotificationGetter::class);
+
+        $this->app->bind(FacebookAuthServiceInterface::class, FacebookAuthService::class);
     }
 
     public function boot(): void

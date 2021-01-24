@@ -16,6 +16,7 @@
         "krzysztofrewak/larahat": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.8",
+        "laravel/socialite": "^5.1",
         "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.5",
         "rennokki/befriended": "^3.7"
